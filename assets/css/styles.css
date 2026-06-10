@@ -125,6 +125,29 @@ body {
 
 .btn-full { width: 100%; }
 
+.btn-buy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-btn);
+  padding: 12px 20px;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+  text-align: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--color-lime);
+  color: var(--color-lime-text);
+  margin-bottom: var(--space-4);
+}
+
+.btn-buy:active { transform: scale(0.98); }
+.btn-buy:hover { opacity: 0.9; }
+
 /* ─── LAYOUT ──────────────────────────────────────────── */
 .container {
   width: 100%;
