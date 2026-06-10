@@ -11,6 +11,12 @@ export default function (eleventyConfig) {
   // Make properties available on window for the map page
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
 
+  // Collection of non-paginated pages only (workaround for plugin/Eleventy v3 incompatibility
+  // where pagination templateContent is accessed too early by @quasibit/eleventy-plugin-sitemap)
+  eleventyConfig.addCollection("sitemapPages", (collectionApi) => {
+    return collectionApi.getAll().filter((item) => !item.data.pagination);
+  });
+
   return {
     dir: {
       input: "src",
