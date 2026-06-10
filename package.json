@@ -9,6 +9,9 @@
     "test": "node --test tests/data.test.mjs",
     "test:build": "npm run build && node --test tests/build.test.mjs"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@11ty/eleventy": "^3.0.0",
     "@quasibit/eleventy-plugin-sitemap": "^2.2.0"
