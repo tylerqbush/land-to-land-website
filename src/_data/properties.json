@@ -13,7 +13,7 @@
     "down": 299,
     "doc_fee": 299,
     "cash_price": 7500,
-    "geekpay_url": "#",
+    "geekpay_url": "https://checkout.geekpay.com/placeholder-ltl-001",
     "description": "Five acres of peaceful countryside in Putnam County, Florida. Flat, cleared terrain with road access. No bank or credit check required. Simple monthly payments.",
     "apn": "00-00-00-0000-0000-0010",
     "address": "TBD Satsuma Rd",
@@ -43,7 +43,10 @@
     "solar": "Allowed",
     "propane": "Allowed",
     "gas": "Not available",
-    "photos": ["/assets/properties/LTL-001/1.jpg"]
+    "photos": ["/assets/properties/LTL-001/1.jpg"],
+    "seo_title": "5 Acre Property in Putnam County, FL | Land to Land Holdings",
+    "seo_description": "Five acres in Putnam County, Florida. Owner-financed with no bank or credit check required. $199/mo.",
+    "seo_keywords": "putnam county land for sale, florida land owner financing, vacant land florida"
   },
   {
     "id": "LTL-002",
@@ -89,7 +92,10 @@
     "solar": "Allowed",
     "propane": "Allowed",
     "gas": "Not available",
-    "photos": ["/assets/properties/LTL-002/1.jpg"]
+    "photos": ["/assets/properties/LTL-002/1.jpg"],
+    "seo_title": "10 Acre Property in Luna County, NM | Land to Land Holdings",
+    "seo_description": "Ten acres in Luna County, New Mexico. High desert land with mountain views. Owner-financed at $149/mo.",
+    "seo_keywords": "luna county land for sale, new mexico land owner financing, desert land new mexico"
   },
   {
     "id": "LTL-003",
@@ -105,7 +111,7 @@
     "down": 399,
     "doc_fee": 299,
     "cash_price": 9500,
-    "geekpay_url": "#",
+    "geekpay_url": "https://checkout.geekpay.com/placeholder-ltl-003",
     "description": "Two acres in Klamath County, Oregon with mountain views and tall pines. Close to Klamath Falls amenities with a private, rural feel. No bank required.",
     "apn": "123-456-789",
     "address": "TBD Pine Rd",
@@ -135,6 +141,9 @@
     "solar": "Allowed",
     "propane": "Allowed",
     "gas": "Not available",
-    "photos": ["/assets/properties/LTL-003/1.jpg"]
+    "photos": ["/assets/properties/LTL-003/1.jpg"],
+    "seo_title": "2 Acre Property in Klamath County, OR | Land to Land Holdings",
+    "seo_description": "Two acres in Klamath County, Oregon with mountain views. Owner-financed with no bank required. $249/mo.",
+    "seo_keywords": "klamath county land for sale, oregon land owner financing, klamath falls land"
   }
 ]

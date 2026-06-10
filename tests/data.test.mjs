@@ -38,17 +38,18 @@ test("each property has positive numeric pricing", () => {
 
 test("slug format matches {acreage}-acre-{city}-{county}-{state}-{id} pattern", () => {
   for (const p of properties) {
-    const parts = p.slug.split("-");
-    assert.ok(parts.includes("acre"), `${p.id}: slug missing 'acre': ${p.slug}`);
     assert.match(p.slug, /^[a-z0-9-]+$/, `${p.id}: slug must be lowercase kebab: ${p.slug}`);
+    assert.ok(p.slug.startsWith(`${p.acreage}-acre-`), `${p.id}: slug must start with "${p.acreage}-acre-"`);
+    assert.ok(p.slug.endsWith(`-${p.id.toLowerCase()}`), `${p.id}: slug must end with "-${p.id.toLowerCase()}"`);
   }
 });
 
-test("geekpay_url is null or a non-empty string", () => {
+test("geekpay_url is null or a full https URL", () => {
   for (const p of properties) {
     assert.ok(
-      p.geekpay_url === null || (typeof p.geekpay_url === "string" && p.geekpay_url.length > 0),
-      `${p.id}: geekpay_url must be null or non-empty string`
+      p.geekpay_url === null ||
+        (typeof p.geekpay_url === "string" && /^https?:\/\//.test(p.geekpay_url)),
+      `${p.id}: geekpay_url must be null or a full URL starting with https://`
     );
   }
 });
@@ -62,5 +63,21 @@ test("each property has lat and lng for map rendering", () => {
   for (const p of properties) {
     assert.ok(typeof p.lat === "number", `${p.id}: missing lat`);
     assert.ok(typeof p.lng === "number", `${p.id}: missing lng`);
+  }
+});
+
+test("cash_price is a positive number when present", () => {
+  for (const p of properties) {
+    if (p.cash_price !== undefined && p.cash_price !== null) {
+      assert.ok(typeof p.cash_price === "number" && p.cash_price > 0, `${p.id}: cash_price must be positive number`);
+    }
+  }
+});
+
+test("each property has seo_title, seo_description, and seo_keywords as non-empty strings", () => {
+  for (const p of properties) {
+    assert.ok(typeof p.seo_title === "string" && p.seo_title.length > 0, `${p.id}: missing seo_title`);
+    assert.ok(typeof p.seo_description === "string" && p.seo_description.length > 0, `${p.id}: missing seo_description`);
+    assert.ok(typeof p.seo_keywords === "string" && p.seo_keywords.length > 0, `${p.id}: missing seo_keywords`);
   }
 });
