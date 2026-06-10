@@ -1,0 +1,23 @@
+{# Usage: {% include "partials/property-card.njk" %} with `prop` in scope #}
+<article class="property-card"
+  data-state="{{ prop.state }}"
+  data-county="{{ prop.county }}"
+  data-status="{{ prop.status }}">
+  <a href="/property/{{ prop.slug }}/" class="property-card__photo">
+    <img
+      src="{{ prop.photos[0] }}"
+      alt="{{ prop.acreage }} acre property in {{ prop.county }}, {{ prop.state }}"
+      loading="lazy"
+      width="480"
+      height="270">
+  </a>
+  <div class="property-card__body">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-1);">
+      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ prop.status }}</span>
+      <span class="caption">{{ prop.id }}</span>
+    </div>
+    <p class="property-card__price">${{ prop.monthly }}<span>/mo</span></p>
+    <p class="property-card__meta">{{ prop.acreage }} ac · {{ prop.county }} Co, {{ prop.state }}</p>
+    <a href="/property/{{ prop.slug }}/" class="btn btn-outline btn-full mt-3" style="font-size:12px;padding:8px 14px;">View Details</a>
+  </div>
+</article>

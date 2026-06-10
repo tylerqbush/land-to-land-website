@@ -1,0 +1,52 @@
+---
+layout: base.njk
+title: "Property Map - Land to Land Holdings"
+description: "Browse available owner-financed land across Florida, New Mexico, and Oregon. Filter by state, county, and availability."
+---
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Browse Listings</p>
+    <h1 class="heading-lg mb-6">Property Map</h1>
+
+    {# Leaflet CSS #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    {# Map container #}
+    <div id="property-map" role="region" aria-label="Property locations map"></div>
+
+    {# Filter bar #}
+    <div class="filter-bar" role="search" aria-label="Filter properties">
+      <select id="filter-state" aria-label="Filter by state">
+        <option value="">All States</option>
+        <option value="FL">Florida</option>
+        <option value="NM">New Mexico</option>
+        <option value="OR">Oregon</option>
+      </select>
+      <select id="filter-county" aria-label="Filter by county">
+        <option value="">All Counties</option>
+        <option value="Putnam">Putnam (FL)</option>
+        <option value="Luna">Luna (NM)</option>
+        <option value="Klamath">Klamath (OR)</option>
+      </select>
+      <select id="filter-status" aria-label="Filter by availability">
+        <option value="">All Listings</option>
+        <option value="Active">Available</option>
+        <option value="Under Contract">Under Contract</option>
+        <option value="Sold">Sold</option>
+      </select>
+    </div>
+
+    {# Property card grid #}
+    <div class="card-grid">
+      {% for prop in properties %}
+        {% include "partials/property-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# Inject properties for map + filter JS #}
+<script>window.PROPERTIES = {{ properties | json | safe }};</script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WsQI=" crossorigin=""></script>
+<script src="/assets/js/map.js"></script>
