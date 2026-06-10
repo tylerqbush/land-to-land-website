@@ -26,7 +26,7 @@ layout: base.njk
         {# Photo strip #}
         <div class="photo-strip mb-6">
           {% for photo in prop.photos %}
-            <img src="{{ photo }}" alt="{{ prop.acreage }} acre property in {{ prop.county }}, {{ prop.state }}" loading="{{ 'eager' if loop.first else 'lazy' }}" width="960" height="720">
+            <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.acreage }} acre property in {{ prop.county }}, {{ prop.state }}" loading="{{ 'eager' if loop.first else 'lazy' }}" width="960" height="720">
           {% endfor %}
         </div>
 
@@ -126,7 +126,7 @@ layout: base.njk
             <p style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:var(--space-6);">Cash price: ${{ prop.cash_price }}</p>
           {% endif %}
 
-          {% if prop.geekpay_url and prop.status == "Active" %}
+          {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
             <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Buy Now</a>
           {% endif %}
 

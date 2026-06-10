@@ -43,6 +43,14 @@ test("LTL-001 (Active, has geekpay_url) renders a buy button", () => {
   assert.ok(html.includes('class="btn-buy"'), "LTL-001 must render a buy button");
 });
 
+test("LTL-003 (Active, has geekpay_url) renders a buy button", () => {
+  const html = readFileSync(
+    "_site/property/2-acre-klamath-falls-klamath-or-ltl-003/index.html",
+    "utf8"
+  );
+  assert.ok(html.includes('class="btn-buy"'), "LTL-003 must render a buy button");
+});
+
 test("_site/sitemap.xml exists", () => {
   assert.ok(existsSync("_site/sitemap.xml"), "_site/sitemap.xml missing");
 });
