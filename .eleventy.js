@@ -3,6 +3,11 @@ import pluginSitemap from "@quasibit/eleventy-plugin-sitemap";
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/leaflet/dist/leaflet.min.js": "assets/vendor/leaflet.min.js",
+    "node_modules/leaflet/dist/leaflet.css": "assets/vendor/leaflet.css",
+    "node_modules/leaflet/dist/images": "assets/vendor/images",
+  });
 
   eleventyConfig.addPlugin(pluginSitemap, {
     sitemap: { hostname: "https://landtolandholdings.com" },
