@@ -2,16 +2,12 @@
 layout: base.njk
 title: "Browse Properties - Land to Land Holdings"
 description: "Browse available owner-financed land across Florida, New Mexico, and Oregon. Filter by state, county, and availability."
-leaflet: true
 ---
 
 <section class="section">
   <div class="container">
     <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Browse Listings</p>
     <h1 class="heading-lg mb-6">Browse Properties</h1>
-
-    {# Map container #}
-    <div id="property-map" role="region" aria-label="Property locations map"></div>
 
     {# Filter bar #}
     <div class="filter-bar" role="search" aria-label="Filter properties">
@@ -36,7 +32,7 @@ leaflet: true
     </div>
 
     {# Property card grid #}
-    <div class="card-grid">
+    <div class="card-grid" id="property-grid">
       {% for prop in properties %}
         {% include "partials/property-card.njk" %}
       {% endfor %}
@@ -44,7 +40,22 @@ leaflet: true
   </div>
 </section>
 
-{# Inject properties for map + filter JS #}
-<script>window.PROPERTIES = {{ properties | json | safe }};</script>
-<script src="/assets/vendor/leaflet.min.js"></script>
-<script src="/assets/js/map.js"></script>
+<script>
+  (function () {
+    var selects = document.querySelectorAll('.filter-bar select');
+    selects.forEach(function (sel) {
+      sel.addEventListener('change', function () {
+        var state = document.getElementById('filter-state').value;
+        var county = document.getElementById('filter-county').value;
+        var status = document.getElementById('filter-status').value;
+        document.querySelectorAll('.property-card').forEach(function (card) {
+          var show =
+            (!state || card.dataset.state === state) &&
+            (!county || card.dataset.county === county) &&
+            (!status || card.dataset.status === status);
+          card.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>

@@ -5,7 +5,6 @@ pagination:
   alias: prop
 permalink: "property/{{ prop.slug }}/index.html"
 layout: base.njk
-leaflet: true
 ---
 {%- set title = prop.acreage + " Acre Property in " + prop.county + ", " + prop.state + " | Land to Land Holdings" -%}
 {%- set description = prop.description -%}
@@ -41,24 +40,15 @@ leaflet: true
         <div class="listing-section">
           <p class="listing-section__heading">Location</p>
           {% if prop.lat and prop.lng %}
-            <div id="listing-map" style="height:300px;border-radius:var(--radius-card);margin-bottom:var(--space-4);z-index:0;"></div>
-            <script>
-              (function() {
-                function initListingMap() {
-                  if (!window.L) return setTimeout(initListingMap, 50);
-                  var map = L.map('listing-map').setView([{{ prop.lat }}, {{ prop.lng }}], 13);
-                  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
-                  }).addTo(map);
-                  L.circleMarker([{{ prop.lat }}, {{ prop.lng }}], {
-                    radius: 14, fillColor: '#8BC83F', color: '#163650', weight: 2,
-                    fillOpacity: 0.9
-                  }).addTo(map).bindPopup('<strong>{{ prop.acreage }} acres</strong><br>{{ prop.county }}, {{ prop.state }}').openPopup();
-                }
-                document.addEventListener('DOMContentLoaded', initListingMap);
-              })();
-            </script>
-            <script src="/assets/vendor/leaflet.min.js"></script>
+            <iframe
+              src="https://maps.google.com/maps?q={{ prop.lat }},{{ prop.lng }}&z=14&output=embed"
+              width="100%"
+              height="300"
+              style="border:0;border-radius:var(--radius-card);margin-bottom:var(--space-4);display:block;"
+              allowfullscreen
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Property location map"></iframe>
           {% endif %}
           <table class="listing-table">
             <tr><td>Property ID</td><td>{{ prop.id }}</td></tr>
