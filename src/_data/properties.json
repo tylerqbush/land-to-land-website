@@ -1,6 +1,7 @@
 [
   {
     "id": "LTL-001",
+    "name": "The Putnam Pines: 5 Acres of Florida Countryside",
     "slug": "5-acre-satsuma-putnam-fl-ltl-001",
     "status": "Active",
     "acreage": 5,
@@ -50,6 +51,7 @@
   },
   {
     "id": "LTL-002",
+    "name": "The Desert Horizon: 10 Acres of New Mexico Open Sky",
     "slug": "10-acre-deming-luna-nm-ltl-002",
     "status": "Under Contract",
     "acreage": 10,
@@ -99,6 +101,7 @@
   },
   {
     "id": "LTL-003",
+    "name": "The Klamath Escape: 2 Acres of Oregon Mountain Land",
     "slug": "2-acre-klamath-falls-klamath-or-ltl-003",
     "status": "Active",
     "acreage": 2,

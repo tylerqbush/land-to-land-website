@@ -529,57 +529,300 @@ body {
 }
 
 /* ─── LISTING DETAIL ──────────────────────────────────── */
-.listing-layout {
+
+/* Hero */
+.listing-hero {
+  position: relative;
+  height: clamp(320px, 55vw, 520px);
+  overflow: hidden;
+}
+
+.listing-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.listing-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,22,38,0.85) 0%, rgba(10,22,38,0.3) 55%, transparent 100%);
+}
+
+.listing-hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: var(--space-8);
+}
+
+.listing-hero__title {
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 900;
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-2);
+  max-width: 700px;
+}
+
+.listing-hero__meta {
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+/* Intro two-column */
+.listing-intro {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
-  padding: var(--space-8) 0;
+  gap: var(--space-8);
 }
 
-@media (min-width: 1024px) {
-  .listing-layout {
-    grid-template-columns: 1fr 320px;
-    align-items: start;
-  }
+@media (min-width: 900px) {
+  .listing-intro { grid-template-columns: 1fr 1fr; align-items: start; }
 }
 
-.listing-sidebar {
-  position: sticky;
-  top: var(--space-6);
+.listing-intro__photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
 }
 
-.listing-price-card {
-  background: var(--color-navy-dark);
-  color: var(--color-white);
+.listing-intro__photos .listing-intro__photo-wrap:first-child {
+  grid-column: 1 / -1;
+}
+
+.listing-intro__photo-wrap img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   border-radius: var(--radius-card);
-  padding: var(--space-6);
-  margin-bottom: var(--space-4);
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.listing-intro__photo-wrap:first-child img {
+  aspect-ratio: 16 / 9;
+}
+
+.listing-intro__photo-wrap:hover img { opacity: 0.9; }
+
+/* Inline price block */
+.listing-price-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  background: var(--color-off-white);
+  border-radius: var(--radius-card);
+  padding: var(--space-4) var(--space-6);
+  border: 1px solid var(--color-border);
 }
 
 .listing-price__monthly {
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 900;
-  letter-spacing: -1.5px;
-  color: var(--color-lime);
+  letter-spacing: -1px;
+  color: var(--color-navy);
   line-height: 1;
+}
+
+.listing-price__monthly span {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-navy-muted);
 }
 
 .listing-price__sub {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.6);
-  margin-top: var(--space-1);
-  margin-bottom: var(--space-6);
+  color: var(--color-navy-muted);
+  margin-top: 4px;
 }
 
-.listing-section {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
+/* Section headings */
+.listing-section__heading {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-navy-muted);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Lifestyle icons */
+.lifestyle-section {
+  background: var(--color-off-white);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-8) 0;
+}
+
+.lifestyle-row {
+  display: flex;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.lifestyle-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-navy);
+  min-width: 80px;
+}
+
+.lifestyle-item svg {
+  color: var(--color-lime-tint-text);
+}
+
+.lifestyle-item span {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+/* Rules grid */
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2) var(--space-8);
+}
+
+@media (min-width: 640px) {
+  .rules-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13px;
+}
+
+.rule-item__check {
+  font-size: 14px;
+  font-weight: 900;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rule-item__check--yes { background: rgba(139,200,63,0.15); color: var(--color-lime-tint-text); }
+.rule-item__check--no  { background: rgba(200,63,63,0.10); color: #a33; }
+.rule-item__check--maybe { background: var(--color-off-white); color: var(--color-navy-muted); }
+.rule-item__label { color: var(--color-navy-body); font-weight: 500; }
+
+/* Financing section */
+.financing-section {
+  background: var(--color-navy-dark);
+  padding: var(--space-12) 0;
+}
+
+.financing-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 700px) {
+  .financing-grid { grid-template-columns: 240px 1fr; gap: var(--space-8); align-items: start; }
+}
+
+.financing-cash-card {
+  background: var(--color-lime);
   border-radius: var(--radius-card);
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-6);
+  text-align: center;
+}
+
+.financing-cash-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-lime-text);
+  margin-bottom: var(--space-2);
+  opacity: 0.7;
+}
+
+.financing-cash-card__price {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--color-lime-text);
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
+.financing-terms-card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+}
+
+.financing-terms-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
   margin-bottom: var(--space-4);
 }
 
-.listing-section__heading {
+.financing-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.financing-table tr {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.financing-table tr:last-child { border-bottom: none; }
+
+.financing-table td {
+  padding: var(--space-2) 0;
+  font-size: 13px;
+}
+
+.financing-table td:first-child {
+  color: rgba(255,255,255,0.55);
+  font-weight: 500;
+}
+
+.financing-table td:last-child {
+  color: var(--color-white);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Detail tables */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .detail-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.detail-group__heading {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.5px;
@@ -587,7 +830,7 @@ body {
   color: var(--color-navy-muted);
   margin-bottom: var(--space-3);
   padding-bottom: var(--space-2);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 2px solid var(--color-lime);
 }
 
 .listing-table {
@@ -618,37 +861,16 @@ body {
   font-weight: 600;
 }
 
-/* ─── PHOTO STRIP ─────────────────────────────────────── */
-.photo-strip {
-  display: flex;
-  gap: var(--space-2);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  border-radius: var(--radius-card);
+/* Full-bleed photo break */
+.listing-photo-break {
+  height: clamp(200px, 35vw, 380px);
+  overflow: hidden;
 }
 
-.photo-strip img {
-  flex-shrink: 0;
-  width: 85%;
-  max-width: 400px;
-  aspect-ratio: 4 / 3;
+.listing-photo-break img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  scroll-snap-align: start;
-  border-radius: var(--radius-card);
-}
-
-@media (min-width: 640px) {
-  .photo-strip {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    overflow-x: visible;
-  }
-
-  .photo-strip img {
-    width: 100%;
-    max-width: none;
-  }
 }
 
 /* ─── DISCLAIMER ──────────────────────────────────────── */

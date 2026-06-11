@@ -6,153 +6,267 @@ pagination:
 permalink: "property/{{ prop.slug }}/index.html"
 layout: base.njk
 ---
-{%- set title = prop.acreage + " Acre Property in " + prop.county + ", " + prop.state + " | Land to Land Holdings" -%}
+{%- set title = prop.name + " | Land to Land Holdings" -%}
 {%- set description = prop.description -%}
 
-<main>
+{# ── HERO ── #}
+<div class="listing-hero">
+  <img class="listing-hero__img" src="{{ prop.photos[0] }}" alt="{{ prop.name }}" fetchpriority="high">
+  <div class="listing-hero__overlay"></div>
+  <div class="listing-hero__content">
+    <div class="container">
+      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }} mb-3" style="display:inline-block;">{{ prop.status }}</span>
+      <h1 class="listing-hero__title">{{ prop.name }}</h1>
+      <p class="listing-hero__meta">{{ prop.acreage }} acres &middot; {{ prop.county }} County, {{ prop.state }} &middot; {{ prop.id }}</p>
+    </div>
+  </div>
+</div>
+
+{# ── INTRO: PHOTOS + DESCRIPTION ── #}
+<section class="section">
   <div class="container">
-    <div class="listing-layout">
+    <div class="listing-intro">
+      <div class="listing-intro__photos">
+        {% for photo in prop.photos %}
+          <a href="{{ photo }}" target="_blank" class="listing-intro__photo-wrap">
+            <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" width="600" height="450">
+          </a>
+        {% endfor %}
+      </div>
+      <div class="listing-intro__desc">
+        <p class="listing-section__heading mb-3">What You're Getting</p>
+        <p style="color:var(--color-navy-muted);line-height:1.75;margin-bottom:var(--space-6);">{{ prop.description }}</p>
 
-      {# ── MAIN COLUMN ── #}
-      <div>
-
-        {# Status badge + heading #}
-        <div style="padding:var(--space-6) 0 var(--space-4);">
-          <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ prop.status }}</span>
-          <h1 class="heading-lg mt-3">{{ prop.acreage }} Acre Property in {{ prop.county }}, {{ prop.state }}</h1>
-          <p class="caption mt-2">Property ID: {{ prop.id }} · APN: {{ prop.apn }}</p>
-        </div>
-
-        {# Photo strip #}
-        <div class="photo-strip mb-6">
-          {% for photo in prop.photos %}
-            <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.acreage }} acre property in {{ prop.county }}, {{ prop.state }}" loading="{{ 'eager' if loop.first else 'lazy' }}" width="960" height="720">
-          {% endfor %}
-        </div>
-
-        {# Description #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Description</p>
-          <p>{{ prop.description }}</p>
-        </div>
-
-        {# Location #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Location</p>
-          {% if prop.lat and prop.lng %}
-            <iframe
-              src="https://maps.google.com/maps?q={{ prop.lat }},{{ prop.lng }}&z=14&output=embed"
-              width="100%"
-              height="300"
-              style="border:0;border-radius:var(--radius-card);margin-bottom:var(--space-4);display:block;"
-              allowfullscreen
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Property location map"></iframe>
-          {% endif %}
-          <table class="listing-table">
-            <tr><td>Property ID</td><td>{{ prop.id }}</td></tr>
-            <tr><td>Street Address</td><td>{{ prop.address }}</td></tr>
-            <tr><td>City</td><td>{{ prop.city }}</td></tr>
-            <tr><td>County</td><td>{{ prop.county }}</td></tr>
-            <tr><td>State</td><td>{{ prop.state }}</td></tr>
-            <tr><td>GPS Coordinates</td><td>{{ prop.gps }}</td></tr>
-            <tr><td>Google Maps</td><td><a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-navy);font-weight:700;">Open in Maps</a></td></tr>
-          </table>
-        </div>
-
-        {# Property Specifics #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Property Specifics</p>
-          <table class="listing-table">
-            <tr><td>APN</td><td>{{ prop.apn }}</td></tr>
-            {% if prop.subdivision %}<tr><td>Subdivision</td><td>{{ prop.subdivision }}</td></tr>{% endif %}
-            {% if prop.short_legal %}<tr><td>Short Legal</td><td>{{ prop.short_legal }}</td></tr>{% endif %}
-            <tr><td>Zoning</td><td>{{ prop.zoning }}</td></tr>
-            <tr><td>Annual Taxes</td><td>${{ prop.annual_taxes }}</td></tr>
-          </table>
-        </div>
-
-        {# Property Characteristics #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Property Characteristics</p>
-          <table class="listing-table">
-            <tr><td>Acreage</td><td>{{ prop.acreage_display }}</td></tr>
-            <tr><td>Elevation</td><td>{{ prop.elevation }}</td></tr>
-            <tr><td>Terrain</td><td>{{ prop.terrain }}</td></tr>
-            <tr><td>Lot Dimensions</td><td>{{ prop.lot_dimensions }}</td></tr>
-          </table>
-        </div>
-
-        {# Building Information #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Building Information</p>
-          <div class="disclaimer">
-            READ THIS: We are not the Planning and Zoning department and while we try to answer common questions about what the property can be used for, we can't provide a yes or no answer for every circumstance. Below we provide helpful contact information to complete due diligence. Land to Land Holdings LLC or its affiliates make no warranty or guarantee, either expressed or implied relative to usability, the exact location, desirability, or usefulness of the properties or boundary lines of the properties. Buyer is solely responsible for determining the condition of the property, the physical aspects of the land, its geographical location, accessibility, and correct acreage. All information contained herein is deemed reliable but not guaranteed. Buyer is required to complete Buyer's own due diligence prior to purchasing any property from Land to Land Holdings LLC or its affiliates.
+        <div class="listing-price-inline">
+          <div>
+            <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
+            <p class="listing-price__sub">${{ prop.down }} down &middot; ${{ prop.doc_fee }} doc fee</p>
+            {% if prop.cash_price %}
+              <p style="font-size:12px;color:var(--color-navy-muted);margin-top:4px;">Cash price: ${{ prop.cash_price }}</p>
+            {% endif %}
           </div>
-          <table class="listing-table">
-            <tr><td>Time Limit to Build</td><td>{{ prop.time_limit_to_build }}</td></tr>
-            <tr><td>Single Family Homes</td><td>{{ prop.single_family_allowed }}</td></tr>
-            <tr><td>Modular Homes</td><td>{{ prop.modular_allowed }}</td></tr>
-            <tr><td>Manufactured Homes</td><td>{{ prop.manufactured_allowed }}</td></tr>
-            <tr><td>Tiny Home Friendly</td><td>{{ prop.tiny_home_friendly }}</td></tr>
-            <tr><td>Septic Required to Build</td><td>{{ prop.septic_required }}</td></tr>
-            <tr><td>Flood Plain</td><td>{{ prop.flood_plain }}</td></tr>
-          </table>
-        </div>
-
-        {# Allowable Uses #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Allowable Uses</p>
-          <table class="listing-table">
-            <tr><td>Full-Time RV Living</td><td>{{ prop.full_time_rv }}</td></tr>
-            <tr><td>RV While You Build</td><td>{{ prop.rv_while_build }}</td></tr>
-            <tr><td>Camping in RV</td><td>{{ prop.camping_rv }}</td></tr>
-            <tr><td>Tent Camping</td><td>{{ prop.tent_camping }}</td></tr>
-            <tr><td>Hunting Allowed</td><td>{{ prop.hunting }}</td></tr>
-          </table>
-        </div>
-
-        {# Utilities #}
-        <div class="listing-section">
-          <p class="listing-section__heading">Utilities</p>
-          <table class="listing-table">
-            <tr><td>Water/Well</td><td>{{ prop.well }}</td></tr>
-            <tr><td>Sewer/Septic</td><td>{{ prop.septic }}</td></tr>
-            <tr><td>Electricity</td><td>{{ prop.electricity }}</td></tr>
-            <tr><td>Solar</td><td>{{ prop.solar }}</td></tr>
-            <tr><td>Propane</td><td>{{ prop.propane }}</td></tr>
-            <tr><td>Gas</td><td>{{ prop.gas }}</td></tr>
-          </table>
-        </div>
-
-      </div>{# end main column #}
-
-      {# ── SIDEBAR ── #}
-      <aside class="listing-sidebar">
-        <div class="listing-price-card">
-          <p class="listing-price__monthly">${{ prop.monthly }}<span style="font-size:18px;font-weight:600;color:rgba(255,255,255,0.6)">/mo</span></p>
-          <p class="listing-price__sub">${{ prop.down }} down + ${{ prop.doc_fee }} doc fee</p>
-          {% if prop.cash_price %}
-            <p style="font-size:12px;color:rgba(255,255,255,0.45);margin-bottom:var(--space-6);">Cash price: ${{ prop.cash_price }}</p>
-          {% endif %}
-
           {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
             <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Buy Now</a>
           {% endif %}
-
-          <a href="#ask-question" class="btn btn-secondary btn-full">Ask a Question</a>
         </div>
 
-        {# Ask a question stub #}
-        <div id="ask-question" class="listing-section">
-          <p class="listing-section__heading">Ask a Question</p>
-          <p style="font-size:13px;color:var(--color-navy-muted);margin-bottom:var(--space-4);">Have questions about this property? Reach out directly.</p>
-          <!-- GHL FORM EMBED -->
-          <a href="tel:6783361879" class="btn btn-outline btn-full">Call 678-336-1879</a>
-        </div>
-      </aside>
-
+        <a href="#ask-question" class="btn btn-outline btn-full mt-4">Ask a Question</a>
+      </div>
     </div>
   </div>
-</main>
+</section>
+
+{# ── LIFESTYLE ICONS ── #}
+<section class="lifestyle-section">
+  <div class="container">
+    <div class="lifestyle-row">
+      <div class="lifestyle-item">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 26L16 6l12 20H4z"/><line x1="16" y1="6" x2="16" y2="14"/></svg>
+        <span>Road Access</span>
+      </div>
+      {% if prop.single_family_allowed == "Yes" %}
+      <div class="lifestyle-item">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14L16 4l12 10v14H20v-8h-8v8H4V14z"/></svg>
+        <span>Buildable</span>
+      </div>
+      {% endif %}
+      {% if prop.rv_while_build == "Yes" or prop.camping_rv == "Yes" %}
+      <div class="lifestyle-item">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="12" width="22" height="12" rx="2"/><path d="M24 16h4l2 4h-6v-4z"/><circle cx="7" cy="26" r="2"/><circle cx="19" cy="26" r="2"/><path d="M6 12V8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v4"/></svg>
+        <span>RV Friendly</span>
+      </div>
+      {% endif %}
+      {% if prop.tent_camping == "Yes" %}
+      <div class="lifestyle-item">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 26L16 6l14 20H2z"/><path d="M10 26l6-10 6 10"/></svg>
+        <span>Camping OK</span>
+      </div>
+      {% endif %}
+      {% if prop.manufactured_allowed == "Yes" %}
+      <div class="lifestyle-item">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="10" width="28" height="14" rx="2"/><circle cx="8" cy="26" r="2"/><circle cx="24" cy="26" r="2"/><path d="M8 10V8h16v2"/></svg>
+        <span>Mobile Home OK</span>
+      </div>
+      {% endif %}
+      <div class="lifestyle-item">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="16" cy="16" r="12"/><path d="M16 8v8l-4 4"/></svg>
+        <span>No Time Limit</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── RULES & ZONING ── #}
+<section class="section section-off">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Allowable Uses</p>
+    <h2 class="heading-md mb-6">Property Rules &amp; Zoning</h2>
+    <div class="rules-grid">
+      {% set rules = [
+        ["Single Family Home", prop.single_family_allowed],
+        ["Modular Home", prop.modular_allowed],
+        ["Manufactured Home", prop.manufactured_allowed],
+        ["Tiny Home", prop.tiny_home_friendly],
+        ["Full-Time RV Living", prop.full_time_rv],
+        ["RV While Building", prop.rv_while_build],
+        ["Camping (RV)", prop.camping_rv],
+        ["Tent Camping", prop.tent_camping],
+        ["Flood Plain", prop.flood_plain]
+      ] %}
+      {% for rule in rules %}
+        <div class="rule-item">
+          {% if rule[1] == "Yes" %}
+            <span class="rule-item__check rule-item__check--yes">&#10003;</span>
+          {% elif rule[1] == "No" %}
+            <span class="rule-item__check rule-item__check--no">&#10007;</span>
+          {% else %}
+            <span class="rule-item__check rule-item__check--maybe">?</span>
+          {% endif %}
+          <span class="rule-item__label">{{ rule[0] }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ── FINANCING OPTIONS ── #}
+<section class="financing-section">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:rgba(255,255,255,0.5);">No Banks. No Credit Check.</p>
+    <h2 class="heading-md mb-6" style="color:var(--color-white);">Financing Options</h2>
+    <div class="financing-grid">
+      <div class="financing-cash-card">
+        <p class="financing-cash-card__label">Cash Price</p>
+        <p class="financing-cash-card__price">${{ prop.cash_price }}</p>
+        {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+          <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn btn-primary btn-full mt-4">Reserve This Property</a>
+        {% endif %}
+      </div>
+      <div class="financing-terms-card">
+        <p class="financing-terms-card__label">Owner Financing</p>
+        <table class="financing-table">
+          <tr><td>Monthly Payment</td><td>${{ prop.monthly }}/mo</td></tr>
+          <tr><td>Down Payment</td><td>${{ prop.down }}</td></tr>
+          <tr><td>Document Fee</td><td>${{ prop.doc_fee }}</td></tr>
+          <tr><td>Annual Taxes</td><td>${{ prop.annual_taxes }}</td></tr>
+          <tr><td>Credit Check</td><td>None</td></tr>
+          <tr><td>Bank Required</td><td>No</td></tr>
+        </table>
+        {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+          <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy mt-4" style="display:block;">Buy Now &rarr;</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── VIDEO PLACEHOLDER ── #}
+<section class="section">
+  <div class="container" style="max-width:780px;">
+    <div style="aspect-ratio:16/9;background:var(--color-off-white);border-radius:var(--radius-card);display:flex;align-items:center;justify-content:center;border:1px solid var(--color-border);">
+      <!-- PROPERTY VIDEO EMBED: replace with YouTube iframe or GHL video embed -->
+      <p style="color:var(--color-navy-muted);font-size:13px;text-align:center;padding:var(--space-8);">Property video coming soon</p>
+    </div>
+  </div>
+</section>
+
+{# ── DETAIL TABLE ── #}
+<section class="section section-off">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Full Specs</p>
+    <h2 class="heading-md mb-6">For the Detail Oriented</h2>
+    <p style="font-size:13px;color:var(--color-navy-muted);margin-bottom:var(--space-6);max-width:640px;">We know that detail-oriented buyers want the full picture. That's why we've included every bit of information we have about this property. If you have questions, reach out and we'll do our best to help.</p>
+
+    <div class="disclaimer mb-6">READ THIS: We are not the Planning and Zoning department and while we try to answer common questions about what the property can be used for, we can't provide a yes or no answer for every circumstance. Land to Land Holdings LLC or its affiliates make no warranty or guarantee, either expressed or implied relative to usability, the exact location, desirability, or usefulness of the properties. Buyer is solely responsible for determining the condition of the property. All information is deemed reliable but not guaranteed. Buyer is required to complete their own due diligence prior to purchasing.</div>
+
+    <div class="detail-grid">
+      <div>
+        <p class="detail-group__heading">Location</p>
+        <table class="listing-table">
+          <tr><td>Property ID</td><td>{{ prop.id }}</td></tr>
+          <tr><td>Address</td><td>{{ prop.address }}</td></tr>
+          <tr><td>City</td><td>{{ prop.city }}</td></tr>
+          <tr><td>County</td><td>{{ prop.county }}</td></tr>
+          <tr><td>State</td><td>{{ prop.state }}</td></tr>
+          <tr><td>GPS</td><td>{{ prop.gps }}</td></tr>
+          <tr><td>Google Maps</td><td><a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-navy);font-weight:700;">Open &rarr;</a></td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="detail-group__heading">Property</p>
+        <table class="listing-table">
+          <tr><td>APN</td><td>{{ prop.apn }}</td></tr>
+          {% if prop.subdivision %}<tr><td>Subdivision</td><td>{{ prop.subdivision }}</td></tr>{% endif %}
+          <tr><td>Zoning</td><td>{{ prop.zoning }}</td></tr>
+          <tr><td>Acreage</td><td>{{ prop.acreage_display }}</td></tr>
+          <tr><td>Dimensions</td><td>{{ prop.lot_dimensions }}</td></tr>
+          <tr><td>Terrain</td><td>{{ prop.terrain }}</td></tr>
+          <tr><td>Elevation</td><td>{{ prop.elevation }}</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="detail-group__heading">Utilities</p>
+        <table class="listing-table">
+          <tr><td>Water/Well</td><td>{{ prop.well }}</td></tr>
+          <tr><td>Sewer/Septic</td><td>{{ prop.septic }}</td></tr>
+          <tr><td>Electricity</td><td>{{ prop.electricity }}</td></tr>
+          <tr><td>Solar</td><td>{{ prop.solar }}</td></tr>
+          <tr><td>Propane</td><td>{{ prop.propane }}</td></tr>
+          <tr><td>Gas</td><td>{{ prop.gas }}</td></tr>
+        </table>
+      </div>
+      <div>
+        <p class="detail-group__heading">Building</p>
+        <table class="listing-table">
+          <tr><td>Time Limit to Build</td><td>{{ prop.time_limit_to_build }}</td></tr>
+          <tr><td>Single Family</td><td>{{ prop.single_family_allowed }}</td></tr>
+          <tr><td>Modular</td><td>{{ prop.modular_allowed }}</td></tr>
+          <tr><td>Manufactured</td><td>{{ prop.manufactured_allowed }}</td></tr>
+          <tr><td>Tiny Home</td><td>{{ prop.tiny_home_friendly }}</td></tr>
+          <tr><td>Septic Required</td><td>{{ prop.septic_required }}</td></tr>
+          <tr><td>Flood Plain</td><td>{{ prop.flood_plain }}</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ── FULL-BLEED PHOTO BREAK ── #}
+{% if prop.photos[0] %}
+<div class="listing-photo-break">
+  <img src="{{ prop.photos[0] }}" alt="{{ prop.name }}" loading="lazy">
+</div>
+{% endif %}
+
+{# ── LOCATION ── #}
+<section class="section">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Where You'll Own</p>
+    <h2 class="heading-md mb-4">Location</h2>
+    {% if prop.lat and prop.lng %}
+      <iframe
+        src="https://maps.google.com/maps?q={{ prop.lat }},{{ prop.lng }}&z=14&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;border-radius:var(--radius-card);display:block;"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Property location map"></iframe>
+    {% endif %}
+    <p class="mt-4" style="font-size:13px;color:var(--color-navy-muted);">GPS: {{ prop.gps }} &mdash; <a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-navy);font-weight:700;">Open in Google Maps &rarr;</a></p>
+  </div>
+</section>
+
+{# ── ASK A QUESTION ── #}
+<section class="section section-off" id="ask-question">
+  <div class="container" style="max-width:640px;">
+    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Get in Touch</p>
+    <h2 class="heading-md mb-2">Have Questions?</h2>
+    <p style="color:var(--color-navy-muted);margin-bottom:var(--space-6);">Reach out directly and we'll get back to you fast.</p>
+    <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
+      <a href="tel:6783361879" class="btn btn-primary">Call 678-336-1879</a>
+      <a href="mailto:info@landtolandholdings.com" class="btn btn-outline">Email Us</a>
+    </div>
+  </div>
+</section>
