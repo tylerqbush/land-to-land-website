@@ -39,6 +39,27 @@ layout: base.njk
         {# Location #}
         <div class="listing-section">
           <p class="listing-section__heading">Location</p>
+          {% if prop.lat and prop.lng %}
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+            <div id="listing-map" style="height:300px;border-radius:var(--radius-card);margin-bottom:var(--space-4);z-index:0;"></div>
+            <script>
+              (function() {
+                function initListingMap() {
+                  if (!window.L) return setTimeout(initListingMap, 50);
+                  var map = L.map('listing-map').setView([{{ prop.lat }}, {{ prop.lng }}], 13);
+                  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; OpenStreetMap contributors', maxZoom: 19
+                  }).addTo(map);
+                  L.circleMarker([{{ prop.lat }}, {{ prop.lng }}], {
+                    radius: 14, fillColor: '#8BC83F', color: '#163650', weight: 2,
+                    fillOpacity: 0.9
+                  }).addTo(map).bindPopup('<strong>{{ prop.acreage }} acres</strong><br>{{ prop.county }}, {{ prop.state }}').openPopup();
+                }
+                document.addEventListener('DOMContentLoaded', initListingMap);
+              })();
+            </script>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WsQI=" crossorigin=""></script>
+          {% endif %}
           <table class="listing-table">
             <tr><td>Property ID</td><td>{{ prop.id }}</td></tr>
             <tr><td>Street Address</td><td>{{ prop.address }}</td></tr>
@@ -136,7 +157,7 @@ layout: base.njk
         {# Ask a question stub #}
         <div id="ask-question" class="listing-section">
           <p class="listing-section__heading">Ask a Question</p>
-          <p style="font-size:13px;color:var(--color-navy-muted);margin-bottom:var(--space-4);">Have questions about this property? Contact Tyler directly.</p>
+          <p style="font-size:13px;color:var(--color-navy-muted);margin-bottom:var(--space-4);">Have questions about this property? Reach out directly.</p>
           <!-- GHL FORM EMBED -->
           <a href="tel:6783361879" class="btn btn-outline btn-full">Call 678-336-1879</a>
         </div>

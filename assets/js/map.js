@@ -9,8 +9,8 @@
   const map = L.map("property-map").setView([avgLat, avgLng], 4);
 
   L.tileLayer(
-    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    { attribution: "Esri World Imagery" }
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    { attribution: "&copy; OpenStreetMap contributors", maxZoom: 19 }
   ).addTo(map);
 
   props.forEach(function (p) {

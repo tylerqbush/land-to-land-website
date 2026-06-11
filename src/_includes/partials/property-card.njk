@@ -10,14 +10,14 @@
       loading="lazy"
       width="480"
       height="270">
-  </a>
-  <div class="property-card__body">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-1);">
+    <div class="property-card__overlay">
+      <p class="property-card__acres">{{ prop.acreage }} ACRES</p>
+      <p class="property-card__location">{{ prop.county | upper }}, {{ prop.state }}</p>
       <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ prop.status }}</span>
-      <span class="caption">{{ prop.id }}</span>
     </div>
-    <p class="property-card__price">${{ prop.monthly }}<span>/mo</span></p>
-    <p class="property-card__meta">{{ prop.acreage }} ac · {{ prop.county }} Co, {{ prop.state }}</p>
-    <a href="/property/{{ prop.slug }}/" class="btn btn-outline btn-full mt-3" style="font-size:12px;padding:8px 14px;">View Details</a>
+  </a>
+  <div class="property-card__footer">
+    <span class="property-card__price">${{ prop.monthly }}<span class="property-card__price-unit">/mo</span></span>
+    <a href="/property/{{ prop.slug }}/" class="btn btn-primary property-card__cta">Learn More</a>
   </div>
 </article>
