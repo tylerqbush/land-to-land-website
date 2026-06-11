@@ -5,6 +5,7 @@ pagination:
   alias: prop
 permalink: "property/{{ prop.slug }}/index.html"
 layout: base.njk
+leaflet: true
 ---
 {%- set title = prop.acreage + " Acre Property in " + prop.county + ", " + prop.state + " | Land to Land Holdings" -%}
 {%- set description = prop.description -%}
@@ -40,7 +41,6 @@ layout: base.njk
         <div class="listing-section">
           <p class="listing-section__heading">Location</p>
           {% if prop.lat and prop.lng %}
-            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
             <div id="listing-map" style="height:300px;border-radius:var(--radius-card);margin-bottom:var(--space-4);z-index:0;"></div>
             <script>
               (function() {
