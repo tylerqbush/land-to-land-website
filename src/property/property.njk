@@ -38,16 +38,27 @@ layout: base.njk
         <p style="color:var(--color-navy-muted);line-height:1.75;margin-bottom:var(--space-6);">{{ prop.description }}</p>
 
         <div class="listing-price-inline">
-          <div>
-            <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
-            <p class="listing-price__sub">${{ prop.down }} down &middot; ${{ prop.doc_fee }} doc fee</p>
+          <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
+          <div class="listing-price__sub">
+            <div class="listing-price__pill">
+              <span class="listing-price__pill-label">Down</span>
+              <span class="listing-price__pill-value">${{ prop.down }}</span>
+            </div>
+            <div class="listing-price__pill">
+              <span class="listing-price__pill-label">Doc Fee</span>
+              <span class="listing-price__pill-value">${{ prop.doc_fee }}</span>
+            </div>
+            <div class="listing-price__pill">
+              <span class="listing-price__pill-label">Taxes/yr</span>
+              <span class="listing-price__pill-value">${{ prop.annual_taxes }}</span>
+            </div>
           </div>
           {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-            <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Buy Now</a>
+            <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
           {% endif %}
+          <a href="#ask-question" class="btn btn-outline btn-full" style="border-color:rgba(255,255,255,0.3);color:var(--color-white);">Ask a Question</a>
         </div>
 
-        <a href="#ask-question" class="btn btn-outline btn-full mt-4">Ask a Question</a>
       </div>
     </div>
   </div>

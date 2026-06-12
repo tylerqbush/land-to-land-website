@@ -57,14 +57,14 @@ body {
 }
 
 .heading-lg {
-  font-size: clamp(20px, 5vw, 28px);
+  font-size: clamp(22px, 5vw, 32px);
   font-weight: 800;
   letter-spacing: -0.3px;
   line-height: 1.1;
 }
 
 .heading-md {
-  font-size: 18px;
+  font-size: clamp(18px, 3vw, 22px);
   font-weight: 800;
   letter-spacing: -0.1px;
   line-height: 1.2;
@@ -89,12 +89,12 @@ body {
   align-items: center;
   gap: var(--space-2);
   font-family: var(--font-family);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   border: none;
   cursor: pointer;
   border-radius: var(--radius-btn);
-  padding: 12px 20px;
+  padding: 14px 24px;
   transition: opacity 0.15s ease, transform 0.1s ease;
   text-align: center;
   justify-content: center;
@@ -132,12 +132,12 @@ body {
   align-items: center;
   gap: var(--space-2);
   font-family: var(--font-family);
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 800;
   border: none;
   cursor: pointer;
   border-radius: var(--radius-btn);
-  padding: 12px 20px;
+  padding: 16px 24px;
   transition: background 0.15s ease, transform 0.1s ease;
   text-align: center;
   justify-content: center;
@@ -637,34 +637,57 @@ body {
 
 /* Inline price block */
 .listing-price-inline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
-  background: var(--color-off-white);
+  background: var(--color-navy);
   border-radius: var(--radius-card);
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-6);
   border: 1px solid var(--color-border);
 }
 
 .listing-price__monthly {
-  font-size: 28px;
+  font-size: 48px;
   font-weight: 900;
-  letter-spacing: -1px;
-  color: var(--color-navy);
+  letter-spacing: -2px;
+  color: var(--color-white);
   line-height: 1;
+  margin-bottom: var(--space-1);
 }
 
 .listing-price__monthly span {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
-  color: var(--color-navy-muted);
+  letter-spacing: 0;
+  color: rgba(255,255,255,0.6);
 }
 
 .listing-price__sub {
-  font-size: 12px;
-  color: var(--color-navy-muted);
-  margin-top: 4px;
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-5);
+}
+
+.listing-price__pill {
+  display: inline-flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 6px 12px;
+  gap: 1px;
+}
+
+.listing-price__pill-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+
+.listing-price__pill-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-white);
 }
 
 /* Section headings */
