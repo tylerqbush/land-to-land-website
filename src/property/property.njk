@@ -41,9 +41,7 @@ layout: base.njk
           <div>
             <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
             <p class="listing-price__sub">${{ prop.down }} down &middot; ${{ prop.doc_fee }} doc fee</p>
-            {% if prop.cash_price %}
-              <p style="font-size:12px;color:var(--color-navy-muted);margin-top:4px;">Cash price: ${{ prop.cash_price }}</p>
-            {% endif %}
+            <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener" class="savings-tag mt-2" style="display:inline-flex;">Ask how to save $247 today</a>
           </div>
           {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
             <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Buy Now</a>
@@ -136,11 +134,10 @@ layout: base.njk
     <h2 class="heading-md mb-6" style="color:var(--color-white);">Financing Options</h2>
     <div class="financing-grid">
       <div class="financing-cash-card">
-        <p class="financing-cash-card__label">Cash Price</p>
-        <p class="financing-cash-card__price">${{ prop.cash_price }}</p>
-        {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-          <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn btn-primary btn-full mt-4">Reserve This Property</a>
-        {% endif %}
+        <p class="financing-cash-card__label">Cash Offer?</p>
+        <p class="financing-cash-card__price" style="font-size:22px;line-height:1.3;">We accept all reasonable cash offers.</p>
+        <p style="font-size:13px;color:var(--color-lime-text);opacity:0.75;margin:var(--space-3) 0 var(--space-4);">Contact us to discuss pricing.</p>
+        <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener" class="savings-tag" style="justify-content:center;">Ask how to save $247 today</a>
       </div>
       <div class="financing-terms-card">
         <p class="financing-terms-card__label">Owner Financing</p>
@@ -153,7 +150,7 @@ layout: base.njk
           <tr><td>Bank Required</td><td>No</td></tr>
         </table>
         {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-          <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy mt-4" style="display:block;">Buy Now &rarr;</a>
+          <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy mt-4" style="display:block;">Reserve This Property &rarr;</a>
         {% endif %}
       </div>
     </div>
