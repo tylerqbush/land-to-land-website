@@ -10,16 +10,20 @@ description: "Buy vacant land with no bank and no credit check. Simple monthly p
   <div class="hero__overlay"></div>
   <div class="hero__content">
     <div class="container">
-      <span class="eyebrow hero__eyebrow fade-up">Owner-Financed Vacant Land</span>
-      <h1 class="display hero__headline fade-up fade-up-delay-1">Land you can own.<br>No bank, no credit<br>check, no middleman.</h1>
-      <p class="hero__sub fade-up fade-up-delay-2">We own the properties we sell. You pay us directly, monthly, until it's yours. No loan officers. No appraisals. No approval committee.</p>
-      <div class="hero__pills fade-up fade-up-delay-2">
+      <span class="eyebrow hero__eyebrow">Owner-Financed Vacant Land</span>
+      <h1 class="display hero__headline">
+        <span class="hero__line-wrap"><span class="hero__line">Land you can own.</span></span>
+        <span class="hero__line-wrap"><span class="hero__line">No bank, no credit</span></span>
+        <span class="hero__line-wrap"><span class="hero__line">check, no middleman.</span></span>
+      </h1>
+      <p class="hero__sub">We own the properties we sell. You pay us directly, monthly, until it's yours. No loan officers. No appraisals. No approval committee.</p>
+      <div class="hero__pills">
         <span class="hero__pill">No Credit Check</span>
         <span class="hero__pill">No Bank</span>
         <span class="hero__pill">Flexible Terms</span>
         <span class="hero__pill">3 Active Markets</span>
       </div>
-      <div class="hero__actions fade-up fade-up-delay-3">
+      <div class="hero__actions">
         <a href="/properties/" class="btn btn-primary">Browse Properties</a>
         <a href="/about/" class="btn btn-secondary">Our Story</a>
       </div>
@@ -32,19 +36,19 @@ description: "Buy vacant land with no bank and no credit check. Simple monthly p
 <div class="stats-bar">
   <div class="stats-bar__inner">
     <div class="stat-item">
-      <span class="stat-item__num">3</span>
+      <span class="stat-item__num" data-count="3">3</span>
       <span class="stat-item__label">Active Markets</span>
     </div>
     <div class="stat-item">
-      <span class="stat-item__num">$0</span>
+      <span class="stat-item__num" data-prefix="$" data-count="0">$0</span>
       <span class="stat-item__label">Credit Check</span>
     </div>
     <div class="stat-item">
-      <span class="stat-item__num">100%</span>
+      <span class="stat-item__num" data-count="100" data-suffix="%">100%</span>
       <span class="stat-item__label">Owner Financed</span>
     </div>
     <div class="stat-item">
-      <span class="stat-item__num">30</span>
+      <span class="stat-item__num" data-count="30">30</span>
       <span class="stat-item__label">Day Returns</span>
     </div>
   </div>
@@ -168,11 +172,13 @@ description: "Buy vacant land with no bank and no credit check. Simple monthly p
 
 {# ── MARKETS ── #}
 <section class="markets-section">
-  <div class="container">
+  <div class="markets-section__intro container">
     <span class="eyebrow markets-section__eyebrow fade-up">Where We Operate</span>
     <h2 class="heading-xl markets-section__title fade-up fade-up-delay-1">Three distinct markets,<br>one approach.</h2>
-    <div class="markets-grid">
-      <a href="/properties/?state=NM" class="market-card fade-up">
+  </div>
+  <div class="markets-hscroll">
+    <div class="markets-track">
+      <a href="/properties/" class="market-card">
         <div class="market-card__photo" style="background-image:url('/assets/images/stock/market-newmexico.jpg')">
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(31,51,38,0.93) 0%,transparent 60%);"></div>
         </div>
@@ -182,7 +188,7 @@ description: "Buy vacant land with no bank and no credit check. Simple monthly p
           <div class="market-card__desc">High desert at 4,000 feet. Low taxes, minimal restrictions, panoramic views. Land that's affordable because the crowd hasn't found it yet.</div>
         </div>
       </a>
-      <a href="/properties/?state=OR" class="market-card fade-up fade-up-delay-1">
+      <a href="/properties/" class="market-card">
         <div class="market-card__photo" style="background-image:url('/assets/images/stock/market-oregon.jpg')">
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(31,51,38,0.93) 0%,transparent 60%);"></div>
         </div>
@@ -192,7 +198,7 @@ description: "Buy vacant land with no bank and no credit check. Simple monthly p
           <div class="market-card__desc">Ponderosa pine forests and volcanic lake country. The kind of land that gets more expensive as more people discover it.</div>
         </div>
       </a>
-      <a href="/properties/?state=FL" class="market-card fade-up fade-up-delay-2">
+      <a href="/properties/" class="market-card">
         <div class="market-card__photo" style="background-image:url('/assets/images/stock/market-florida.jpg')">
           <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(31,51,38,0.93) 0%,transparent 60%);"></div>
         </div>
@@ -202,6 +208,7 @@ description: "Buy vacant land with no bank and no credit check. Simple monthly p
           <div class="market-card__desc">Pine flatwoods and open sky, 90 minutes from either coast. The most accessible market for first-time land buyers.</div>
         </div>
       </a>
+      <div class="markets-track__pad"></div>
     </div>
   </div>
 </section>
