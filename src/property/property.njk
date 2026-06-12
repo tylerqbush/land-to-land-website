@@ -15,7 +15,7 @@ layout: base.njk
   <div class="listing-hero__overlay"></div>
   <div class="listing-hero__content">
     <div class="container">
-      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }} mb-3" style="display:inline-block;">{{ prop.status }}</span>
+      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }} mb-3" style="display:inline-block;">{{ "Available" if (prop.status | trim) == "Active" else prop.status }}</span>
       <h1 class="listing-hero__title">{{ prop.name }}</h1>
       <p class="listing-hero__meta">{{ prop.acreage }} acres &middot; {{ prop.county }} County, {{ prop.state }} &middot; {{ prop.id }}</p>
     </div>

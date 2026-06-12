@@ -13,7 +13,7 @@
     <div class="property-card__overlay">
       <p class="property-card__acres">{{ prop.acreage }} ACRES</p>
       <p class="property-card__location">{{ prop.county | upper }}, {{ prop.state }}</p>
-      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ prop.status }}</span>
+      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ "Available" if (prop.status | trim) == "Active" else prop.status }}</span>
     </div>
   </a>
   <div class="property-card__footer">
