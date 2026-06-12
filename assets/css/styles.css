@@ -768,7 +768,8 @@ body {
 }
 
 .financing-cash-card {
-  background: var(--color-lime);
+  background: var(--color-navy);
+  border: 2px solid var(--color-lime);
   border-radius: var(--radius-card);
   padding: var(--space-6);
   text-align: center;
@@ -779,17 +780,16 @@ body {
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--color-lime-text);
+  color: var(--color-lime);
   margin-bottom: var(--space-2);
-  opacity: 0.7;
 }
 
 .financing-cash-card__price {
-  font-size: 36px;
-  font-weight: 900;
-  color: var(--color-lime-text);
-  letter-spacing: -1px;
-  line-height: 1;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -0.5px;
+  line-height: 1.3;
 }
 
 .financing-terms-card {
