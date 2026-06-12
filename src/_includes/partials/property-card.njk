@@ -9,18 +9,20 @@
       alt="{{ prop.acreage }} acre property in {{ prop.county }}, {{ prop.state }}"
       loading="lazy"
       width="480"
-      height="270">
+      height="360">
+    <div class="property-card__badge">
+      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ "Available" if (prop.status | trim) == "Active" else (prop.status | trim) }}</span>
+    </div>
     <div class="property-card__overlay">
-      <p class="property-card__acres">{{ prop.acreage }} ACRES</p>
-      <p class="property-card__location">{{ prop.county | upper }}, {{ prop.state }}</p>
-      <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ "Available" if (prop.status | trim) == "Active" else prop.status }}</span>
+      <p class="property-card__acres">{{ prop.acreage }}</p>
+      <p class="property-card__location">{{ prop.county }}, {{ prop.state }}</p>
     </div>
   </a>
   <div class="property-card__footer">
     <div class="property-card__price-group">
+      <span class="property-card__name">{{ prop.county }} County, {{ prop.state }}</span>
       <span class="property-card__price">${{ prop.monthly }}<span class="property-card__price-unit">/mo</span></span>
-      <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener" class="property-card__savings-link">&#9733; Save $247 &mdash; ask us how</a>
     </div>
-    <a href="/property/{{ prop.slug }}/" class="btn btn-primary property-card__cta">Learn More</a>
+    <a href="/property/{{ prop.slug }}/" class="property-card__cta">Learn More</a>
   </div>
 </article>
