@@ -41,7 +41,6 @@ layout: base.njk
           <div>
             <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
             <p class="listing-price__sub">${{ prop.down }} down &middot; ${{ prop.doc_fee }} doc fee</p>
-            <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener" class="savings-tag mt-2" style="display:inline-flex;">Ask how to save $247 today</a>
           </div>
           {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
             <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Buy Now</a>
@@ -58,10 +57,12 @@ layout: base.njk
 <section class="lifestyle-section">
   <div class="container">
     <div class="lifestyle-row">
+      {% if prop.road_access == "Yes" %}
       <div class="lifestyle-item">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 26L16 6l12 20H4z"/><line x1="16" y1="6" x2="16" y2="14"/></svg>
         <span>Road Access</span>
       </div>
+      {% endif %}
       {% if prop.single_family_allowed == "Yes" %}
       <div class="lifestyle-item">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14L16 4l12 10v14H20v-8h-8v8H4V14z"/></svg>
@@ -86,10 +87,12 @@ layout: base.njk
         <span>Mobile Home OK</span>
       </div>
       {% endif %}
+      {% if prop.time_limit_to_build == "None" %}
       <div class="lifestyle-item">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="16" cy="16" r="12"/><path d="M16 8v8l-4 4"/></svg>
         <span>No Time Limit</span>
       </div>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -137,7 +140,7 @@ layout: base.njk
         <p class="financing-cash-card__label">Cash Offer?</p>
         <p class="financing-cash-card__price" style="font-size:22px;line-height:1.3;">We accept all reasonable cash offers.</p>
         <p style="font-size:13px;color:var(--color-lime-text);opacity:0.75;margin:var(--space-3) 0 var(--space-4);">Contact us to discuss pricing.</p>
-        <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener" class="savings-tag" style="justify-content:center;">Ask how to save $247 today</a>
+        <a href="#ask-question" class="btn btn-primary btn-full mt-4">Get in Touch</a>
       </div>
       <div class="financing-terms-card">
         <p class="financing-terms-card__label">Owner Financing</p>

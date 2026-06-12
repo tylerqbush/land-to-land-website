@@ -44,10 +44,13 @@
     "solar": "Allowed",
     "propane": "Allowed",
     "gas": "Not available",
-    "photos": ["/assets/properties/LTL-001/1.jpg"],
+    "photos": [
+      "/assets/properties/LTL-001/1.jpg"
+    ],
     "seo_title": "5 Acre Property in Putnam County, FL | Land to Land Holdings",
     "seo_description": "Five acres in Putnam County, Florida. Owner-financed with no bank or credit check required. $199/mo.",
-    "seo_keywords": "putnam county land for sale, florida land owner financing, vacant land florida"
+    "seo_keywords": "putnam county land for sale, florida land owner financing, vacant land florida",
+    "road_access": "Yes"
   },
   {
     "id": "LTL-002",
@@ -94,10 +97,13 @@
     "solar": "Allowed",
     "propane": "Allowed",
     "gas": "Not available",
-    "photos": ["/assets/properties/LTL-002/1.jpg"],
+    "photos": [
+      "/assets/properties/LTL-002/1.jpg"
+    ],
     "seo_title": "10 Acre Property in Luna County, NM | Land to Land Holdings",
     "seo_description": "Ten acres in Luna County, New Mexico. High desert land with mountain views. Owner-financed at $149/mo.",
-    "seo_keywords": "luna county land for sale, new mexico land owner financing, desert land new mexico"
+    "seo_keywords": "luna county land for sale, new mexico land owner financing, desert land new mexico",
+    "road_access": "Yes"
   },
   {
     "id": "LTL-003",
@@ -144,9 +150,12 @@
     "solar": "Allowed",
     "propane": "Allowed",
     "gas": "Not available",
-    "photos": ["/assets/properties/LTL-003/1.jpg"],
+    "photos": [
+      "/assets/properties/LTL-003/1.jpg"
+    ],
     "seo_title": "2 Acre Property in Klamath County, OR | Land to Land Holdings",
     "seo_description": "Two acres in Klamath County, Oregon with mountain views. Owner-financed with no bank required. $249/mo.",
-    "seo_keywords": "klamath county land for sale, oregon land owner financing, klamath falls land"
+    "seo_keywords": "klamath county land for sale, oregon land owner financing, klamath falls land",
+    "road_access": "Yes"
   }
 ]

@@ -85,7 +85,7 @@ Form auto-resize script is loaded from `https://link.acrematic.com/js/form_embed
 Each property record has these fields. Fields marked `(Phase 2)` will come from Airtable in the sync.
 
 ```
-id, name, slug, status, acreage, city, county, state
+id, name, slug, status, acreage, city, county, state, road_access
 lat, lng, gps, google_maps_url
 monthly, down, doc_fee, cash_price, annual_taxes
 geekpay_url           null = no buy button shown
@@ -101,6 +101,8 @@ photos                array of local asset paths
 ```
 
 **Airtable note:** Status values in Airtable have trailing spaces ("Under Contract ", "Due Diligence "). The template uses `| trim` on status comparisons to handle this.
+
+**road_access field:** Add a "Road Access" single-line text column (Yes/No) to Ground Control before Phase 2 sync.
 
 **Name field:** The `name` field is new — it does not exist in Airtable yet. Add a "Website Name" single-line text column to Ground Control before running the Phase 2 sync, then map it in `scripts/sync.mjs`.
 

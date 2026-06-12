@@ -5,6 +5,7 @@
   --color-navy-body:     #1A3347;
   --color-navy-muted:    #4A6880;
   --color-lime:          #8BC83F;
+  --color-lime-dark:     #74AA2E;
   --color-lime-text:     #0D2600;
   --color-lime-tint:     rgba(139, 200, 63, 0.12);
   --color-lime-tint-text:#3D6E16;
@@ -102,11 +103,11 @@ body {
 .btn:active { transform: scale(0.98); }
 
 .btn-primary {
-  background: var(--color-navy);
-  color: var(--color-white);
+  background: var(--color-lime);
+  color: var(--color-lime-text);
 }
 
-.btn-primary:hover { background: var(--color-navy-dark); }
+.btn-primary:hover { background: var(--color-lime-dark); }
 
 .btn-secondary {
   background: transparent;
@@ -141,13 +142,13 @@ body {
   text-align: center;
   justify-content: center;
   width: 100%;
-  background: var(--color-navy);
-  color: var(--color-white);
+  background: var(--color-lime);
+  color: var(--color-lime-text);
   margin-bottom: var(--space-4);
 }
 
 .btn-buy:active { transform: scale(0.98); }
-.btn-buy:hover { background: var(--color-navy-dark); }
+.btn-buy:hover { background: var(--color-lime-dark); }
 
 /* ─── LAYOUT ──────────────────────────────────────────── */
 .container {
