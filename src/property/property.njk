@@ -35,7 +35,7 @@ layout: base.njk
       </div>
       <div class="listing-intro__desc">
         <p class="listing-section__heading mb-3">What You're Getting</p>
-        <p style="color:var(--color-navy-muted);line-height:1.75;margin-bottom:var(--space-6);">{{ prop.description }}</p>
+        <p style="color:var(--color-text-muted);line-height:1.75;margin-bottom:var(--space-6);">{{ prop.description }}</p>
 
         <div class="listing-price-inline">
           <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
@@ -111,7 +111,7 @@ layout: base.njk
 {# ── RULES & ZONING ── #}
 <section class="section section-off">
   <div class="container">
-    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Allowable Uses</p>
+    <p class="eyebrow mb-2" style="color:var(--color-terra);">Allowable Uses</p>
     <h2 class="heading-md mb-6">Property Rules &amp; Zoning</h2>
     <div class="rules-grid">
       {% set rules = [
@@ -174,9 +174,9 @@ layout: base.njk
 {# ── VIDEO PLACEHOLDER ── #}
 <section class="section">
   <div class="container" style="max-width:780px;">
-    <div style="aspect-ratio:16/9;background:var(--color-off-white);border-radius:var(--radius-card);display:flex;align-items:center;justify-content:center;border:1px solid var(--color-border);">
+    <div style="aspect-ratio:16/9;background:var(--color-sand-light);border-radius:var(--radius-card);display:flex;align-items:center;justify-content:center;border:1px solid var(--color-border);">
       <!-- PROPERTY VIDEO EMBED: replace with YouTube iframe or GHL video embed -->
-      <p style="color:var(--color-navy-muted);font-size:13px;text-align:center;padding:var(--space-8);">Property video coming soon</p>
+      <p style="color:var(--color-text-muted);font-size:13px;text-align:center;padding:var(--space-8);">Property video coming soon</p>
     </div>
   </div>
 </section>
@@ -184,9 +184,9 @@ layout: base.njk
 {# ── DETAIL TABLE ── #}
 <section class="section section-off">
   <div class="container">
-    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Full Specs</p>
+    <p class="eyebrow mb-2" style="color:var(--color-terra);">Full Specs</p>
     <h2 class="heading-md mb-6">For the Detail Oriented</h2>
-    <p style="font-size:14px;color:var(--color-navy-muted);margin-bottom:var(--space-6);max-width:640px;">We know that detail-oriented buyers want the full picture. That's why we've included every bit of information we have about this property. If you have questions, reach out and we'll do our best to help.</p>
+    <p style="font-size:14px;color:var(--color-text-muted);margin-bottom:var(--space-6);max-width:640px;">We know that detail-oriented buyers want the full picture. That's why we've included every bit of information we have about this property. If you have questions, reach out and we'll do our best to help.</p>
 
     <div class="disclaimer mb-6">READ THIS: We are not the Planning and Zoning department and while we try to answer common questions about what the property can be used for, we can't provide a yes or no answer for every circumstance. Land to Land Holdings LLC or its affiliates make no warranty or guarantee, either expressed or implied relative to usability, the exact location, desirability, or usefulness of the properties. Buyer is solely responsible for determining the condition of the property. All information is deemed reliable but not guaranteed. Buyer is required to complete their own due diligence prior to purchasing.</div>
 
@@ -200,7 +200,7 @@ layout: base.njk
           <tr><td>County</td><td>{{ prop.county }}</td></tr>
           <tr><td>State</td><td>{{ prop.state }}</td></tr>
           <tr><td>GPS</td><td>{{ prop.gps }}</td></tr>
-          <tr><td>Google Maps</td><td><a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-navy);font-weight:700;">Open &rarr;</a></td></tr>
+          <tr><td>Google Maps</td><td><a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-forest);font-weight:700;">Open &rarr;</a></td></tr>
         </table>
       </div>
       <div>
@@ -252,7 +252,7 @@ layout: base.njk
 {# ── LOCATION ── #}
 <section class="section">
   <div class="container">
-    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Where You'll Own</p>
+    <p class="eyebrow mb-2" style="color:var(--color-terra);">Where You'll Own</p>
     <h2 class="heading-md mb-4">Location</h2>
     {% if prop.lat and prop.lng %}
       <iframe
@@ -265,16 +265,16 @@ layout: base.njk
         referrerpolicy="no-referrer-when-downgrade"
         title="Property location map"></iframe>
     {% endif %}
-    <p class="mt-4" style="font-size:13px;color:var(--color-navy-muted);">GPS: {{ prop.gps }} &mdash; <a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-navy);font-weight:700;">Open in Google Maps &rarr;</a></p>
+    <p class="mt-4" style="font-size:13px;color:var(--color-text-muted);">GPS: {{ prop.gps }} &mdash; <a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-forest);font-weight:700;">Open in Google Maps &rarr;</a></p>
   </div>
 </section>
 
 {# ── ASK A QUESTION ── #}
 <section class="section section-off" id="ask-question">
   <div class="container" style="max-width:640px;">
-    <p class="eyebrow mb-2" style="color:var(--color-lime-tint-text);">Get in Touch</p>
+    <p class="eyebrow mb-2" style="color:var(--color-terra);">Get in Touch</p>
     <h2 class="heading-md mb-2">Have Questions?</h2>
-    <p style="color:var(--color-navy-muted);margin-bottom:var(--space-6);">Reach out directly and we'll get back to you fast.</p>
+    <p style="color:var(--color-text-muted);margin-bottom:var(--space-6);">Reach out directly and we'll get back to you fast.</p>
     <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;">
       <a href="tel:6783361879" class="btn btn-primary">Call 678-336-1879</a>
       <a href="mailto:info@landtolandholdings.com" class="btn btn-outline">Email Us</a>
