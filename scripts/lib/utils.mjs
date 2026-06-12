@@ -34,8 +34,12 @@ export function isPublishable(status) {
 }
 
 export function contentHash(obj) {
-  const sorted = Object.fromEntries(Object.keys(obj).sort().map(k => [k, obj[k]]));
-  return createHash('sha256').update(JSON.stringify(sorted)).digest('hex');
+  const sorted = JSON.stringify(obj, (_, v) =>
+    v !== null && typeof v === 'object' && !Array.isArray(v)
+      ? Object.fromEntries(Object.keys(v).sort().map(k => [k, v[k]]))
+      : v
+  );
+  return createHash('sha256').update(sorted).digest('hex');
 }
 
 export function photoHash(attachments) {
