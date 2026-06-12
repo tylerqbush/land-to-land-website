@@ -716,7 +716,7 @@ body {
 
 /* ─── PROPERTIES SECTION WRAPPER (dark bg) ────────────── */
 .properties-section {
-  background: var(--color-forest);
+  background: var(--color-white);
   padding: var(--space-24) 0;
 }
 
@@ -736,20 +736,21 @@ body {
 }
 
 .properties-section__title {
-  color: var(--color-sand);
+  color: var(--color-forest);
 }
 
 .properties-section__view-all {
   font-size: 14px;
   font-weight: 600;
-  color: var(--color-teal);
+  color: var(--color-forest);
   white-space: nowrap;
   display: flex;
   align-items: center;
   gap: 6px;
+  opacity: 0.70;
 }
 
-.properties-section__view-all:hover { opacity: 0.8; }
+.properties-section__view-all:hover { opacity: 1; }
 
 /* ─── FINANCING BANNER ────────────────────────────────── */
 .financing-banner {
