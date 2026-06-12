@@ -6,7 +6,7 @@
     "dev": "eleventy --serve",
     "build": "eleventy",
     "sync": "node scripts/sync.mjs",
-    "test": "node --test tests/data.test.mjs",
+    "test": "node --test tests/data.test.mjs tests/sync.test.mjs",
     "test:build": "npm run build && node --test tests/build.test.mjs"
   },
   "engines": {
