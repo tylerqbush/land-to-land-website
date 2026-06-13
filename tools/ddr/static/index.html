@@ -140,8 +140,9 @@
         </div>
       </div>
       <div class="field">
-        <label for="drive_folder_id">Drive Folder ID</label>
-        <input type="text" id="drive_folder_id" name="drive_folder_id" placeholder="Optional">
+        <label for="drive_folder_url">Drive Folder Link <span class="req">*</span></label>
+        <input type="text" id="drive_folder_url" name="drive_folder_url" placeholder="https://drive.google.com/drive/folders/...">
+        <div class="field-error" id="drive-err">Paste a Google Drive folder link</div>
       </div>
       <button type="submit" class="btn-submit" id="submit-btn">Run Due Diligence</button>
     </form>
@@ -206,6 +207,11 @@
       });
     }
 
+    function parseDriveFolderId(input) {
+      const match = input.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+      return match ? match[1] : input.trim();
+    }
+
     function validate() {
       let ok = true;
       [["state", "state-err"], ["county", "county-err"], ["apn", "apn-err"]].forEach(([fid, eid]) => {
@@ -220,6 +226,16 @@
           err.style.display = "none";
         }
       });
+      const driveEl = document.getElementById("drive_folder_url");
+      const driveErr = document.getElementById("drive-err");
+      if (!driveEl.value.trim()) {
+        driveEl.classList.add("invalid");
+        driveErr.style.display = "block";
+        ok = false;
+      } else {
+        driveEl.classList.remove("invalid");
+        driveErr.style.display = "none";
+      }
       return ok;
     }
 
@@ -235,7 +251,11 @@
       }, 40000);
 
       try {
-        const body = new URLSearchParams(new FormData(this)).toString();
+        const formData = new FormData(this);
+        const driveInput = document.getElementById("drive_folder_url").value.trim();
+        formData.set("drive_folder_id", parseDriveFolderId(driveInput));
+        formData.delete("drive_folder_url");
+        const body = new URLSearchParams(formData).toString();
         const resp = await fetch(BACKEND_URL + "/generate", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
