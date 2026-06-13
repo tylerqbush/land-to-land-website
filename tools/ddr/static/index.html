@@ -197,6 +197,7 @@
       countyEl.innerHTML = counties.length
         ? counties.map(c => `<option value="${c}">${c}</option>`).join("")
         : `<option value="">--</option>`;
+      if (!counties.length) countyEl.value = "";
     });
 
     function showView(id) {
@@ -227,6 +228,7 @@
       if (!validate()) return;
 
       showView("view-spinner");
+      document.getElementById("submit-btn").disabled = true;
 
       const warmupTimer = setTimeout(() => {
         document.getElementById("warmup-msg").style.display = "block";
@@ -239,7 +241,6 @@
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body,
         });
-        clearTimeout(warmupTimer);
         const json = await resp.json();
 
         if (resp.ok && json.status === "complete") {
@@ -254,10 +255,11 @@
           showView("view-error");
         }
       } catch (err) {
-        clearTimeout(warmupTimer);
         document.getElementById("error-msg").textContent =
           err.message || "Network error. Is the backend running?";
         showView("view-error");
+      } finally {
+        clearTimeout(warmupTimer);
       }
     });
   </script>
