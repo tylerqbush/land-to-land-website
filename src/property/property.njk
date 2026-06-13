@@ -39,6 +39,7 @@ layout: base.njk
 
         <div class="listing-price-inline">
           <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
+          {% if prop.term_months %}<p class="listing-price__term">for {{ prop.term_months }} months</p>{% endif %}
           <div class="listing-price__sub">
             <div class="listing-price__pill">
               <span class="listing-price__pill-label">Down</span>
@@ -156,7 +157,7 @@ layout: base.njk
       <div class="financing-terms-card">
         <p class="financing-terms-card__label">Owner Financing</p>
         <table class="financing-table">
-          <tr><td>Monthly Payment</td><td>${{ prop.monthly }}/mo</td></tr>
+          <tr><td>Monthly Payment</td><td>${{ prop.monthly }}/mo{% if prop.term_months %} for {{ prop.term_months }} months{% endif %}</td></tr>
           <tr><td>Down Payment</td><td>${{ prop.down }}</td></tr>
           <tr><td>Document Fee</td><td>${{ prop.doc_fee }}</td></tr>
           <tr><td>Annual Taxes</td><td>${{ prop.annual_taxes }}</td></tr>
