@@ -89,3 +89,52 @@ def update_record(record_id: str, fields: dict) -> dict:
         logger.error("Airtable update failed %s: %s", resp.status_code, resp.text)
     resp.raise_for_status()
     return resp.json()
+
+
+def find_or_create_record(apn, county, state, owner_name="",
+                           size="", subdivision="", drive_folder_id=""):
+    """
+    Search for existing record by APN. Update if found, create if not.
+    Returns (record_id, airtable_record_url).
+
+    NOTE: F_STATUS value "Due Diligence" must match Airtable's select option
+    exactly. Airtable stores some status values with trailing spaces
+    (per CLAUDE.md). If records reject this value, check the exact option
+    name in the Airtable UI and update accordingly.
+    """
+    params = {"filterByFormula": f'({{{F_APN}}}="{apn}")'}
+    resp = requests.get(API_URL, headers=_headers(), params=params, timeout=30)
+    resp.raise_for_status()
+    records = resp.json().get("records", [])
+
+    fields_payload = {
+        F_APN: apn,
+        F_STATE: state,
+        F_COUNTY: county,
+        F_STATUS: "Due Diligence",
+    }
+    if size:
+        try:
+            fields_payload[F_SIZE] = float(size)
+        except ValueError:
+            pass
+    if subdivision:
+        fields_payload[F_SUBDIVISION] = subdivision
+    if drive_folder_id:
+        fields_payload[F_DRIVE_FOLDER_ID] = drive_folder_id
+
+    if records:
+        record_id = records[0]["id"]
+        resp = requests.patch(f"{API_URL}/{record_id}", headers=_headers(),
+                              json={"fields": fields_payload}, timeout=30)
+        if not resp.ok:
+            logger.error("Airtable PATCH failed %s: %s", resp.status_code, resp.text)
+        resp.raise_for_status()
+    else:
+        resp2 = requests.post(API_URL, headers=_headers(),
+                              json={"fields": fields_payload}, timeout=30)
+        resp2.raise_for_status()
+        record_id = resp2.json()["id"]
+
+    record_url = f"https://airtable.com/{BASE_ID}/{TABLE_ID}/{record_id}"
+    return record_id, record_url

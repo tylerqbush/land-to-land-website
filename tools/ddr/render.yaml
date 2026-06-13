@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: ddr-automation
+    runtime: python
+    buildCommand: pip install -r requirements.txt && playwright install chromium && playwright install-deps chromium
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: AIRTABLE_API_KEY
+        sync: false
+      - key: AIRTABLE_BASE_ID
+        value: appE5El6Tgi6LS2Z6
+      - key: GOOGLE_SERVICE_ACCOUNT_JSON
+        sync: false
+      - key: WEBHOOK_SECRET
+        sync: false
+      - key: DEFAULT_DRIVE_FOLDER_ID
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
