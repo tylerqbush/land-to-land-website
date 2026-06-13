@@ -217,13 +217,22 @@ async function main() {
   const properties = [];
   const newHashes = { ...storedHashes };
 
+  const skipped = [];
   for (const [id, { content, photos, record }] of fetchedMap) {
-    const prop = mapRecord(record, existingSlugs[id]);
+    let prop;
+    try {
+      prop = mapRecord(record, existingSlugs[id]);
+    } catch (err) {
+      console.warn(`  SKIPPED ${id}: ${err.message}`);
+      skipped.push(id);
+      continue;
+    }
     const attachments = record.fields['Photos'] ?? [];
     prop.photos = attachments.map((_, i) => `/assets/properties/${id}/${i + 1}.jpg`);
     properties.push(prop);
     newHashes[id] = { content, photos };
   }
+  if (skipped.length) console.warn(`  Skipped ${skipped.length} invalid records: ${skipped.join(' ')}`);
 
   for (const id of removed) {
     delete newHashes[id];
