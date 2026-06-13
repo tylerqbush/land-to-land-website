@@ -22,48 +22,53 @@ layout: base.njk
   </div>
 </div>
 
-{# ── INTRO: PHOTOS + DESCRIPTION ── #}
+{# ── INTRO: DESCRIPTION + PRICING ── #}
 <section class="section">
-  <div class="container">
-    <div class="listing-intro">
-      <div class="listing-intro__photos">
-        {% for photo in prop.photos %}
-          <a href="{{ photo }}" target="_blank" class="listing-intro__photo-wrap">
-            <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.name }}" loading="{{ 'eager' if loop.first else 'lazy' }}" width="600" height="450">
-          </a>
-        {% endfor %}
-      </div>
-      <div class="listing-intro__desc">
-        <p class="listing-section__heading mb-3">What You're Getting</p>
-        <p style="color:var(--color-text-muted);line-height:1.75;margin-bottom:var(--space-6);">{{ prop.description }}</p>
+  <div class="container" style="max-width:780px;">
+    <p class="listing-section__heading mb-3">What You're Getting</p>
+    <p style="color:var(--color-text-muted);line-height:1.75;margin-bottom:var(--space-6);">{{ prop.description }}</p>
 
-        <div class="listing-price-inline">
-          <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
-          {% if prop.term_months %}<p class="listing-price__term">for {{ prop.term_months }} months</p>{% endif %}
-          <div class="listing-price__sub">
-            <div class="listing-price__pill">
-              <span class="listing-price__pill-label">Down</span>
-              <span class="listing-price__pill-value">{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</span>
-            </div>
-            <div class="listing-price__pill">
-              <span class="listing-price__pill-label">Doc Fee</span>
-              <span class="listing-price__pill-value">{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</span>
-            </div>
-            <div class="listing-price__pill">
-              <span class="listing-price__pill-label">Taxes/yr</span>
-              <span class="listing-price__pill-value">{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</span>
-            </div>
-          </div>
-          {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-            <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
-          {% endif %}
-          <a href="#ask-question" class="btn btn-outline btn-full" style="border-color:rgba(255,255,255,0.3);color:var(--color-white);">Ask a Question</a>
+    <div class="listing-price-inline">
+      <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
+      {% if prop.term_months %}<p class="listing-price__term">for {{ prop.term_months }} months</p>{% endif %}
+      <div class="listing-price__sub">
+        <div class="listing-price__pill">
+          <span class="listing-price__pill-label">Down</span>
+          <span class="listing-price__pill-value">{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</span>
         </div>
-
+        <div class="listing-price__pill">
+          <span class="listing-price__pill-label">Doc Fee</span>
+          <span class="listing-price__pill-value">{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</span>
+        </div>
+        <div class="listing-price__pill">
+          <span class="listing-price__pill-label">Taxes/yr</span>
+          <span class="listing-price__pill-value">{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</span>
+        </div>
       </div>
+      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+        <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
+      {% endif %}
+      <a href="#ask-question" class="btn btn-outline btn-full" style="border-color:rgba(255,255,255,0.3);color:var(--color-white);">Ask a Question</a>
     </div>
   </div>
 </section>
+
+{# ── PHOTO GALLERY ── #}
+{% if prop.photos.length > 1 %}
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="listing-photo-gallery">
+      {% for photo in prop.photos %}
+        {% if not loop.first %}
+          <a href="{{ photo }}" target="_blank" class="listing-photo-gallery__item">
+            <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.name }}" loading="lazy" width="1200" height="800">
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
 {# ── LIFESTYLE ICONS ── #}
 <section class="lifestyle-section">

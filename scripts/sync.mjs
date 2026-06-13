@@ -61,6 +61,37 @@ function validateRecord(id, f) {
   }
 }
 
+function generateDescription(f, acreage, city, county, state) {
+  const parts = [`${acreage}-acre property in ${city}, ${county} County, ${state}.`];
+
+  if (f['Access'] === 'Yes') parts.push('Road access is available.');
+
+  const buildable = [];
+  if (f['Single Family Homes Allowed?'] === 'Yes') buildable.push('single family homes');
+  if (f['Modular Homes Allowed?'] === 'Yes') buildable.push('modular homes');
+  if (f['Manufactured Homes Allowed?'] === 'Yes') buildable.push('manufactured homes');
+  if (f['Tiny Home Friendly?'] === 'Yes') buildable.push('tiny homes');
+  if (buildable.length) parts.push(`Zoning allows ${buildable.join(', ')}.`);
+
+  const camping = [];
+  if (f['Full-Time RV Living Allowed?'] === 'Yes') camping.push('full-time RV living');
+  if (f['RV Allowed on the Property While I Build?'] === 'Yes') camping.push('RV while building');
+  if (f['Camping in an RV Allowed?'] === 'Yes') camping.push('RV camping');
+  if (f['Tent Camping Allowed?'] === 'Yes') camping.push('tent camping');
+  if (camping.length) parts.push(`Allows ${camping.join(', ')}.`);
+
+  const utilities = [];
+  if (f['Currently have electricity?'] === 'Yes') utilities.push('electricity on site');
+  if (f['Allowable to Drill a Well?'] === 'Yes') utilities.push('well drilling allowed');
+  if (f['Is it allowable to install a septic system?'] === 'Yes') utilities.push('septic allowed');
+  if (utilities.length) parts.push(utilities.join(', ').replace(/^./, c => c.toUpperCase()) + '.');
+
+  if (f['Time Limit to Build'] === 'None') parts.push('No time limit to build.');
+  if (f['Zoning Designation']) parts.push(`Zoned ${f['Zoning Designation']}.`);
+
+  return parts.join(' ');
+}
+
 function mapRecord(record, existingSlug) {
   const f = record.fields;
   const id = f['Product ID'] ?? null;
@@ -93,7 +124,7 @@ function mapRecord(record, existingSlug) {
     doc_fee: f['Processing Fee'] ?? null,
     cash_price: f['Cash Purchase Price'] ?? null,
     geekpay_url: normalizeGeekpay(f['GeekPay Checkout URL']),
-    description: (() => { const d = f['Web Description']; if (!d) return ''; if (typeof d === 'string') return d; if (typeof d === 'object' && d.text) return d.text; return ''; })(),
+    description: (() => { const d = f['Web Description']; const text = !d ? '' : typeof d === 'string' ? d.trim() : (d.text ?? '').trim(); return text || generateDescription(f, acreage, city, county, state); })(),
     apn: f['Parcel Number (APN)'] ?? '',
     address: f['Street Address'] ?? '',
     google_maps_url: f['Google Maps Link'] ?? '',
