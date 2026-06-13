@@ -29,9 +29,12 @@ def _get_service():
     return build("drive", "v3", credentials=creds, cache_discovery=False)
 
 
-def upload_pdf(pdf_bytes: bytes, filename: str, folder_id: str) -> str:
+def upload_pdf(pdf_bytes: bytes, filename: str, folder_id: str = "") -> str:
     """
-    Upload pdf_bytes to the given Drive folder and return the shareable file URL.
+    Upload pdf_bytes to the service account's own Drive and return the shareable file URL.
+    If NOTIFY_EMAIL is set, shares the file directly with that address so it appears
+    in their "Shared with me". folder_id is accepted but ignored — avoids Google Workspace
+    external sharing restrictions.
     Raises on any Drive API error.
     """
     service = _get_service()
@@ -39,7 +42,6 @@ def upload_pdf(pdf_bytes: bytes, filename: str, folder_id: str) -> str:
     file_metadata = {
         "name": filename,
         "mimeType": "application/pdf",
-        "parents": [folder_id] if folder_id else [],
     }
 
     media = MediaIoBaseUpload(
@@ -62,13 +64,17 @@ def upload_pdf(pdf_bytes: bytes, filename: str, folder_id: str) -> str:
     web_view_link = uploaded.get("webViewLink", f"https://drive.google.com/file/d/{file_id}/view")
     logger.info("Uploaded '%s' to Drive — %s", filename, web_view_link)
 
-    # Make the file readable by anyone with the link
-    try:
-        service.permissions().create(
-            fileId=file_id,
-            body={"type": "anyone", "role": "reader"},
-        ).execute()
-    except HttpError as exc:
-        logger.warning("Could not set public permission on file: %s", exc)
+    # Share directly with the notify email so it appears in their Drive
+    notify_email = os.environ.get("NOTIFY_EMAIL", "")
+    if notify_email:
+        try:
+            service.permissions().create(
+                fileId=file_id,
+                body={"type": "user", "role": "reader", "emailAddress": notify_email},
+                sendNotificationEmail=False,
+            ).execute()
+            logger.info("Shared '%s' with %s", filename, notify_email)
+        except HttpError as exc:
+            logger.warning("Could not share file with %s: %s", notify_email, exc)
 
     return web_view_link
