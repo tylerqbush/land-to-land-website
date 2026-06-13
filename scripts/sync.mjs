@@ -231,6 +231,7 @@ async function main() {
   // Sort by id for stable, readable diffs
   properties.sort((a, b) => a.id.localeCompare(b.id));
 
+  await mkdir(dirname(propsPath), { recursive: true });
   await writeFile(propsPath, JSON.stringify(properties, null, 2));
   await mkdir(join(ROOT, 'data'), { recursive: true });
   await writeFile(hashesPath, JSON.stringify(newHashes, null, 2));
@@ -240,7 +241,7 @@ async function main() {
   const changedIds = [...added, ...updated, ...removed];
   const message = changedIds.length === 0
     ? 'sync: no changes'
-    : `sync: ${updated.length} updated, ${added.length} added, ${removed.length} removed — ${changedIds.join(' ')}`;
+    : `sync: ${updated.length} updated, ${added.length} added, ${removed.length} removed: ${changedIds.join(' ')}`;
 
   console.log(message);
   await writeFile(join(ROOT, '.sync-message'), message);
