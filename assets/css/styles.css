@@ -1246,7 +1246,7 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: var(--space-10);
-  align-items: start;
+  align-items: stretch;
 }
 
 @media (min-width: 900px) {
@@ -1256,15 +1256,23 @@ body {
 }
 
 /* Photo carousel */
+.listing-carousel-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .listing-carousel-wrap {
   position: relative;
   border-radius: var(--radius-card);
   overflow: hidden;
   background: var(--color-sand-light);
+  flex: 1;
+  min-height: 320px;
 }
 
 .listing-carousel {
   display: flex;
+  height: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -1281,7 +1289,7 @@ body {
 
 .listing-carousel__slide img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
   display: block;
 }
