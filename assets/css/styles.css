@@ -647,81 +647,55 @@ body {
 
 .property-card__footer {
   display: flex;
-  flex-direction: column;
-  padding: var(--space-4) var(--space-5) var(--space-5);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5);
   gap: var(--space-3);
   flex-grow: 1;
+  align-items: stretch;
 }
 
-.property-card__meta {
+.property-card__price-group {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
 }
 
 .property-card__name {
   font-size: 13px;
   font-weight: 500;
-  color: rgba(216, 199, 162, 0.70);
+  color: rgba(216, 199, 162, 0.80);
+  margin-bottom: var(--space-1);
   line-height: 1.4;
 }
 
-.property-card__acreage {
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(216, 199, 162, 0.50);
-  flex-shrink: 0;
-}
-
-.property-card__pricing {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(184, 109, 76, 0.18);
-  border: 1px solid rgba(184, 109, 76, 0.35);
-  border-radius: var(--radius-btn);
-  padding: var(--space-3) var(--space-4);
-  gap: var(--space-3);
-}
-
-.property-card__price-block {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
 .property-card__price {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 900;
-  letter-spacing: -0.5px;
+  letter-spacing: 0.04em;
   color: var(--color-white);
   line-height: 1;
 }
 
 .property-card__price-unit {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
-  color: rgba(216, 199, 162, 0.55);
+  color: rgba(216, 199, 162, 0.5);
   letter-spacing: 0;
-}
-
-.property-card__down {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-terra);
-  letter-spacing: 0.02em;
 }
 
 .property-card__cta {
   font-size: 13px;
   font-weight: 700;
-  padding: 8px 16px;
+  padding: 10px 18px;
   white-space: nowrap;
   flex-shrink: 0;
   background: var(--color-terra);
   color: var(--color-white);
   border-radius: var(--radius-btn);
   transition: background 0.15s;
+  align-self: center;
 }
 
 .property-card__cta:hover { background: var(--color-terra-dark); }

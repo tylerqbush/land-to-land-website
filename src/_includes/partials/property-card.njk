@@ -19,16 +19,10 @@
     </div>
   </a>
   <div class="property-card__footer">
-    <div class="property-card__meta">
+    <div class="property-card__price-group">
       <span class="property-card__name">{{ prop.county }} County, {{ prop.state }}</span>
-      <span class="property-card__acreage">{{ prop.acreage }} acres</span>
+      <span class="property-card__price">${{ prop.monthly }}<span class="property-card__price-unit">/mo</span></span>
     </div>
-    <div class="property-card__pricing">
-      <div class="property-card__price-block">
-        <span class="property-card__price">${{ prop.monthly }}<span class="property-card__price-unit">/mo</span></span>
-        {% if prop.down %}<span class="property-card__down">${{ prop.down }} down</span>{% endif %}
-      </div>
-      <a href="/property/{{ prop.slug }}/" class="property-card__cta">View</a>
-    </div>
+    <a href="/property/{{ prop.slug }}/" class="property-card__cta">Learn More</a>
   </div>
 </article>
