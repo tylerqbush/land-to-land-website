@@ -28,7 +28,7 @@ async function fetchAllRecords(pat) {
 
   do {
     const params = new URLSearchParams({
-      filterByFormula: '{Ready for Website}=TRUE',
+      filterByFormula: '{Ready for Website}=1',
       pageSize: '100',
     });
     if (offset) params.set('offset', offset);
