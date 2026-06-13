@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm, rename, unlink } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { createWriteStream } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -132,7 +132,14 @@ async function downloadPhoto(url, destPath) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Photo download failed ${res.status}: ${url}`);
   await mkdir(dirname(destPath), { recursive: true });
-  await pipeline(res.body, createWriteStream(destPath));
+  const tmp = `${destPath}.tmp`;
+  try {
+    await pipeline(res.body, createWriteStream(tmp));
+    await rename(tmp, destPath);
+  } catch (err) {
+    await unlink(tmp).catch(() => {});
+    throw err;
+  }
 }
 
 async function main() {
