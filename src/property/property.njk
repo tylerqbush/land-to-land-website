@@ -57,14 +57,16 @@ layout: base.njk
 {% if prop.photos.length > 1 %}
 <section class="section" style="padding-top:0;">
   <div class="container">
-    <div class="listing-photo-gallery">
-      {% for photo in prop.photos %}
-        {% if not loop.first %}
-          <a href="{{ photo }}" target="_blank" class="listing-photo-gallery__item">
-            <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.name }}" loading="lazy" width="1200" height="800">
-          </a>
-        {% endif %}
-      {% endfor %}
+    <div class="listing-photo-gallery-wrap">
+      <div class="listing-photo-gallery">
+        {% for photo in prop.photos %}
+          {% if not loop.first %}
+            <a href="{{ photo }}" target="_blank" class="listing-photo-gallery__item">
+              <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.name }}" loading="lazy" width="1200" height="800">
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
     </div>
   </div>
 </section>
