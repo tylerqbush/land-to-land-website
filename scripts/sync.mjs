@@ -93,7 +93,7 @@ function mapRecord(record, existingSlug) {
     doc_fee: f['Processing Fee'] ?? null,
     cash_price: f['Cash Purchase Price'] ?? null,
     geekpay_url: normalizeGeekpay(f['GeekPay Checkout URL']),
-    description: f['Web Description'] ?? '',
+    description: (() => { const d = f['Web Description']; if (!d) return ''; if (typeof d === 'string') return d; if (typeof d === 'object' && d.text) return d.text; return ''; })(),
     apn: f['Parcel Number (APN)'] ?? '',
     address: f['Street Address'] ?? '',
     google_maps_url: f['Google Maps Link'] ?? '',

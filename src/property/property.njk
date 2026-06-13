@@ -43,15 +43,15 @@ layout: base.njk
           <div class="listing-price__sub">
             <div class="listing-price__pill">
               <span class="listing-price__pill-label">Down</span>
-              <span class="listing-price__pill-value">${{ prop.down }}</span>
+              <span class="listing-price__pill-value">{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</span>
             </div>
             <div class="listing-price__pill">
               <span class="listing-price__pill-label">Doc Fee</span>
-              <span class="listing-price__pill-value">${{ prop.doc_fee }}</span>
+              <span class="listing-price__pill-value">{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</span>
             </div>
             <div class="listing-price__pill">
               <span class="listing-price__pill-label">Taxes/yr</span>
-              <span class="listing-price__pill-value">${{ prop.annual_taxes }}</span>
+              <span class="listing-price__pill-value">{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</span>
             </div>
           </div>
           {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
@@ -158,9 +158,9 @@ layout: base.njk
         <p class="financing-terms-card__label">Owner Financing</p>
         <table class="financing-table">
           <tr><td>Monthly Payment</td><td>${{ prop.monthly }}/mo{% if prop.term_months %} for {{ prop.term_months }} months{% endif %}</td></tr>
-          <tr><td>Down Payment</td><td>${{ prop.down }}</td></tr>
-          <tr><td>Document Fee</td><td>${{ prop.doc_fee }}</td></tr>
-          <tr><td>Annual Taxes</td><td>${{ prop.annual_taxes }}</td></tr>
+          <tr><td>Down Payment</td><td>{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</td></tr>
+          <tr><td>Document Fee</td><td>{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</td></tr>
+          <tr><td>Annual Taxes</td><td>{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</td></tr>
           <tr><td>Credit Check</td><td>None</td></tr>
           <tr><td>Bank Required</td><td>No</td></tr>
         </table>
