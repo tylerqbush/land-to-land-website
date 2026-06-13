@@ -229,8 +229,8 @@ body {
 }
 
 .badge-sold {
-  background: rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.65);
+  background: rgba(30, 30, 30, 0.82);
+  color: var(--color-white);
 }
 
 /* ─── NAV ─────────────────────────────────────────────── */
