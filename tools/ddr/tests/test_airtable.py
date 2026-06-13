@@ -70,3 +70,17 @@ def test_omits_size_field_when_size_empty(mock_post, mock_get):
 
     fields = mock_post.call_args[1]["json"]["fields"]
     assert at.F_SIZE not in fields
+
+
+@patch("airtable.requests.get")
+@patch("airtable.requests.patch")
+def test_raises_when_patch_fails(mock_patch, mock_get):
+    mock_get.return_value.raise_for_status = lambda: None
+    mock_get.return_value.json.return_value = {"records": [{"id": "recEXIST456"}]}
+    mock_patch.return_value = MagicMock(ok=False, status_code=400)
+    mock_patch.return_value.raise_for_status.side_effect = Exception("400 Bad Request")
+
+    import pytest
+    with patch.dict(os.environ, {"AIRTABLE_API_KEY": "test-key"}):
+        with pytest.raises(Exception, match="400 Bad Request"):
+            at.find_or_create_record("APN-001", "Luna", "NM")

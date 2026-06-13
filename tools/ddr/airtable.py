@@ -125,8 +125,11 @@ def find_or_create_record(apn, county, state, owner_name="",
 
     if records:
         record_id = records[0]["id"]
-        requests.patch(f"{API_URL}/{record_id}", headers=_headers(),
-                       json={"fields": fields_payload}, timeout=30)
+        resp = requests.patch(f"{API_URL}/{record_id}", headers=_headers(),
+                              json={"fields": fields_payload}, timeout=30)
+        if not resp.ok:
+            logger.error("Airtable PATCH failed %s: %s", resp.status_code, resp.text)
+        resp.raise_for_status()
     else:
         resp2 = requests.post(API_URL, headers=_headers(),
                               json={"fields": fields_payload}, timeout=30)
