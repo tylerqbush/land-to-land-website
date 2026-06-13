@@ -154,8 +154,7 @@ layout: base.njk
         ["Full-Time RV Living", prop.full_time_rv],
         ["RV While Building", prop.rv_while_build],
         ["Camping (RV)", prop.camping_rv],
-        ["Tent Camping", prop.tent_camping],
-        ["Flood Plain", prop.flood_plain]
+        ["Tent Camping", prop.tent_camping]
       ] %}
       {% for rule in rules %}
         <div class="rule-item">
@@ -169,6 +168,19 @@ layout: base.njk
           <span class="rule-item__label">{{ rule[0] }}</span>
         </div>
       {% endfor %}
+      {# Flood plain: inverted — "No" is the good answer #}
+      {% if prop.flood_plain %}
+        <div class="rule-item">
+          {% if prop.flood_plain == "No" %}
+            <span class="rule-item__check rule-item__check--yes">&#10003;</span>
+          {% elif prop.flood_plain == "Yes" %}
+            <span class="rule-item__check rule-item__check--no">&#10007;</span>
+          {% else %}
+            <span class="rule-item__check rule-item__check--maybe">?</span>
+          {% endif %}
+          <span class="rule-item__label">Not in Flood Plain</span>
+        </div>
+      {% endif %}
     </div>
   </div>
 </section>
