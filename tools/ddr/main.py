@@ -1,3 +1,4 @@
+import asyncio
 import os
 import logging
 import hmac
@@ -55,7 +56,7 @@ async def generate(
         record_id, record_url = find_or_create_record(
             apn, county, state, owner_name, size, subdivision, folder
         )
-        run_pipeline(record_id, test_mode=False)
+        await asyncio.to_thread(run_pipeline, record_id, test_mode=False)
         fields = at.get_record(record_id)
         pdf_url = fields.get(at.F_DRIVE_FOLDER_LINK, "")
         return JSONResponse({"status": "complete", "pdf_url": pdf_url,
