@@ -155,9 +155,18 @@ async function main() {
   // Phase 2: Diff
   console.log('Phase 2: Diffing against stored hashes...');
   const hashesPath = join(ROOT, 'data', 'hashes.json');
+  const propsPath = join(ROOT, 'src', '_data', 'properties.json');
+
   const storedHashes = existsSync(hashesPath)
     ? JSON.parse(await readFile(hashesPath, 'utf8'))
     : {};
+
+  // Load previous properties to preserve stable slugs by id
+  const existingSlugs = {};
+  if (existsSync(propsPath)) {
+    const prev = JSON.parse(await readFile(propsPath, 'utf8'));
+    for (const p of prev) existingSlugs[p.id] = p.slug;
+  }
 
   const fetchedMap = new Map();
   for (const record of publishable) {
@@ -202,7 +211,39 @@ async function main() {
     }
   }
 
-  console.log('  Photos synced');
+  // Phase 4: Write (both files written together — all-or-nothing)
+  console.log('Phase 4: Writing properties.json and hashes.json...');
+  const properties = [];
+  const newHashes = { ...storedHashes };
+
+  for (const [id, { content, photos, record }] of fetchedMap) {
+    const prop = mapRecord(record, existingSlugs[id]);
+    const attachments = record.fields['Photos'] ?? [];
+    prop.photos = attachments.map((_, i) => `/assets/properties/${id}/${i + 1}.jpg`);
+    properties.push(prop);
+    newHashes[id] = { content, photos };
+  }
+
+  for (const id of removed) {
+    delete newHashes[id];
+  }
+
+  // Sort by id for stable, readable diffs
+  properties.sort((a, b) => a.id.localeCompare(b.id));
+
+  await writeFile(propsPath, JSON.stringify(properties, null, 2));
+  await mkdir(join(ROOT, 'data'), { recursive: true });
+  await writeFile(hashesPath, JSON.stringify(newHashes, null, 2));
+  console.log(`  Wrote ${properties.length} properties`);
+
+  // Phase 5: Report
+  const changedIds = [...added, ...updated, ...removed];
+  const message = changedIds.length === 0
+    ? 'sync: no changes'
+    : `sync: ${updated.length} updated, ${added.length} added, ${removed.length} removed — ${changedIds.join(' ')}`;
+
+  console.log(message);
+  await writeFile(join(ROOT, '.sync-message'), message);
 }
 
 main().catch(err => {
