@@ -22,13 +22,6 @@ const ROOT = join(__dirname, '..');
 const BASE_ID = 'appE5El6Tgi6LS2Z6';
 const TABLE_ID = 'tblIXORnaELK4K4w8';
 
-// Property ID can be a formula that returns a comma-joined list when a record
-// has multiple linked parcels. Use only the first value.
-function extractId(raw) {
-  if (!raw) return null;
-  if (Array.isArray(raw)) return String(raw[0]).trim() || null;
-  return String(raw).split(',')[0].trim() || null;
-}
 
 async function fetchAllRecords(pat) {
   const records = [];
@@ -70,7 +63,7 @@ function validateRecord(id, f) {
 
 function mapRecord(record, existingSlug) {
   const f = record.fields;
-  const id = extractId(f['Property ID']);
+  const id = f['Product ID'] ?? null;
   if (!id) throw new Error(`Record has no Property ID: ${JSON.stringify(record.id)}`);
 
   validateRecord(id, f);
@@ -178,7 +171,7 @@ async function main() {
 
   const fetchedMap = new Map();
   for (const record of publishable) {
-    const id = extractId(record.fields['Property ID']);
+    const id = record.fields['Product ID'] ?? null;
     if (!id) continue;
     const photos = record.fields['Photos'] ?? [];
     const nonPhotoFields = { ...record.fields };
