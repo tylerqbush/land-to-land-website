@@ -157,26 +157,24 @@ layout: base.njk
         ["Tent Camping", prop.tent_camping]
       ] %}
       {% for rule in rules %}
-        <div class="rule-item">
-          {% if rule[1] == "Yes" %}
-            <span class="rule-item__check rule-item__check--yes">&#10003;</span>
-          {% elif rule[1] == "No" %}
-            <span class="rule-item__check rule-item__check--no">&#10007;</span>
-          {% else %}
-            <span class="rule-item__check rule-item__check--maybe">?</span>
-          {% endif %}
-          <span class="rule-item__label">{{ rule[0] }}</span>
-        </div>
+        {% if rule[1] == "Yes" or rule[1] == "No" %}
+          <div class="rule-item">
+            {% if rule[1] == "Yes" %}
+              <span class="rule-item__check rule-item__check--yes">&#10003;</span>
+            {% else %}
+              <span class="rule-item__check rule-item__check--no">&#10007;</span>
+            {% endif %}
+            <span class="rule-item__label">{{ rule[0] }}</span>
+          </div>
+        {% endif %}
       {% endfor %}
       {# Flood plain: inverted — "No" is the good answer #}
-      {% if prop.flood_plain %}
+      {% if prop.flood_plain == "Yes" or prop.flood_plain == "No" %}
         <div class="rule-item">
           {% if prop.flood_plain == "No" %}
             <span class="rule-item__check rule-item__check--yes">&#10003;</span>
-          {% elif prop.flood_plain == "Yes" %}
-            <span class="rule-item__check rule-item__check--no">&#10007;</span>
           {% else %}
-            <span class="rule-item__check rule-item__check--maybe">?</span>
+            <span class="rule-item__check rule-item__check--no">&#10007;</span>
           {% endif %}
           <span class="rule-item__label">Not in Flood Plain</span>
         </div>
@@ -215,15 +213,16 @@ layout: base.njk
   </div>
 </section>
 
-{# ── VIDEO PLACEHOLDER ── #}
+{% if prop.video_url %}
+{# ── VIDEO ── #}
 <section class="section">
   <div class="container" style="max-width:780px;">
-    <div style="aspect-ratio:16/9;background:var(--color-sand-light);border-radius:var(--radius-card);display:flex;align-items:center;justify-content:center;border:1px solid var(--color-border);">
-      <!-- PROPERTY VIDEO EMBED: replace with YouTube iframe or GHL video embed -->
-      <p style="color:var(--color-text-muted);font-size:13px;text-align:center;padding:var(--space-8);">Property video coming soon</p>
+    <div style="aspect-ratio:16/9;border-radius:var(--radius-card);overflow:hidden;">
+      <iframe src="{{ prop.video_url }}" width="100%" height="100%" style="border:0;display:block;width:100%;height:100%;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" title="Property video for {{ prop.name }}"></iframe>
     </div>
   </div>
 </section>
+{% endif %}
 
 {# ── DETAIL TABLE ── #}
 <section class="section section-off">
