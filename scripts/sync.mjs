@@ -62,31 +62,27 @@ function validateRecord(id, f) {
 }
 
 function generateDescription(f, acreage, city, county, state) {
-  const parts = [`${acreage}-acre property in ${city}, ${county} County, ${state}.`];
+  const areaContext = {
+    'Klamath': `This property is located in Klamath County, Oregon${city ? ` near ${city}` : ''}. You're in the high desert of southern Oregon, a wide-open landscape of ponderosa pines, sage flats, and big sky that sits close to Crater Lake and the Sprague River Valley.`,
+    'Luna': `This property is located in Luna County, New Mexico${city ? ` near ${city}` : ''}. The land sits in the Chihuahuan Desert at the foot of the Florida Mountains, with the kind of sweeping views and quiet solitude that's getting harder to find.`,
+    'Putnam': `This property is located in Putnam County, Florida${city ? ` near ${city}` : ''}. You're in the heart of north-central Florida, a laid-back stretch of lakes, longleaf pine, and Spanish moss that moves at its own pace.`,
+  };
 
-  if (f['Access'] === 'Yes') parts.push('Road access is available.');
+  const opener = areaContext[county] || `This property is located in ${county} County, ${state}${city ? ` near ${city}` : ''}.`;
+  const parts = [opener];
 
-  const buildable = [];
-  if (f['Single Family Homes Allowed?'] === 'Yes') buildable.push('single family homes');
-  if (f['Modular Homes Allowed?'] === 'Yes') buildable.push('modular homes');
-  if (f['Manufactured Homes Allowed?'] === 'Yes') buildable.push('manufactured homes');
-  if (f['Tiny Home Friendly?'] === 'Yes') buildable.push('tiny homes');
-  if (buildable.length) parts.push(`Zoning allows ${buildable.join(', ')}.`);
+  const terrain = (f['Terrain'] ?? '').trim();
+  const elevation = (f['Elevation'] ?? '').trim();
+  if (terrain && elevation) {
+    parts.push(`The terrain is ${terrain.toLowerCase()} at an elevation of ${elevation}.`);
+  } else if (terrain) {
+    parts.push(`The terrain is ${terrain.toLowerCase()}.`);
+  } else if (elevation) {
+    parts.push(`The property sits at an elevation of ${elevation}.`);
+  }
 
-  const camping = [];
-  if (f['Full-Time RV Living Allowed?'] === 'Yes') camping.push('full-time RV living');
-  if (f['RV Allowed on the Property While I Build?'] === 'Yes') camping.push('RV while building');
-  if (f['Camping in an RV Allowed?'] === 'Yes') camping.push('RV camping');
-  if (f['Tent Camping Allowed?'] === 'Yes') camping.push('tent camping');
-  if (camping.length) parts.push(`Allows ${camping.join(', ')}.`);
+  if (f['Access'] === 'Yes') parts.push('Road access is in place.');
 
-  const utilities = [];
-  if (f['Currently have electricity?'] === 'Yes') utilities.push('electricity on site');
-  if (f['Allowable to Drill a Well?'] === 'Yes') utilities.push('well drilling allowed');
-  if (f['Is it allowable to install a septic system?'] === 'Yes') utilities.push('septic allowed');
-  if (utilities.length) parts.push(utilities.join(', ').replace(/^./, c => c.toUpperCase()) + '.');
-
-  if (f['Time Limit to Build'] === 'None') parts.push('No time limit to build.');
   if (f['Zoning Designation']) parts.push(`Zoned ${f['Zoning Designation']}.`);
 
   return parts.join(' ');
