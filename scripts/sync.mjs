@@ -90,7 +90,7 @@ function generateDescription(f, acreage, city, county, state) {
 
 function mapRecord(record, existingSlug) {
   const f = record.fields;
-  const id = f['Product ID'] ?? null;
+  const id = f['Product ID'] != null ? String(f['Product ID']) : null;
   if (!id) throw new Error(`Record has no Property ID: ${JSON.stringify(record.id)}`);
 
   validateRecord(id, f);
@@ -198,7 +198,7 @@ async function main() {
 
   const fetchedMap = new Map();
   for (const record of publishable) {
-    const id = record.fields['Product ID'] ?? null;
+    const id = record.fields['Product ID'] != null ? String(record.fields['Product ID']) : null;
     if (!id) continue;
     const photos = record.fields['Photos'] ?? [];
     const nonPhotoFields = { ...record.fields };
