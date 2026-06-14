@@ -921,7 +921,7 @@ body {
 
 /* ─── MARKETS ─────────────────────────────────────────── */
 .markets-section {
-  background: var(--color-white);
+  background: var(--color-sand-light);
   padding: var(--space-24) 0;
 }
 
@@ -954,7 +954,7 @@ body {
   border-radius: var(--radius-card);
   overflow: hidden;
   position: relative;
-  cursor: pointer;
+  display: block;
   box-shadow: 0 4px 20px rgba(48, 75, 59, 0.12);
   transition: transform 0.25s, box-shadow 0.25s;
 }
@@ -965,17 +965,29 @@ body {
 }
 
 .market-card__photo {
-  height: 300px;
-  background-size: cover;
-  background-position: center;
   position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.market-card__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.market-card:hover .market-card__photo img {
+  transform: scale(1.04);
 }
 
 .market-card__photo::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(31, 51, 38, 0.93) 0%, rgba(31, 51, 38, 0.3) 55%, transparent 100%);
+  background: linear-gradient(to top, rgba(20, 38, 26, 0.92) 0%, rgba(20, 38, 26, 0.2) 50%, transparent 100%);
+  pointer-events: none;
 }
 
 .market-card__label {
@@ -1007,7 +1019,7 @@ body {
 
 .market-card__desc {
   font-size: 13px;
-  color: rgba(216, 199, 162, 0.65);
+  color: rgba(216, 199, 162, 0.75);
   line-height: 1.5;
 }
 
@@ -1934,62 +1946,6 @@ body::before {
 /* ─── MARKETS HORIZONTAL SCROLL ──────────────────────── */
 
 /* Mobile: normal vertical grid */
-.markets-section {
-  overflow: hidden;
-}
-
-.markets-section__intro {
-  padding-bottom: var(--space-10);
-}
-
-.markets-hscroll {
-  /* mobile: normal flow */
-}
-
-.markets-track {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-5);
-  padding: 0 var(--space-6) var(--space-20);
-}
-
-/* Desktop: horizontal scroll via GSAP */
-@media (min-width: 900px) {
-  .markets-hscroll {
-    overflow: hidden;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-
-  .markets-track {
-    display: flex;
-    grid-template-columns: none;
-    flex-wrap: nowrap;
-    gap: var(--space-6);
-    padding: var(--space-8) var(--space-10);
-    will-change: transform;
-    align-items: stretch;
-  }
-
-  .market-card {
-    width: 440px;
-    flex-shrink: 0;
-  }
-
-  .market-card__photo {
-    height: 62vh;
-  }
-
-  .markets-track__pad {
-    width: var(--space-10);
-    flex-shrink: 0;
-  }
-}
-
-/* On mobile the pad is hidden */
-.markets-track__pad { display: none; }
-@media (min-width: 900px) { .markets-track__pad { display: block; } }
 
 /* ── NAV PHONE NUMBER ─────────────────────────────────── */
 .site-nav__phone {
