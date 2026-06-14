@@ -172,10 +172,8 @@
   </div>
 
   <script>
-    // ── Config — set these before use ────────────────────────────────────────
-    const GITHUB_TOKEN = "";        // Personal access token with actions:write scope
-    const GITHUB_REPO  = "tylerqbush/land-to-land-website";
-    const GITHUB_WORKFLOW = "ddr.yml";
+    // ── Config ───────────────────────────────────────────────────────────────
+    const WORKER_URL = "https://ddr-dispatch.weathered-salad-3771.workers.dev";
     // ─────────────────────────────────────────────────────────────────────────
 
     const COUNTY_MAP = { NM: ["Luna"], OR: ["Klamath"], FL: ["Putnam"] };
@@ -221,37 +219,27 @@
 
       const fd = new FormData(this);
       try {
-        const resp = await fetch(
-          `https://api.github.com/repos/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW}/dispatches`,
-          {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${GITHUB_TOKEN}`,
-              "Accept": "application/vnd.github+json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              ref: "main",
-              inputs: {
-                apn:        fd.get("apn")        || "",
-                county:     fd.get("county")     || "",
-                state:      fd.get("state")      || "",
-                owner_name: fd.get("owner_name") || "",
-                size:       fd.get("size")       || "",
-                subdivision:fd.get("subdivision")|| "",
-              },
-            }),
-          }
-        );
+        const resp = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            apn:         fd.get("apn")         || "",
+            county:      fd.get("county")      || "",
+            state:       fd.get("state")       || "",
+            owner_name:  fd.get("owner_name")  || "",
+            size:        fd.get("size")        || "",
+            subdivision: fd.get("subdivision") || "",
+          }),
+        });
 
-        if (resp.status === 204) {
+        const json = await resp.json();
+        if (json.ok) {
           document.getElementById("success-title").textContent =
             "Pipeline submitted for " + fd.get("apn");
           showView("view-success");
         } else {
-          const text = await resp.text();
           document.getElementById("error-msg").textContent =
-            `GitHub API error ${resp.status}: ${text}`;
+            json.error || `Error ${resp.status}`;
           showView("view-error");
         }
       } catch (err) {
