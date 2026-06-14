@@ -89,3 +89,58 @@ def update_record(record_id: str, fields: dict) -> dict:
         logger.error("Airtable update failed %s: %s", resp.status_code, resp.text)
     resp.raise_for_status()
     return resp.json()
+
+
+def find_or_create_record(
+    apn: str,
+    county: str,
+    state: str,
+    owner_name: str = "",
+    size: str = "",
+    subdivision: str = "",
+    drive_folder_id: str = "",
+) -> tuple[str, str]:
+    """Find an existing record by APN or create a new one. Returns (record_id, record_url)."""
+    params = {"filterByFormula": f'({{{F_APN}}}="{apn}")'}
+    resp = requests.get(API_URL, headers=_headers(), params=params, timeout=30)
+    resp.raise_for_status()
+    records = resp.json().get("records", [])
+
+    fields_payload: dict = {
+        F_APN: apn,
+        F_STATE: state,
+        F_COUNTY: county,
+    }
+    if size:
+        try:
+            fields_payload[F_SIZE] = float(size)
+        except ValueError:
+            pass
+    if subdivision:
+        fields_payload[F_SUBDIVISION] = subdivision
+    if drive_folder_id:
+        fields_payload[F_DRIVE_FOLDER_ID] = drive_folder_id
+
+    if records:
+        record_id = records[0]["id"]
+        patch_resp = requests.patch(
+            f"{API_URL}/{record_id}",
+            headers=_headers(),
+            json={"fields": fields_payload},
+            timeout=30,
+        )
+        if not patch_resp.ok:
+            logger.error("Airtable PATCH failed %s: %s", patch_resp.status_code, patch_resp.text)
+        patch_resp.raise_for_status()
+    else:
+        post_resp = requests.post(
+            API_URL,
+            headers=_headers(),
+            json={"fields": fields_payload},
+            timeout=30,
+        )
+        post_resp.raise_for_status()
+        record_id = post_resp.json()["id"]
+
+    record_url = f"https://airtable.com/{BASE_ID}/{TABLE_ID}/{record_id}"
+    return record_id, record_url

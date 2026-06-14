@@ -1,0 +1,60 @@
+name: DDR Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      apn:
+        description: APN
+        required: true
+      county:
+        description: County
+        required: true
+      state:
+        description: State
+        required: true
+      owner_name:
+        description: Owner Name
+        required: false
+        default: ""
+      size:
+        description: Size (acres)
+        required: false
+        default: ""
+      subdivision:
+        description: Subdivision
+        required: false
+        default: ""
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          cd tools/ddr
+          pip install -r requirements.txt
+          playwright install chromium --with-deps
+
+      - name: Run DDR pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+        run: |
+          cd tools/ddr
+          python run_ddr.py \
+            --apn "${{ github.event.inputs.apn }}" \
+            --county "${{ github.event.inputs.county }}" \
+            --state "${{ github.event.inputs.state }}" \
+            --owner-name "${{ github.event.inputs.owner_name }}" \
+            --size "${{ github.event.inputs.size }}" \
+            --subdivision "${{ github.event.inputs.subdivision }}"

@@ -161,7 +161,7 @@ def run_pipeline(record_id: str, test_mode: bool = False) -> None:
     # ── Step 7 — Upload to Drive ──────────────────────────────────────────────
     pdf_url = ""
     logger.info("Step 7 — upload to Drive")
-    if pdf_bytes and folder_id and not test_mode:
+    if pdf_bytes and not test_mode:
         try:
             filename = f"Due_Diligence_Report_{prop_id}.pdf"
             pdf_url = upload_pdf(pdf_bytes, filename, folder_id)
@@ -169,8 +169,6 @@ def run_pipeline(record_id: str, test_mode: bool = False) -> None:
         except Exception as exc:
             logger.error("Step 7 failed: %s", exc)
             pipeline_errors.append(f"Step 7 (Drive upload): {exc}")
-    elif not folder_id:
-        logger.warning("Step 7 skipped — no Drive Folder ID on record")
     elif test_mode:
         logger.info("Step 7 skipped — test mode")
 

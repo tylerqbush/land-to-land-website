@@ -158,12 +158,8 @@
   <!-- Success view -->
   <div class="card" id="view-success" style="display:none">
     <div class="result-icon">&#10003;</div>
-    <div class="result-title success-title" id="success-title">Report complete</div>
-    <div class="result-sub">PDF saved to Drive and record updated in Airtable.</div>
-    <div class="btn-group">
-      <a href="#" class="btn-primary" id="pdf-link" target="_blank" rel="noopener">Download PDF</a>
-      <a href="#" class="btn-outline" id="airtable-link" target="_blank" rel="noopener">View in Airtable</a>
-    </div>
+    <div class="result-title success-title" id="success-title">Pipeline submitted</div>
+    <div class="result-sub">Running in GitHub Actions. Check your email and Airtable in 5-10 minutes for the completed report.</div>
     <button class="reset-link" onclick="location.reload()">Run another report</button>
   </div>
 
@@ -176,16 +172,13 @@
   </div>
 
   <script>
-    // ── Config — set these before deploying ──────────────────────────────────
-    const BACKEND_URL = "https://your-render-url.onrender.com";
-    const DEFAULT_DRIVE_FOLDER_ID = "";
+    // ── Config — set these before use ────────────────────────────────────────
+    const GITHUB_TOKEN = "";        // Personal access token with actions:write scope
+    const GITHUB_REPO  = "tylerqbush/land-to-land-website";
+    const GITHUB_WORKFLOW = "ddr.yml";
     // ─────────────────────────────────────────────────────────────────────────
 
     const COUNTY_MAP = { NM: ["Luna"], OR: ["Klamath"], FL: ["Putnam"] };
-
-    if (DEFAULT_DRIVE_FOLDER_ID) {
-      document.getElementById("drive_folder_id").value = DEFAULT_DRIVE_FOLDER_ID;
-    }
 
     document.getElementById("state").addEventListener("change", function () {
       const countyEl = document.getElementById("county");
@@ -202,7 +195,7 @@
       });
     }
 
-function validate() {
+    function validate() {
       let ok = true;
       [["state", "state-err"], ["county", "county-err"], ["apn", "apn-err"]].forEach(([fid, eid]) => {
         const el = document.getElementById(fid);
@@ -226,36 +219,47 @@ function validate() {
       showView("view-spinner");
       document.getElementById("submit-btn").disabled = true;
 
-      const warmupTimer = setTimeout(() => {
-        document.getElementById("warmup-msg").style.display = "block";
-      }, 40000);
-
+      const fd = new FormData(this);
       try {
-        const body = new URLSearchParams(new FormData(this)).toString();
-        const resp = await fetch(BACKEND_URL + "/generate", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body,
-        });
-        const json = await resp.json();
+        const resp = await fetch(
+          `https://api.github.com/repos/${GITHUB_REPO}/actions/workflows/${GITHUB_WORKFLOW}/dispatches`,
+          {
+            method: "POST",
+            headers: {
+              "Authorization": `Bearer ${GITHUB_TOKEN}`,
+              "Accept": "application/vnd.github+json",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              ref: "main",
+              inputs: {
+                apn:        fd.get("apn")        || "",
+                county:     fd.get("county")     || "",
+                state:      fd.get("state")      || "",
+                owner_name: fd.get("owner_name") || "",
+                size:       fd.get("size")       || "",
+                subdivision:fd.get("subdivision")|| "",
+              },
+            }),
+          }
+        );
 
-        if (resp.ok && json.status === "complete") {
+        if (resp.status === 204) {
           document.getElementById("success-title").textContent =
-            "Report complete for " + json.apn;
-          document.getElementById("pdf-link").href = json.pdf_url || "#";
-          document.getElementById("airtable-link").href = json.record_url || "#";
+            "Pipeline submitted for " + fd.get("apn");
           showView("view-success");
         } else {
+          const text = await resp.text();
           document.getElementById("error-msg").textContent =
-            json.message || "Unknown error. Check server logs.";
+            `GitHub API error ${resp.status}: ${text}`;
           showView("view-error");
         }
       } catch (err) {
         document.getElementById("error-msg").textContent =
-          err.message || "Network error. Is the backend running?";
+          err.message || "Network error.";
         showView("view-error");
       } finally {
-        clearTimeout(warmupTimer);
+        document.getElementById("submit-btn").disabled = false;
       }
     });
   </script>

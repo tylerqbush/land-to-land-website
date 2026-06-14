@@ -1,11 +1,19 @@
+import asyncio
 import os
 import logging
 import hmac
 
-from fastapi import FastAPI, Request, HTTPException, BackgroundTasks
+from fastapi import FastAPI, Request, HTTPException, BackgroundTasks, Form
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
+from dotenv import load_dotenv
 
+import airtable as at
+from airtable import find_or_create_record
 from pipeline import run_pipeline
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,7 +23,20 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="DDR Automation", version="1.0.0")
 
+_frontend_url = os.environ.get("FRONTEND_URL") or "*"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[_frontend_url],
+    allow_credentials=False,
+    allow_methods=["POST", "GET", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 WEBHOOK_SECRET = os.environ.get("WEBHOOK_SECRET", "")
+
+_static_dir = os.path.join(os.path.dirname(__file__), "static")
+if os.path.isdir(_static_dir):
+    app.mount("/static", StaticFiles(directory=_static_dir), name="static")
 
 
 def _verify_secret(provided: str) -> bool:
@@ -27,6 +48,32 @@ def _verify_secret(provided: str) -> bool:
 @app.get("/health")
 async def health():
     return {"status": "ok", "version": "1.0.0"}
+
+
+@app.post("/generate")
+async def generate(
+    apn: str = Form(...),
+    county: str = Form(...),
+    state: str = Form(...),
+    owner_name: str = Form(""),
+    size: str = Form(""),
+    subdivision: str = Form(""),
+    drive_folder_id: str = Form(""),
+):
+    try:
+        folder = drive_folder_id or os.environ.get("DEFAULT_DRIVE_FOLDER_ID", "")
+        record_id, record_url = find_or_create_record(
+            apn, county, state, owner_name, size, subdivision, folder
+        )
+        await asyncio.to_thread(run_pipeline, record_id, test_mode=False)
+        fields = at.get_record(record_id)
+        pdf_url = fields.get(at.F_DRIVE_FOLDER_LINK, "")
+        return JSONResponse(
+            {"status": "complete", "pdf_url": pdf_url, "record_url": record_url, "apn": apn}
+        )
+    except Exception as exc:
+        logger.exception("Pipeline failed for APN %s", apn)
+        return JSONResponse({"status": "error", "message": str(exc)}, status_code=500)
 
 
 @app.post("/webhook")
