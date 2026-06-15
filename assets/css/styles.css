@@ -240,6 +240,7 @@ body {
   top: 0;
   z-index: 100;
   border-bottom: 1px solid rgba(255,255,255,0.06);
+  transition: transform 0.3s ease;
 }
 
 .site-nav__inner {
@@ -1895,7 +1896,8 @@ body {
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
 
-.fade-up.visible {
+.fade-up.visible,
+.fade-up.fade-up--visible {
   opacity: 1;
   transform: translateY(0);
 }
