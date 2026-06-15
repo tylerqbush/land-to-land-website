@@ -401,6 +401,7 @@ body {
   color: var(--color-sand);
   margin-bottom: var(--space-6);
   max-width: 760px;
+  letter-spacing: 0.02em;
 }
 
 .hero__sub {
@@ -1373,7 +1374,7 @@ body {
 .listing-price__monthly {
   font-size: 56px;
   font-weight: 900;
-  letter-spacing: -3px;
+  letter-spacing: 0.04em;
   color: var(--color-white);
   line-height: 1;
   margin-bottom: var(--space-4);

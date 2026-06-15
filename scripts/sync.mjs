@@ -62,6 +62,20 @@ function validateRecord(id, f) {
   }
 }
 
+function toYouTubeEmbed(url) {
+  if (!url) return null;
+  const str = String(url).trim();
+  // Already an embed URL
+  if (str.includes('youtube.com/embed/')) return str;
+  // youtu.be/ID
+  const short = str.match(/youtu\.be\/([A-Za-z0-9_-]{11})/);
+  if (short) return `https://www.youtube.com/embed/${short[1]}`;
+  // youtube.com/watch?v=ID
+  const watch = str.match(/[?&]v=([A-Za-z0-9_-]{11})/);
+  if (watch) return `https://www.youtube.com/embed/${watch[1]}`;
+  return str;
+}
+
 function generateDescription(f, acreage, city, county, state) {
   const areaContext = {
     'Klamath': `This property is located in Klamath County, Oregon${city ? ` near ${city}` : ''}. You're in the high desert of southern Oregon, a wide-open landscape of ponderosa pines, sage flats, and big sky that sits close to Crater Lake and the Sprague River Valley.`,
@@ -149,7 +163,7 @@ function mapRecord(record, existingSlug) {
     propane: f['Propane Tanks Allowed?'] ?? '',
     gas: f['Currently have Gas?'] ?? '',
     road_access: f['Access'] ?? '',
-    video_url: f['Featured Video'] ?? null,
+    video_url: toYouTubeEmbed(f['Featured Video'] ?? null),
     photos: [],
     seo_title: f['SEO-Title:'] ?? '',
     seo_description: f['SEO-Meta Description:'] ?? '',
