@@ -18,25 +18,25 @@
 
 /* ─── DESIGN TOKENS ───────────────────────────────────── */
 :root {
-  /* Earthy palette */
-  --color-forest:       #304B3B;
-  --color-forest-dark:  #1F3326;
-  --color-forest-mid:   #3D5F4A;
-  --color-terra:        #B86D4C;
-  --color-terra-dark:   #9A5A3C;
-  --color-sage:         #6E8B5B;
-  --color-sage-light:   #8CAF73;
-  --color-teal:         #9EC0C2;
-  --color-sand:         #D8C7A2;
-  --color-sand-light:   #EDE4D2;
-  --color-sand-dark:    #C4AF87;
+  /* Brand palette — navy + lime green */
+  --color-forest:       #1F4C6B;
+  --color-forest-dark:  #163852;
+  --color-forest-mid:   #2A6090;
+  --color-terra:        #8BC83F;
+  --color-terra-dark:   #6FA832;
+  --color-sage:         #A8D464;
+  --color-sage-light:   #C5E89A;
+  --color-teal:         #7EB5D6;
+  --color-sand:         #D6E4EE;
+  --color-sand-light:   #EEF4F9;
+  --color-sand-dark:    #B8D0E0;
   --color-white:        #FFFFFF;
 
   /* Semantic */
-  --color-text-dark:    #1E2D1A;
-  --color-text-muted:   rgba(30, 45, 26, 0.72);
-  --color-border:       rgba(48, 75, 59, 0.12);
-  --color-border-light: rgba(48, 75, 59, 0.07);
+  --color-text-dark:    #0F2A3D;
+  --color-text-muted:   rgba(31, 76, 107, 0.65);
+  --color-border:       rgba(31, 76, 107, 0.12);
+  --color-border-light: rgba(31, 76, 107, 0.07);
 
   --font-family: 'DM Sans', system-ui, sans-serif;
 
