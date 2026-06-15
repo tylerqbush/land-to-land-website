@@ -18,25 +18,25 @@
 
 /* ─── DESIGN TOKENS ───────────────────────────────────── */
 :root {
-  /* Brand palette — navy + lime green */
-  --color-forest:       #1F4C6B;
-  --color-forest-dark:  #163852;
-  --color-forest-mid:   #2A6090;
+  /* Minimalist — black/white + lime green accent + navy secondary */
+  --color-forest:       #0A0A0A;
+  --color-forest-dark:  #000000;
+  --color-forest-mid:   #333333;
   --color-terra:        #8BC83F;
   --color-terra-dark:   #6FA832;
   --color-sage:         #A8D464;
   --color-sage-light:   #C5E89A;
-  --color-teal:         #7EB5D6;
-  --color-sand:         #D6E4EE;
-  --color-sand-light:   #EEF4F9;
-  --color-sand-dark:    #B8D0E0;
+  --color-teal:         #1F4C6B;
+  --color-sand:         #EFEFEF;
+  --color-sand-light:   #F8F8F8;
+  --color-sand-dark:    #DCDCDC;
   --color-white:        #FFFFFF;
 
   /* Semantic */
-  --color-text-dark:    #0F2A3D;
-  --color-text-muted:   rgba(31, 76, 107, 0.65);
-  --color-border:       rgba(31, 76, 107, 0.12);
-  --color-border-light: rgba(31, 76, 107, 0.07);
+  --color-text-dark:    #0A0A0A;
+  --color-text-muted:   rgba(10, 10, 10, 0.5);
+  --color-border:       rgba(0, 0, 0, 0.08);
+  --color-border-light: rgba(0, 0, 0, 0.05);
 
   --font-family: 'DM Sans', system-ui, sans-serif;
 
