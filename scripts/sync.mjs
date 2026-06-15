@@ -266,11 +266,7 @@ async function main() {
   }
 
   // Sort by id for stable, readable diffs
-  const statusOrder = { 'Active': 0, 'Under Contract': 1, 'Sold': 2 };
-  properties.sort((a, b) => {
-    const sDiff = (statusOrder[a.status] ?? 3) - (statusOrder[b.status] ?? 3);
-    return sDiff !== 0 ? sDiff : a.id.localeCompare(b.id);
-  });
+  properties.sort((a, b) => a.id.localeCompare(b.id));
 
   await mkdir(dirname(propsPath), { recursive: true });
   await writeFile(propsPath, JSON.stringify(properties, null, 2));

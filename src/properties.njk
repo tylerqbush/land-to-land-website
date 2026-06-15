@@ -31,10 +31,17 @@ description: "Browse available owner-financed land across Florida, New Mexico, a
       </select>
     </div>
 
-    {# Property card grid #}
+    {# Property card grid — Active first, then everything else #}
     <div class="card-grid" id="property-grid">
       {% for prop in properties %}
-        {% include "partials/property-card.njk" %}
+        {% if prop.status == "Active" %}
+          {% include "partials/property-card.njk" %}
+        {% endif %}
+      {% endfor %}
+      {% for prop in properties %}
+        {% if prop.status != "Active" %}
+          {% include "partials/property-card.njk" %}
+        {% endif %}
       {% endfor %}
     </div>
   </div>
