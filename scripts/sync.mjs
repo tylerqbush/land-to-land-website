@@ -4,6 +4,7 @@ import { createWriteStream } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
 import {
   generateSlug,
   parseAcreage,
@@ -162,7 +163,11 @@ async function downloadPhoto(url, destPath) {
   await mkdir(dirname(destPath), { recursive: true });
   const tmp = `${destPath}.tmp`;
   try {
-    await pipeline(res.body, createWriteStream(tmp));
+    const buf = Buffer.from(await res.arrayBuffer());
+    await sharp(buf)
+      .resize(1600, 1600, { fit: 'inside', withoutEnlargement: true })
+      .jpeg({ quality: 82, progressive: true })
+      .toFile(tmp);
     await rename(tmp, destPath);
   } catch (err) {
     await unlink(tmp).catch(() => {});
