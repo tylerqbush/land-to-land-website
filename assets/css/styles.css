@@ -147,13 +147,13 @@ body {
 
 .btn-secondary {
   background: transparent;
-  color: var(--color-sand);
-  border: 1.5px solid rgba(216, 199, 162, 0.45);
+  color: var(--color-white);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
 }
 
 .btn-secondary:hover {
-  border-color: var(--color-sand);
-  background: rgba(216, 199, 162, 0.08);
+  border-color: var(--color-white);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .btn-outline {
@@ -166,12 +166,12 @@ body {
 
 .btn-outline-sand {
   background: transparent;
-  color: var(--color-sand);
-  border: 1.5px solid rgba(216,199,162,0.4);
+  color: var(--color-white);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
 }
 
 .btn-outline-sand:hover {
-  border-color: var(--color-sand);
+  border-color: var(--color-white);
 }
 
 .btn-full { width: 100%; }
@@ -442,9 +442,9 @@ body {
   font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--color-teal);
-  background: rgba(158, 192, 194, 0.1);
-  border: 1px solid rgba(158, 192, 194, 0.25);
+  color: var(--color-terra);
+  background: rgba(139, 200, 63, 0.1);
+  border: 1px solid rgba(139, 200, 63, 0.35);
   padding: 6px 14px;
   border-radius: var(--radius-pill);
 }
@@ -560,7 +560,7 @@ body {
   gap: var(--space-5);
   align-items: flex-start;
   border: 1px solid var(--color-border-light);
-  box-shadow: 0 2px 12px rgba(48, 75, 59, 0.05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .philo-card__icon {
@@ -975,13 +975,13 @@ body {
   overflow: hidden;
   position: relative;
   display: block;
-  box-shadow: 0 4px 20px rgba(48, 75, 59, 0.12);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: transform 0.25s, box-shadow 0.25s;
 }
 
 .market-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(48, 75, 59, 0.2);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
 }
 
 .market-card__photo {
