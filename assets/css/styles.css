@@ -1728,10 +1728,15 @@ body {
   aspect-ratio: 16 / 9;
   border-radius: var(--radius-card);
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
   background-color: #000;
   cursor: pointer;
+}
+.yt-facade__thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .yt-facade__btn {
