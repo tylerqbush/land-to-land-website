@@ -253,11 +253,11 @@ body {
 
 /* ─── NAV ─────────────────────────────────────────────── */
 .site-nav {
-  background: var(--color-forest);
+  background: var(--color-white);
   position: sticky;
   top: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid var(--color-border);
   transition: transform 0.3s ease;
 }
 
@@ -277,7 +277,7 @@ body {
   gap: var(--space-3);
   font-size: 17px;
   font-weight: 800;
-  color: var(--color-sand);
+  color: var(--color-text-dark);
   letter-spacing: -0.3px;
   flex-shrink: 0;
 }
@@ -285,7 +285,7 @@ body {
 .site-nav__logo img {
   height: 30px;
   width: auto;
-  filter: brightness(0) saturate(100%) invert(85%) sepia(15%) saturate(500%) hue-rotate(10deg) brightness(105%);
+  filter: none;
 }
 
 .site-nav__links {
@@ -301,12 +301,12 @@ body {
 .site-nav__links a {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(216, 199, 162, 0.88);
+  color: var(--color-text-muted);
   transition: color 0.15s;
   letter-spacing: 0.1px;
 }
 
-.site-nav__links a:hover { color: var(--color-sand); }
+.site-nav__links a:hover { color: var(--color-text-dark); }
 
 .site-nav__cta {
   display: none;
