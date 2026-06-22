@@ -57,7 +57,23 @@
     ],
     "seo_title": "1.1 Acres in Apache County, Arizona – Owner Financing Available",
     "seo_description": "1.1 acres in Apache County, AZ. . Owner financing from $109.72/mo – no credit check required. View details and buy today.",
-    "seo_keywords": "land for sale apache county arizona, arizona land owner financing, cheap land arizona, vacant land apache az, 1.1 acres apache az"
+    "seo_keywords": "land for sale apache county arizona, arizona land owner financing, cheap land arizona, vacant land apache az, 1.1 acres apache az",
+    "buyer_persona": "RV retiree or remote worker seeking affordable, move-in-ready desert land with minimal monthly payments",
+    "narrative": "<p>This 1.1-acre parcel in Concho sits in Apache County where the county permits full-time RV living and RV living during construction. The dirt road access and desert terrain are straightforward, the flood plain risk is zero, and the monthly payment of $109.72 keeps carrying costs negligible. If you're looking for an affordable base in the Arizona high desert without the complexity of city utilities or zoning restrictions, this property gives you that runway at a price point that doesn't demand much.</p><p>The land supports both propane and septic systems, and solar is viable here, which means the infrastructure path is clear whether you're parking an RV long-term or planning something more permanent later. The county allows manufactured homes and tiny homes on this parcel, so your options aren't locked into one use. This is the kind of property that works as a simple, low-cost foothold in the Southwest, especially if you're willing to live lean and self-sufficient.</p>",
+    "narrative_bullets": [
+      {
+        "title": "RV-Ready County Permits",
+        "description": "Apache County permits full-time RV living and RV living while building on this land, so the legal use case is already there."
+      },
+      {
+        "title": "Minimal Monthly Obligation",
+        "description": "The monthly payment is $109.72, one of the lowest carrying costs you'll find for raw land."
+      },
+      {
+        "title": "Off-Grid Infrastructure Support",
+        "description": "Propane, septic, and solar viability are all in place, reducing the cost and complexity of utilities."
+      }
+    ]
   },
   {
     "id": "11",

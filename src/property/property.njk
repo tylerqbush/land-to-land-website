@@ -22,79 +22,145 @@ layout: base.njk
   </div>
 </div>
 
-{# ── INTRO: PHOTOS + DESCRIPTION + PRICING ── #}
-<section class="section">
+{# ── NARRATIVE: PHOTO GRID + "WHAT YOU'RE ACTUALLY GETTING" ── #}
+<section class="section listing-narrative-section">
   <div class="container">
-    <div class="listing-intro-grid">
+    <div class="listing-narrative-grid">
 
-      {# LEFT: photo carousel #}
-      <div class="listing-carousel-col">
-        <div class="listing-carousel-wrap" id="carousel-wrap">
-          <div class="listing-carousel" id="listing-carousel">
-            {% for photo in prop.photos %}
-              <a href="{{ photo }}" target="_blank" rel="noopener" class="listing-carousel__slide">
-                <img src="{{ photo }}" alt="Photo {{ loop.index }} of {{ prop.name }}" {% if loop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} width="1200" height="900">
-              </a>
+      {# LEFT: static photo grid #}
+      <div class="listing-photo-grid">
+        <a href="{{ prop.photos[0] }}" target="_blank" rel="noopener" class="listing-photo-grid__main">
+          <img src="{{ prop.photos[0] }}" alt="Main photo of {{ prop.name }}" fetchpriority="high" width="900" height="600">
+        </a>
+        {% if prop.photos.length > 1 %}
+        <div class="listing-photo-grid__thumbs">
+          <a href="{{ prop.photos[1] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb">
+            <img src="{{ prop.photos[1] }}" alt="Photo 2 of {{ prop.name }}" loading="lazy" width="480" height="320">
+          </a>
+          {% if prop.photos.length > 2 %}
+          <a href="{{ prop.photos[2] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb listing-photo-grid__thumb--more">
+            <img src="{{ prop.photos[2] }}" alt="Photo 3 of {{ prop.name }}" loading="lazy" width="480" height="320">
+            {% if prop.photos.length > 3 %}
+            <span class="listing-photo-grid__count">+{{ prop.photos.length - 3 }} more</span>
+            {% endif %}
+          </a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+
+      {# RIGHT: narrative + feature bullets #}
+      <div class="listing-narrative-col">
+        <p class="listing-eyebrow">Property at a Glance</p>
+        <h2 class="listing-narrative-heading">What You're Actually Getting</h2>
+
+        <div class="listing-narrative-body">
+          {% if prop.narrative %}
+            {{ prop.narrative | safe }}
+          {% else %}
+            <p>{{ prop.description }}</p>
+          {% endif %}
+        </div>
+
+        {# Feature bullets — use generated ones if available, else auto-derive #}
+        <ul class="listing-feature-bullets">
+          {% if prop.narrative_bullets %}
+            {% for b in prop.narrative_bullets %}
+            <li class="listing-feature-bullet">
+              <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div>
+                <strong>{{ b.title }}</strong>
+                <span>{{ b.description }}</span>
+              </div>
+            </li>
             {% endfor %}
-          </div>
-          {% if prop.photos.length > 1 %}
-            <button class="listing-carousel__btn listing-carousel__btn--prev" aria-label="Previous photo" onclick="listingCarouselScroll(-1)">&#8249;</button>
-            <button class="listing-carousel__btn listing-carousel__btn--next" aria-label="Next photo" onclick="listingCarouselScroll(1)">&#8250;</button>
-            <div class="listing-carousel__counter" id="carousel-counter">1 / {{ prop.photos.length }}</div>
+          {% else %}
+            {# Auto-derived bullets from property data #}
+            {% set bc = 0 %}
+
+            {% if bc < 3 and prop.flood_plain and 'no' in prop.flood_plain | lower %}
+              <li class="listing-feature-bullet">
+                <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10-4.5 10-10 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+                <div><strong>No Flood Zone</strong><span>This parcel sits in Flood Zone X. No flood insurance required.</span></div>
+              </li>
+              {% set bc = bc + 1 %}
+            {% endif %}
+
+            {% if bc < 3 and prop.elevation and prop.elevation | trim %}
+              <li class="listing-feature-bullet">
+                <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 20 9 4 15 14 19 10 21 20 3 20"/></svg>
+                <div><strong>Elevated Site</strong><span>Located at {{ prop.elevation | trim }}, well above surrounding terrain.</span></div>
+              </li>
+              {% set bc = bc + 1 %}
+            {% endif %}
+
+            {% if bc < 3 and prop.zoning and prop.zoning | trim and 'no zoning' not in prop.zoning | lower and 'no "zoning"' not in prop.zoning | lower %}
+              <li class="listing-feature-bullet">
+                <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+                <div><strong>Clear Zoning</strong><span>{{ prop.zoning | trim | truncate(80, true, "...") }}</span></div>
+              </li>
+              {% set bc = bc + 1 %}
+            {% endif %}
+
+            {% if bc < 3 and prop.full_time_rv and prop.full_time_rv | lower | truncate(3, false, "") == "yes" %}
+              <li class="listing-feature-bullet">
+                <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="8" width="15" height="10" rx="1"/><path d="M16 11h3l2 3H16v-3z"/><circle cx="5" cy="19" r="1.5"/><circle cx="13" cy="19" r="1.5"/></svg>
+                <div><strong>Full-Time RV Living Allowed</strong><span>Park your rig permanently. No time limits.</span></div>
+              </li>
+              {% set bc = bc + 1 %}
+            {% endif %}
+
+            {% if bc < 3 and (prop.single_family_allowed and prop.single_family_allowed | trim) or (prop.manufactured_allowed and prop.manufactured_allowed | lower | truncate(3, false, "") == "yes") %}
+              <li class="listing-feature-bullet">
+                <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/><path d="M9 21v-8h6v8"/></svg>
+                <div><strong>Build-Ready</strong><span>{% if prop.single_family_allowed and prop.single_family_allowed | trim %}Site-built homes permitted.{% endif %}{% if prop.manufactured_allowed and prop.manufactured_allowed | lower | truncate(3, false, "") == "yes" %} Manufactured homes also allowed.{% endif %}</span></div>
+              </li>
+              {% set bc = bc + 1 %}
+            {% endif %}
+
+            {% if bc < 3 and prop.solar and prop.solar | lower | truncate(3, false, "") == "yes" %}
+              <li class="listing-feature-bullet">
+                <svg class="listing-feature-bullet__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.78" y2="4.22"/></svg>
+                <div><strong>Solar-Ready</strong><span>Solar power is a viable energy option for this parcel.</span></div>
+              </li>
+              {% set bc = bc + 1 %}
+            {% endif %}
+
           {% endif %}
-        </div>
+        </ul>
+
       </div>
-
-      {# RIGHT: description + pricing #}
-      <div class="listing-info-col">
-        <p class="listing-section__heading mb-3">What You're Getting</p>
-        <p class="listing-desc mb-6">{{ prop.description }}</p>
-
-        <div class="listing-price-inline">
-          <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
-          {% if prop.term_months %}<p class="listing-price__term">for {{ prop.term_months }} months</p>{% endif %}
-          <div class="listing-price__sub">
-            <div class="listing-price__pill">
-              <span class="listing-price__pill-label">Down</span>
-              <span class="listing-price__pill-value">{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</span>
-            </div>
-            <div class="listing-price__pill">
-              <span class="listing-price__pill-label">Doc Fee</span>
-              <span class="listing-price__pill-value">{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</span>
-            </div>
-            <div class="listing-price__pill">
-              <span class="listing-price__pill-label">Taxes/yr</span>
-              <span class="listing-price__pill-value">{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</span>
-            </div>
-          </div>
-          {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-            <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
-          {% endif %}
-          <a href="#ask-question" class="btn btn-outline btn-full" style="border-color:rgba(255,255,255,0.3);color:var(--color-white);">Ask a Question</a>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-<script>
-  (function () {
-    var el = document.getElementById('listing-carousel');
-    var counter = document.getElementById('carousel-counter');
-    var total = el ? el.querySelectorAll('.listing-carousel__slide').length : 0;
-    function updateCounter() {
-      if (!counter || !el || total < 2) return;
-      var idx = Math.round(el.scrollLeft / el.offsetWidth) + 1;
-      counter.textContent = idx + ' / ' + total;
-    }
-    if (el) el.addEventListener('scroll', updateCounter, { passive: true });
-    window.listingCarouselScroll = function (dir) {
-      if (!el) return;
-      el.scrollBy({ left: dir * el.offsetWidth, behavior: 'smooth' });
-    };
-  })();
-</script>
+{# ── PRICING ── #}
+<section class="section listing-pricing-section">
+  <div class="container">
+    <div class="listing-price-inline">
+      <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
+      {% if prop.term_months %}<p class="listing-price__term">for {{ prop.term_months }} months</p>{% endif %}
+      <div class="listing-price__sub">
+        <div class="listing-price__pill">
+          <span class="listing-price__pill-label">Down</span>
+          <span class="listing-price__pill-value">{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</span>
+        </div>
+        <div class="listing-price__pill">
+          <span class="listing-price__pill-label">Doc Fee</span>
+          <span class="listing-price__pill-value">{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</span>
+        </div>
+        <div class="listing-price__pill">
+          <span class="listing-price__pill-label">Taxes/yr</span>
+          <span class="listing-price__pill-value">{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</span>
+        </div>
+      </div>
+      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+        <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
+      {% endif %}
+      <a href="#ask-question" class="btn btn-outline btn-full" style="border-color:rgba(255,255,255,0.3);color:var(--color-white);">Ask a Question</a>
+    </div>
+  </div>
+</section>
 
 {# ── LIFESTYLE ICONS ── #}
 <section class="lifestyle-section">
