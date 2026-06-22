@@ -38,7 +38,7 @@ layout: base.njk
             <img src="{{ prop.photos[1] }}" alt="Photo 2 of {{ prop.name }}" loading="lazy" width="480" height="320">
           </a>
           {% if prop.photos.length > 2 %}
-          <a href="{{ prop.photos[2] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb listing-photo-grid__thumb--more js-lightbox-trigger" data-photos="{{ prop.photos | dump | escape }}" data-index="2">
+          <a href="{{ prop.photos[2] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb listing-photo-grid__thumb--more js-lightbox-trigger" data-photos="{{ prop.photos | json }}" data-index="2">
             <img src="{{ prop.photos[2] }}" alt="Photo 3 of {{ prop.name }}" loading="lazy" width="480" height="320">
             {% if prop.photos.length > 3 %}
             <span class="listing-photo-grid__count">+{{ prop.photos.length - 3 }} more</span>
