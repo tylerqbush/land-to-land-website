@@ -29,10 +29,16 @@
       </div>
     </div>
     <div class="property-card__chips">
-      <span class="prop-chip">{{ prop.acreage }} ac</span>
       {% if prop.terrain %}<span class="prop-chip">{{ prop.terrain }}</span>{% endif %}
-      {% if prop.road_access %}<span class="prop-chip">{{ prop.road_access }} road</span>{% endif %}
-      {% if prop.down %}<span class="prop-chip">${{ prop.down }} down</span>{% endif %}
+      {% if prop.road_access and prop.road_access != "None" %}
+        <span class="prop-chip">Road access</span>
+      {% else %}
+        <span class="prop-chip prop-chip--no">No road access</span>
+      {% endif %}
+      {% set z = prop.zoning | trim if prop.zoning else "" %}
+      {% if z and z | lower != "no zoning" and "no" not in z | lower %}
+        <span class="prop-chip">{{ z | truncate(22, true, "") }}</span>
+      {% endif %}
     </div>
     <a href="/property/{{ prop.slug }}/" class="property-card__cta">View Details</a>
   </div>

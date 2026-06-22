@@ -722,6 +722,11 @@ body {
   white-space: nowrap;
 }
 
+.prop-chip--no {
+  color: var(--color-text-muted);
+  background: transparent;
+}
+
 /* ── CTA button */
 .property-card__cta {
   display: block;
