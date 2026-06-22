@@ -1,9 +1,9 @@
 (function () {
   'use strict';
 
-  var trigger = document.querySelector('.js-lightbox-trigger');
+  var triggers = document.querySelectorAll('.js-lightbox-trigger');
   var modal = document.getElementById('photo-lightbox');
-  if (!trigger || !modal) return;
+  if (!triggers.length || !modal) return;
 
   var imgEl = modal.querySelector('.lightbox-img');
   var captionEl = modal.querySelector('.lightbox-caption');
@@ -42,16 +42,18 @@
     render();
   }
 
-  trigger.addEventListener('click', function (e) {
-    var photoList;
-    try {
-      photoList = JSON.parse(trigger.getAttribute('data-photos'));
-    } catch (err) {
-      return; // malformed data, let the link's default href behavior proceed
-    }
-    e.preventDefault();
-    var startIndex = parseInt(trigger.getAttribute('data-index'), 10);
-    open(startIndex, photoList);
+  triggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function (e) {
+      var photoList;
+      try {
+        photoList = JSON.parse(trigger.getAttribute('data-photos'));
+      } catch (err) {
+        return; // malformed data, let the link's default href behavior proceed
+      }
+      e.preventDefault();
+      var startIndex = parseInt(trigger.getAttribute('data-index'), 10);
+      open(startIndex, photoList);
+    });
   });
 
   closeBtn.addEventListener('click', close);

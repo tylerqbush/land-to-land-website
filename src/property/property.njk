@@ -29,12 +29,12 @@ layout: base.njk
 
       {# LEFT: static photo grid #}
       <div class="listing-photo-grid">
-        <a href="{{ prop.photos[0] }}" target="_blank" rel="noopener" class="listing-photo-grid__main">
+        <a href="{{ prop.photos[0] }}" target="_blank" rel="noopener" class="listing-photo-grid__main js-lightbox-trigger" data-photos="{{ prop.photos | json }}" data-index="0">
           <img src="{{ prop.photos[0] }}" alt="Main photo of {{ prop.name }}" fetchpriority="high" width="900" height="600">
         </a>
         {% if prop.photos.length > 1 %}
         <div class="listing-photo-grid__thumbs">
-          <a href="{{ prop.photos[1] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb">
+          <a href="{{ prop.photos[1] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb js-lightbox-trigger" data-photos="{{ prop.photos | json }}" data-index="1">
             <img src="{{ prop.photos[1] }}" alt="Photo 2 of {{ prop.name }}" loading="lazy" width="480" height="320">
           </a>
           {% if prop.photos.length > 2 %}

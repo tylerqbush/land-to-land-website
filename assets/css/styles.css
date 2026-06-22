@@ -2367,6 +2367,9 @@ body::before {
   color: var(--color-white);
   cursor: pointer;
   padding: var(--space-2);
+  min-width: 44px;
+  min-height: 44px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2378,6 +2381,15 @@ body::before {
 .lightbox-prev:hover,
 .lightbox-next:hover {
   opacity: 1;
+}
+
+.lightbox-close:focus-visible,
+.lightbox-prev:focus-visible,
+.lightbox-next:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+  border-radius: var(--radius-btn);
 }
 
 .lightbox-close {
@@ -2398,10 +2410,6 @@ body::before {
 }
 
 @media (max-width: 640px) {
-  .lightbox-prev,
-  .lightbox-next {
-    padding: var(--space-1);
-  }
   .lightbox-close {
     top: var(--space-4);
     right: var(--space-4);
