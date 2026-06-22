@@ -43,8 +43,13 @@
   }
 
   trigger.addEventListener('click', function (e) {
+    var photoList;
+    try {
+      photoList = JSON.parse(trigger.getAttribute('data-photos'));
+    } catch (err) {
+      return; // malformed data, let the link's default href behavior proceed
+    }
     e.preventDefault();
-    var photoList = JSON.parse(trigger.getAttribute('data-photos'));
     var startIndex = parseInt(trigger.getAttribute('data-index'), 10);
     open(startIndex, photoList);
   });
