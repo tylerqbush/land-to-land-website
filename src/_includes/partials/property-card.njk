@@ -13,16 +13,27 @@
     <div class="property-card__badge">
       <span class="badge badge-{{ prop.status | lower | replace(' ', '-') | replace('under-contract', 'contract') }}">{{ "Available" if (prop.status | trim) == "Active" else (prop.status | trim) }}</span>
     </div>
-    <div class="property-card__overlay">
-      <p class="property-card__acres">{{ prop.acreage }}</p>
-      <p class="property-card__location">{{ prop.county }}, {{ prop.state }}</p>
-    </div>
   </a>
-  <div class="property-card__footer">
-    <div class="property-card__price-group">
-      <span class="property-card__name">{{ prop.county }} County, {{ prop.state }}</span>
-      <span class="property-card__price">${{ prop.monthly }}<span class="property-card__price-unit">/mo</span></span>
+  <div class="property-card__body">
+    <div class="property-card__header">
+      <div class="property-card__title-group">
+        <h3 class="property-card__title">{{ prop.acreage }} Acres</h3>
+        <p class="property-card__loc">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          {{ prop.county }} County, {{ prop.state }}
+        </p>
+      </div>
+      <div class="property-card__price-block">
+        <span class="property-card__price">${{ prop.monthly }}</span>
+        <span class="property-card__price-unit">/mo</span>
+      </div>
     </div>
-    <a href="/property/{{ prop.slug }}/" class="property-card__cta">Learn More</a>
+    <div class="property-card__chips">
+      <span class="prop-chip">{{ prop.acreage }} ac</span>
+      {% if prop.terrain %}<span class="prop-chip">{{ prop.terrain }}</span>{% endif %}
+      {% if prop.road_access %}<span class="prop-chip">{{ prop.road_access }} road</span>{% endif %}
+      {% if prop.down %}<span class="prop-chip">${{ prop.down }} down</span>{% endif %}
+    </div>
+    <a href="/property/{{ prop.slug }}/" class="property-card__cta">View Details</a>
   </div>
 </article>
