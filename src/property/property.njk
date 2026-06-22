@@ -38,7 +38,7 @@ layout: base.njk
             <img src="{{ prop.photos[1] }}" alt="Photo 2 of {{ prop.name }}" loading="lazy" width="480" height="320">
           </a>
           {% if prop.photos.length > 2 %}
-          <a href="{{ prop.photos[2] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb listing-photo-grid__thumb--more">
+          <a href="{{ prop.photos[2] }}" target="_blank" rel="noopener" class="listing-photo-grid__thumb listing-photo-grid__thumb--more js-lightbox-trigger" data-photos="{{ prop.photos | dump | escape }}" data-index="2">
             <img src="{{ prop.photos[2] }}" alt="Photo 3 of {{ prop.name }}" loading="lazy" width="480" height="320">
             {% if prop.photos.length > 3 %}
             <span class="listing-photo-grid__count">+{{ prop.photos.length - 3 }} more</span>
@@ -47,6 +47,23 @@ layout: base.njk
           {% endif %}
         </div>
         {% endif %}
+      </div>
+
+      {# Lightbox modal — hidden by default, populated by assets/js/lightbox.js #}
+      <div id="photo-lightbox" class="lightbox-overlay" hidden>
+        <button type="button" class="lightbox-close" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+        <button type="button" class="lightbox-prev" aria-label="Previous photo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="lightbox-next" aria-label="Next photo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <figure class="lightbox-figure">
+          <img class="lightbox-img" src="" alt="">
+          <figcaption class="lightbox-caption"></figcaption>
+        </figure>
       </div>
 
       {# RIGHT: narrative + feature bullets #}
@@ -408,3 +425,5 @@ layout: base.njk
     </div>
   </div>
 </section>
+
+<script src="/assets/js/lightbox.js" defer></script>
