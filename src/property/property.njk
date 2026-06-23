@@ -179,55 +179,21 @@ layout: base.njk
   </div>
 </section>
 
-{# ── LIFESTYLE ICONS ── #}
+{# ── LIFESTYLE: WHY BUYERS CHOOSE THIS MARKET ── #}
+{% set market = marketLifestyle.markets[prop.state] or marketLifestyle.fallback %}
 <section class="lifestyle-section">
   <div class="container">
     <p class="listing-eyebrow text-center">Quick Look</p>
-    <h2 class="lifestyle-section__heading">What You Can Do With This Land</h2>
-    <p class="lifestyle-section__subtext">Based on this property's actual zoning and access data.</p>
+    <h2 class="lifestyle-section__heading">{{ market.heading }}</h2>
+    <p class="lifestyle-section__subtext">{{ market.subtext }}</p>
     <div class="lifestyle-row">
-      {% if prop.road_access == "Yes" %}
+      {% for item in market.items %}
       <div class="lifestyle-item">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 26L16 6l12 20H4z"/><line x1="16" y1="6" x2="16" y2="14"/></svg>
-        <span>Road Access</span>
-        <p>Dirt or paved road access to the property.</p>
+        {{ marketLifestyle.icons[item.icon] | safe }}
+        <span>{{ item.title }}</span>
+        <p>{{ item.description }}</p>
       </div>
-      {% endif %}
-      {% if prop.single_family_allowed == "Yes" %}
-      <div class="lifestyle-item">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14L16 4l12 10v14H20v-8h-8v8H4V14z"/></svg>
-        <span>Buildable</span>
-        <p>Single family homes are permitted on this lot.</p>
-      </div>
-      {% endif %}
-      {% if prop.rv_while_build == "Yes" or prop.camping_rv == "Yes" %}
-      <div class="lifestyle-item">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="12" width="22" height="12" rx="2"/><path d="M24 16h4l2 4h-6v-4z"/><circle cx="7" cy="26" r="2"/><circle cx="19" cy="26" r="2"/><path d="M6 12V8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v4"/></svg>
-        <span>RV Friendly</span>
-        <p>RV living while building or full-time is allowed.</p>
-      </div>
-      {% endif %}
-      {% if prop.tent_camping == "Yes" %}
-      <div class="lifestyle-item">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 26L16 6l14 20H2z"/><path d="M10 26l6-10 6 10"/></svg>
-        <span>Camping OK</span>
-        <p>Tent camping is permitted on this property.</p>
-      </div>
-      {% endif %}
-      {% if prop.manufactured_allowed == "Yes" %}
-      <div class="lifestyle-item">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="10" width="28" height="14" rx="2"/><circle cx="8" cy="26" r="2"/><circle cx="24" cy="26" r="2"/><path d="M8 10V8h16v2"/></svg>
-        <span>Mobile Home OK</span>
-        <p>Manufactured and mobile homes are allowed.</p>
-      </div>
-      {% endif %}
-      {% if prop.time_limit_to_build == "None" %}
-      <div class="lifestyle-item">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="16" cy="16" r="12"/><path d="M16 8v8l-4 4"/></svg>
-        <span>No Time Limit</span>
-        <p>No deadline to begin or finish construction.</p>
-      </div>
-      {% endif %}
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -366,6 +332,7 @@ layout: base.njk
           <tr><td>Dimensions</td><td>{{ prop.lot_dimensions }}</td></tr>
           <tr><td>Terrain</td><td>{{ prop.terrain }}</td></tr>
           <tr><td>Elevation</td><td>{{ prop.elevation }}</td></tr>
+          <tr><td>Road Access</td><td>{{ prop.road_access }}</td></tr>
         </table>
       </div>
       <div>
