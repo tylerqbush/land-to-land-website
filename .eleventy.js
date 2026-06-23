@@ -17,6 +17,12 @@ export default function (eleventyConfig) {
     return Math.max(1, Math.round(words / 200));
   });
 
+  // Comma-formatted number, e.g. 15998 -> "15,998"
+  eleventyConfig.addFilter("numberFormat", (value) => {
+    if (value == null) return "";
+    return Number(value).toLocaleString("en-US");
+  });
+
   // Collection of non-paginated pages only (workaround for plugin/Eleventy v3 incompatibility
   // where pagination templateContent is accessed too early by @quasibit/eleventy-plugin-sitemap)
   eleventyConfig.addCollection("sitemapPages", (collectionApi) => {

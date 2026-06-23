@@ -151,34 +151,6 @@ layout: base.njk
   </div>
 </section>
 
-{# ── PRICING ── #}
-<section class="section listing-pricing-section">
-  <div class="container">
-    <div class="listing-price-inline">
-      <p class="listing-price__monthly">${{ prop.monthly }}<span>/mo</span></p>
-      {% if prop.term_months %}<p class="listing-price__term">for {{ prop.term_months }} months</p>{% endif %}
-      <div class="listing-price__sub">
-        <div class="listing-price__pill">
-          <span class="listing-price__pill-label">Down</span>
-          <span class="listing-price__pill-value">{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</span>
-        </div>
-        <div class="listing-price__pill">
-          <span class="listing-price__pill-label">Doc Fee</span>
-          <span class="listing-price__pill-value">{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</span>
-        </div>
-        <div class="listing-price__pill">
-          <span class="listing-price__pill-label">Taxes/yr</span>
-          <span class="listing-price__pill-value">{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</span>
-        </div>
-      </div>
-      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-        <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
-      {% endif %}
-      <a href="#ask-question" class="btn btn-outline btn-full" style="border-color:rgba(255,255,255,0.3);color:var(--color-white);">Ask a Question</a>
-    </div>
-  </div>
-</section>
-
 {# ── LIFESTYLE: WHY BUYERS CHOOSE THIS MARKET ── #}
 {% set market = marketLifestyle.markets[prop.state] or marketLifestyle.fallback %}
 <section class="lifestyle-section">
@@ -194,6 +166,49 @@ layout: base.njk
         <p>{{ item.description }}</p>
       </div>
       {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# ── FINANCING OPTIONS ── #}
+<section class="financing-section">
+  <div class="container">
+    <p class="eyebrow mb-2 text-center" style="color:rgba(255,255,255,0.5);">No Banks. No Credit Check.</p>
+    <h2 class="heading-md mb-8 text-center" style="color:var(--color-white);">Financing Options</h2>
+    <div class="financing-grid">
+      <div class="financing-cash-card">
+        <div class="financing-card__label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v12M9 9.5c0-1.1 1.3-2 3-2s3 .9 3 2-1.3 2-3 2-3 .9-3 2 1.3 2 3 2 3-.9 3-2"/></svg>
+          <span>Cash Price</span>
+        </div>
+        {% if prop.cash_price %}
+          <p class="financing-cash-card__price">${{ prop.cash_price | numberFormat }}</p>
+          <p class="financing-cash-card__note">One-time payment, no interest.</p>
+        {% else %}
+          <p class="financing-cash-card__price" style="font-size:20px;line-height:1.4;">We accept all reasonable cash offers.</p>
+          <p class="financing-cash-card__note">Contact us to discuss pricing.</p>
+        {% endif %}
+      </div>
+      <div class="financing-terms-card">
+        <div class="financing-card__label">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          <span>Owner Financing</span>
+        </div>
+        <table class="financing-table">
+          <tr><td>Down Payment</td><td>{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</td></tr>
+          <tr><td>Monthly Payment</td><td class="financing-table__highlight">${{ prop.monthly }}/mo</td></tr>
+          {% if prop.term_months %}<tr><td>Term</td><td>{{ prop.term_months }} months</td></tr>{% endif %}
+          <tr><td>Doc Fee</td><td>{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</td></tr>
+        </table>
+        <p class="financing-terms-card__note">0% interest. No credit check required.</p>
+      </div>
+    </div>
+    <div class="text-center mt-8">
+      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+        <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Secure This Property &rarr;</a>
+      {% else %}
+        <a href="#ask-question" class="btn btn-primary">Ask a Question</a>
+      {% endif %}
     </div>
   </div>
 </section>
@@ -237,36 +252,6 @@ layout: base.njk
           <span class="rule-item__label">Not in Flood Plain</span>
         </div>
       {% endif %}
-    </div>
-  </div>
-</section>
-
-{# ── FINANCING OPTIONS ── #}
-<section class="financing-section">
-  <div class="container">
-    <p class="eyebrow mb-2" style="color:rgba(255,255,255,0.5);">No Banks. No Credit Check.</p>
-    <h2 class="heading-md mb-6" style="color:var(--color-white);">Financing Options</h2>
-    <div class="financing-grid">
-      <div class="financing-cash-card">
-        <p class="financing-cash-card__label">Cash Offer?</p>
-        <p class="financing-cash-card__price" style="font-size:22px;line-height:1.3;">We accept all reasonable cash offers.</p>
-        <p style="font-size:14px;color:rgba(255,255,255,0.6);margin:var(--space-3) 0 var(--space-4);">Contact us to discuss pricing.</p>
-        <a href="#ask-question" class="btn btn-primary btn-full mt-4">Get in Touch</a>
-      </div>
-      <div class="financing-terms-card">
-        <p class="financing-terms-card__label">Owner Financing</p>
-        <table class="financing-table">
-          <tr><td>Monthly Payment</td><td>${{ prop.monthly }}/mo{% if prop.term_months %} for {{ prop.term_months }} months{% endif %}</td></tr>
-          <tr><td>Down Payment</td><td>{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</td></tr>
-          <tr><td>Document Fee</td><td>{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</td></tr>
-          <tr><td>Annual Taxes</td><td>{% if prop.annual_taxes %}${{ prop.annual_taxes }}{% else %}TBD{% endif %}</td></tr>
-          <tr><td>Credit Check</td><td>None</td></tr>
-          <tr><td>Bank Required</td><td>No</td></tr>
-        </table>
-        {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
-          <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy mt-4" style="display:block;">Reserve This Property &rarr;</a>
-        {% endif %}
-      </div>
     </div>
   </div>
 </section>
