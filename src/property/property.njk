@@ -170,6 +170,24 @@ layout: base.njk
   </div>
 </section>
 
+{# ── RULES & ZONING ── #}
+<section class="section rules-section">
+  <div class="container">
+    <h2 class="heading-md mb-2 text-center">Property Rules &amp; Zoning</h2>
+    <p class="rules-section__zoning text-center mb-8">Zoning: <strong>{{ prop.zoning | zoningDisplay }}</strong></p>
+    <div class="rules-grid">
+      {% for callout in prop | zoningCallouts %}
+        <div class="rule-item">
+          <span class="rule-item__check rule-item__check--yes">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+          <span class="rule-item__label">{{ callout }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 {# ── FINANCING OPTIONS ── #}
 <section class="financing-section">
   <div class="container">
@@ -208,49 +226,6 @@ layout: base.njk
         <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Secure This Property &rarr;</a>
       {% else %}
         <a href="#ask-question" class="btn btn-primary">Ask a Question</a>
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{# ── RULES & ZONING ── #}
-<section class="section section-off">
-  <div class="container">
-    <p class="eyebrow mb-2" style="color:var(--color-terra);">Allowable Uses</p>
-    <h2 class="heading-md mb-6">Property Rules &amp; Zoning</h2>
-    <div class="rules-grid">
-      {% set rules = [
-        ["Single Family Home", prop.single_family_allowed],
-        ["Modular Home", prop.modular_allowed],
-        ["Manufactured Home", prop.manufactured_allowed],
-        ["Tiny Home", prop.tiny_home_friendly],
-        ["Full-Time RV Living", prop.full_time_rv],
-        ["RV While Building", prop.rv_while_build],
-        ["Camping (RV)", prop.camping_rv],
-        ["Tent Camping", prop.tent_camping]
-      ] %}
-      {% for rule in rules %}
-        {% if rule[1] == "Yes" or rule[1] == "No" %}
-          <div class="rule-item">
-            {% if rule[1] == "Yes" %}
-              <span class="rule-item__check rule-item__check--yes">&#10003;</span>
-            {% else %}
-              <span class="rule-item__check rule-item__check--no">&#10007;</span>
-            {% endif %}
-            <span class="rule-item__label">{{ rule[0] }}</span>
-          </div>
-        {% endif %}
-      {% endfor %}
-      {# Flood plain: inverted — "No" is the good answer #}
-      {% if prop.flood_plain == "Yes" or prop.flood_plain == "No" %}
-        <div class="rule-item">
-          {% if prop.flood_plain == "No" %}
-            <span class="rule-item__check rule-item__check--yes">&#10003;</span>
-          {% else %}
-            <span class="rule-item__check rule-item__check--no">&#10007;</span>
-          {% endif %}
-          <span class="rule-item__label">Not in Flood Plain</span>
-        </div>
       {% endif %}
     </div>
   </div>

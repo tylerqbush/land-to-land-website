@@ -1690,23 +1690,39 @@ body {
   margin: 0;
 }
 
-/* Rules grid */
+/* Rules & Zoning section */
+.rules-section {
+  background: var(--color-sand-light);
+}
+
+.rules-section__zoning {
+  color: var(--color-text-muted);
+  font-size: 15px;
+}
+
+.rules-section__zoning strong {
+  color: var(--color-text-dark);
+}
+
 .rules-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2) var(--space-8);
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  max-width: 760px;
+  margin: 0 auto;
 }
 
 @media (min-width: 640px) {
-  .rules-grid { grid-template-columns: repeat(3, 1fr); }
+  .rules-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .rule-item {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--color-border-light);
+  padding: var(--space-4);
+  background: var(--color-white);
+  border-radius: var(--radius-card);
   font-size: 14px;
 }
 
@@ -1723,8 +1739,6 @@ body {
 }
 
 .rule-item__check--yes { background: rgba(110,139,91,0.15); color: var(--color-sage); }
-.rule-item__check--no  { background: rgba(200,63,63,0.1); color: #a33; }
-.rule-item__check--maybe { background: var(--color-border-light); color: var(--color-text-muted); }
 .rule-item__label { color: var(--color-text-dark); font-weight: 500; }
 
 /* Financing section on detail pages */
