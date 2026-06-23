@@ -208,11 +208,23 @@ async function main() {
     ? JSON.parse(await readFile(hashesPath, 'utf8'))
     : {};
 
-  // Load previous properties to preserve stable slugs by id
+  // Load previous properties to preserve stable slugs and generated
+  // narrative content by id (these fields don't come from Airtable,
+  // so a fresh mapRecord() call would otherwise drop them on every sync)
   const existingSlugs = {};
+  const existingNarratives = {};
   if (existsSync(propsPath)) {
     const prev = JSON.parse(await readFile(propsPath, 'utf8'));
-    for (const p of prev) existingSlugs[p.id] = p.slug;
+    for (const p of prev) {
+      existingSlugs[p.id] = p.slug;
+      if (p.narrative) {
+        existingNarratives[p.id] = {
+          narrative: p.narrative,
+          narrative_bullets: p.narrative_bullets,
+          buyer_persona: p.buyer_persona,
+        };
+      }
+    }
   }
 
   const fetchedMap = new Map();
@@ -275,6 +287,9 @@ async function main() {
     }
     const attachments = record.fields['Photos'] ?? [];
     prop.photos = attachments.map((_, i) => `/assets/properties/${id}/${i + 1}.jpg`);
+    if (existingNarratives[id]) {
+      Object.assign(prop, existingNarratives[id]);
+    }
     properties.push(prop);
     newHashes[id] = { content, photos };
   }
