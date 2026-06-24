@@ -296,7 +296,8 @@ layout: base.njk
         <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
         <p class="specs-section__cta-note">Secure, encrypted checkout via GeekPay.io</p>
       {% else %}
-        <a href="#ask-question" class="btn btn-primary">Ask a Question</a>
+        <a href="mailto:info@landtolandholdings.com?subject={{ ('Payment link request: ' + prop.name) | urlencode }}" class="btn-buy">Request Payment Link &rarr;</a>
+        <p class="specs-section__cta-note">We'll email you a secure payment link.</p>
       {% endif %}
     </div>
 
