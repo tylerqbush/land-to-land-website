@@ -7,6 +7,7 @@ import {
   parseGPS,
   normalizeStatus,
   isPublishable,
+  showBuyButton,
   contentHash,
   photoHash,
   normalizeGeekpay,
@@ -92,6 +93,26 @@ test('isPublishable: Due Diligence is rejected', () => {
 });
 test('isPublishable: Acquisition Closing with trailing space is rejected', () => {
   assert.ok(!isPublishable('Acquisition Closing '));
+});
+
+// ── showBuyButton ─────────────────────────────────────────
+test('showBuyButton: Active with geekpay_url shows the button', () => {
+  assert.ok(showBuyButton({ status: 'Active', geekpay_url: 'https://checkout.geekpay.com/x' }));
+});
+test('showBuyButton: Active with trailing-space status and geekpay_url shows the button', () => {
+  assert.ok(showBuyButton({ status: 'Active ', geekpay_url: 'https://checkout.geekpay.com/x' }));
+});
+test('showBuyButton: Active with no geekpay_url does not show the button', () => {
+  assert.ok(!showBuyButton({ status: 'Active', geekpay_url: null }));
+});
+test('showBuyButton: Under Contract with geekpay_url does not show the button', () => {
+  assert.ok(!showBuyButton({ status: 'Under Contract', geekpay_url: 'https://checkout.geekpay.com/x' }));
+});
+test('showBuyButton: Sold with geekpay_url does not show the button', () => {
+  assert.ok(!showBuyButton({ status: 'Sold', geekpay_url: 'https://checkout.geekpay.com/x' }));
+});
+test('showBuyButton: missing status does not show the button', () => {
+  assert.ok(!showBuyButton({ geekpay_url: 'https://checkout.geekpay.com/x' }));
 });
 
 // ── contentHash ───────────────────────────────────────────

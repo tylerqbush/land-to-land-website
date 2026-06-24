@@ -1,4 +1,5 @@
 import pluginSitemap from "@quasibit/eleventy-plugin-sitemap";
+import { showBuyButton } from "./scripts/lib/utils.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
@@ -10,6 +11,11 @@ export default function (eleventyConfig) {
 
   // Make properties available on window for the map page
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
+
+  // Whether to show the GeekPay buy button vs. a contact fallback.
+  // Logic lives in scripts/lib/utils.mjs so it has direct unit tests
+  // independent of build output (see tests/sync.test.mjs).
+  eleventyConfig.addFilter("showBuyButton", showBuyButton);
 
   // Reading time filter for blog posts
   eleventyConfig.addFilter("readingTime", (content) => {

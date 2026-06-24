@@ -222,7 +222,7 @@ layout: base.njk
       </div>
     </div>
     <div class="text-center mt-8">
-      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+      {% if prop | showBuyButton %}
         <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Secure This Property &rarr;</a>
       {% else %}
         <a href="#ask-question" class="btn btn-primary">Ask a Question</a>
@@ -292,7 +292,7 @@ layout: base.njk
     </div>
 
     <div class="text-center mt-8 mb-8">
-      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+      {% if prop | showBuyButton %}
         <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
         <p class="specs-section__cta-note">Secure, encrypted checkout via GeekPay.io</p>
       {% else %}

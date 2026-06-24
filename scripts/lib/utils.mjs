@@ -33,6 +33,15 @@ export function isPublishable(status) {
   return PUBLISHABLE.has(normalizeStatus(status));
 }
 
+// Used by both property.njk CTAs (hero/pricing block, Full Specs card)
+// to decide whether to show the GeekPay buy button or fall back to a
+// contact link. Pulled out as a pure function so it has direct test
+// coverage independent of whatever properties currently exist in
+// Airtable (geekpay_url may be null for every real property at once).
+export function showBuyButton(prop) {
+  return Boolean(prop && prop.geekpay_url) && normalizeStatus(prop && prop.status) === 'Active';
+}
+
 export function contentHash(obj) {
   const sorted = JSON.stringify(obj, (_, v) =>
     v !== null && typeof v === 'object' && !Array.isArray(v)
