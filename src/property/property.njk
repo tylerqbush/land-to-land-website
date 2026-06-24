@@ -261,16 +261,16 @@ layout: base.njk
 {% endif %}
 
 {# ── DETAIL TABLE ── #}
-<section class="section section-off">
+<section class="section specs-section">
   <div class="container">
-    <p class="eyebrow mb-2" style="color:var(--color-terra);">Full Specs</p>
-    <h2 class="heading-md mb-6">For the Detail Oriented</h2>
-    <p style="font-size:14px;color:var(--color-text-muted);margin-bottom:var(--space-6);max-width:640px;">We know that detail-oriented buyers want the full picture. That's why we've included every bit of information we have about this property. If you have questions, reach out and we'll do our best to help.</p>
+    <p class="eyebrow mb-2 text-center" style="color:var(--color-terra);">Full Specs</p>
+    <h2 class="heading-md mb-4 text-center">For the Detail Oriented</h2>
+    <p class="specs-section__intro">We know that detail-oriented buyers want the full picture. That's why we've included every bit of information we have about this property. If you have questions, reach out and we'll do our best to help.</p>
 
-    <div class="disclaimer mb-6">READ THIS: We are not the Planning and Zoning department and while we try to answer common questions about what the property can be used for, we can't provide a yes or no answer for every circumstance. Land to Land Holdings LLC or its affiliates make no warranty or guarantee, either expressed or implied relative to usability, the exact location, desirability, or usefulness of the properties. Buyer is solely responsible for determining the condition of the property. All information is deemed reliable but not guaranteed. Buyer is required to complete their own due diligence prior to purchasing.</div>
+    <div class="disclaimer mb-8">READ THIS: We are not the Planning and Zoning department and while we try to answer common questions about what the property can be used for, we can't provide a yes or no answer for every circumstance. Land to Land Holdings LLC or its affiliates make no warranty or guarantee, either expressed or implied relative to usability, the exact location, desirability, or usefulness of the properties. Buyer is solely responsible for determining the condition of the property. All information is deemed reliable but not guaranteed. Buyer is required to complete their own due diligence prior to purchasing.</div>
 
     <div class="detail-grid">
-      <div>
+      <div class="spec-card">
         <p class="detail-group__heading">Location</p>
         <table class="listing-table">
           <tr><td>Property ID</td><td>{{ prop.id }}</td></tr>
@@ -278,16 +278,14 @@ layout: base.njk
           <tr><td>City</td><td>{{ prop.city }}</td></tr>
           <tr><td>County</td><td>{{ prop.county }}</td></tr>
           <tr><td>State</td><td>{{ prop.state }}</td></tr>
-          <tr><td>GPS</td><td>{{ prop.gps }}</td></tr>
-          <tr><td>Google Maps</td><td><a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-forest);font-weight:700;">Open &rarr;</a></td></tr>
         </table>
       </div>
-      <div>
+      <div class="spec-card">
         <p class="detail-group__heading">Property</p>
         <table class="listing-table">
           <tr><td>APN</td><td>{{ prop.apn }}</td></tr>
           {% if prop.subdivision %}<tr><td>Subdivision</td><td>{{ prop.subdivision }}</td></tr>{% endif %}
-          <tr><td>Zoning</td><td>{{ prop.zoning }}</td></tr>
+          <tr><td>Zoning</td><td>{{ prop.zoning | zoningDisplay }}</td></tr>
           <tr><td>Acreage</td><td>{{ prop.acreage_display }}</td></tr>
           <tr><td>Dimensions</td><td>{{ prop.lot_dimensions }}</td></tr>
           <tr><td>Terrain</td><td>{{ prop.terrain }}</td></tr>
@@ -295,7 +293,7 @@ layout: base.njk
           <tr><td>Road Access</td><td>{{ prop.road_access }}</td></tr>
         </table>
       </div>
-      <div>
+      <div class="spec-card">
         <p class="detail-group__heading">Utilities</p>
         <table class="listing-table">
           <tr><td>Water/Well</td><td>{{ prop.well }}</td></tr>
@@ -306,7 +304,7 @@ layout: base.njk
           <tr><td>Gas</td><td>{{ prop.gas }}</td></tr>
         </table>
       </div>
-      <div>
+      <div class="spec-card">
         <p class="detail-group__heading">Building</p>
         <table class="listing-table">
           <tr><td>Time Limit to Build</td><td>{{ prop.time_limit_to_build }}</td></tr>
@@ -319,6 +317,26 @@ layout: base.njk
         </table>
       </div>
     </div>
+
+    <div class="text-center mt-8 mb-8">
+      {% if prop.geekpay_url and (prop.status | trim) == "Active" %}
+        <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
+        <p class="specs-section__cta-note">Secure, encrypted checkout via GeekPay.io</p>
+      {% else %}
+        <a href="#ask-question" class="btn btn-primary">Ask a Question</a>
+      {% endif %}
+    </div>
+
+    {% if prop.lat and prop.lng %}
+    <div class="spec-card">
+      <p class="detail-group__heading">GPS Coordinates</p>
+      <table class="listing-table">
+        <tr><td>Decimal</td><td>{{ prop.lat }}, {{ prop.lng }}</td></tr>
+        <tr><td>DMS</td><td>{{ prop.lat | dms(prop.lng) }}</td></tr>
+        <tr><td>Google Maps</td><td><a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-forest);font-weight:700;">Open &rarr;</a></td></tr>
+      </table>
+    </div>
+    {% endif %}
   </div>
 </section>
 

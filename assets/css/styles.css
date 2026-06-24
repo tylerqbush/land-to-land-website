@@ -1842,6 +1842,24 @@ body {
 }
 
 /* Detail tables */
+.specs-section {
+  background: var(--color-sand-light);
+}
+
+.specs-section__intro {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  max-width: 640px;
+  margin: 0 auto var(--space-6);
+  text-align: center;
+}
+
+.specs-section__cta-note {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: var(--space-3);
+}
+
 .detail-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1852,15 +1870,22 @@ body {
   .detail-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+.spec-card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+}
+
+.spec-card + .spec-card { margin-top: var(--space-6); }
+
 .detail-group__heading {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  letter-spacing: -0.01em;
   margin-bottom: var(--space-3);
-  padding-bottom: var(--space-2);
-  border-bottom: 2px solid var(--color-terra);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .listing-table {
@@ -1872,7 +1897,7 @@ body {
 .listing-table tr:last-child { border-bottom: none; }
 
 .listing-table td {
-  padding: var(--space-2) 0;
+  padding: var(--space-3) 0;
   font-size: 14px;
   vertical-align: top;
 }
@@ -1885,7 +1910,7 @@ body {
 
 .listing-table td:last-child {
   color: var(--color-text-dark);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .listing-photo-break {
@@ -1901,7 +1926,7 @@ body {
 
 /* ─── DISCLAIMER ──────────────────────────────────────── */
 .disclaimer {
-  background: var(--color-sand-light);
+  background: var(--color-white);
   border-left: 3px solid var(--color-terra);
   border-radius: 0 var(--radius-card) var(--radius-card) 0;
   padding: var(--space-4) var(--space-6);

@@ -23,6 +23,24 @@ export default function (eleventyConfig) {
     return Number(value).toLocaleString("en-US");
   });
 
+  // Converts the property's decimal lat/lng (the only GPS data we have
+  // from Airtable, a single center point) into degrees-minutes-seconds
+  // format. This is a derived display format of real data, not a new
+  // fact — we do not have, and do not invent, corner-point coordinates.
+  eleventyConfig.addFilter("dms", (lat, lng) => {
+    if (lat == null || lng == null) return "";
+    const toDMS = (deg, posDir, negDir) => {
+      const dir = deg >= 0 ? posDir : negDir;
+      const abs = Math.abs(deg);
+      const d = Math.floor(abs);
+      const minFloat = (abs - d) * 60;
+      const m = Math.floor(minFloat);
+      const s = ((minFloat - m) * 60).toFixed(2);
+      return `${d}°${m}'${s}"${dir}`;
+    };
+    return `${toDMS(lat, "N", "S")}, ${toDMS(lng, "E", "W")}`;
+  });
+
   // Cleans up messy Airtable zoning strings for display next to the
   // "Property Rules & Zoning" heading. Airtable has values like
   // 'According to the county, There is no "ZONING"' alongside clean
