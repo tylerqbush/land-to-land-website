@@ -269,51 +269,24 @@ layout: base.njk
 
     <div class="disclaimer mb-8">READ THIS: We are not the Planning and Zoning department and while we try to answer common questions about what the property can be used for, we can't provide a yes or no answer for every circumstance. Land to Land Holdings LLC or its affiliates make no warranty or guarantee, either expressed or implied relative to usability, the exact location, desirability, or usefulness of the properties. Buyer is solely responsible for determining the condition of the property. All information is deemed reliable but not guaranteed. Buyer is required to complete their own due diligence prior to purchasing.</div>
 
-    <div class="detail-grid">
-      <div class="spec-card">
-        <p class="detail-group__heading">Location</p>
+    <div class="spec-card">
+      <p class="detail-group__heading">Property Specifications</p>
+      <div class="spec-card__cols">
         <table class="listing-table">
-          <tr><td>Property ID</td><td>{{ prop.id }}</td></tr>
-          <tr><td>Address</td><td>{{ prop.address }}</td></tr>
-          <tr><td>City</td><td>{{ prop.city }}</td></tr>
-          <tr><td>County</td><td>{{ prop.county }}</td></tr>
-          <tr><td>State</td><td>{{ prop.state }}</td></tr>
+          <tr><td>County</td><td>{{ prop.county }}, {{ prop.state }}</td></tr>
+          <tr><td>APN</td><td>{% if prop.apn %}{{ prop.apn }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>Terrain</td><td>{% if prop.terrain %}{{ prop.terrain }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>Access Road</td><td>{% if prop.road_access %}{{ prop.road_access }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>Sewer/Septic</td><td>{% if prop.septic_required %}{{ prop.septic_required }}{% elif prop.septic %}{{ prop.septic }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>Gas</td><td>{% if prop.gas and prop.gas != "Unknown" %}{{ prop.gas }}{% elif prop.propane %}{{ prop.propane }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>HOA / Fees</td><td>None</td></tr>
         </table>
-      </div>
-      <div class="spec-card">
-        <p class="detail-group__heading">Property</p>
         <table class="listing-table">
-          <tr><td>APN</td><td>{{ prop.apn }}</td></tr>
-          {% if prop.subdivision %}<tr><td>Subdivision</td><td>{{ prop.subdivision }}</td></tr>{% endif %}
           <tr><td>Zoning</td><td>{{ prop.zoning | zoningDisplay }}</td></tr>
-          <tr><td>Acreage</td><td>{{ prop.acreage_display }}</td></tr>
-          <tr><td>Dimensions</td><td>{{ prop.lot_dimensions }}</td></tr>
-          <tr><td>Terrain</td><td>{{ prop.terrain }}</td></tr>
-          <tr><td>Elevation</td><td>{{ prop.elevation }}</td></tr>
-          <tr><td>Road Access</td><td>{{ prop.road_access }}</td></tr>
-        </table>
-      </div>
-      <div class="spec-card">
-        <p class="detail-group__heading">Utilities</p>
-        <table class="listing-table">
-          <tr><td>Water/Well</td><td>{{ prop.well }}</td></tr>
-          <tr><td>Sewer/Septic</td><td>{{ prop.septic }}</td></tr>
-          <tr><td>Electricity</td><td>{{ prop.electricity }}</td></tr>
-          <tr><td>Solar</td><td>{{ prop.solar }}</td></tr>
-          <tr><td>Propane</td><td>{{ prop.propane }}</td></tr>
-          <tr><td>Gas</td><td>{{ prop.gas }}</td></tr>
-        </table>
-      </div>
-      <div class="spec-card">
-        <p class="detail-group__heading">Building</p>
-        <table class="listing-table">
-          <tr><td>Time Limit to Build</td><td>{{ prop.time_limit_to_build }}</td></tr>
-          <tr><td>Single Family</td><td>{{ prop.single_family_allowed }}</td></tr>
-          <tr><td>Modular</td><td>{{ prop.modular_allowed }}</td></tr>
-          <tr><td>Manufactured</td><td>{{ prop.manufactured_allowed }}</td></tr>
-          <tr><td>Tiny Home</td><td>{{ prop.tiny_home_friendly }}</td></tr>
-          <tr><td>Septic Required</td><td>{{ prop.septic_required }}</td></tr>
-          <tr><td>Flood Plain</td><td>{{ prop.flood_plain }}</td></tr>
+          <tr><td>Acreage</td><td>{{ prop.acreage }} Acres</td></tr>
+          <tr><td>Elevation</td><td>{% if prop.elevation %}{{ prop.elevation }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>Water</td><td>{% if prop.well %}{{ prop.well }}{% else %}Not specified{% endif %}</td></tr>
+          <tr><td>Electric</td><td>{% if prop.electricity %}{{ prop.electricity }}{% else %}Not specified{% endif %}</td></tr>
         </table>
       </div>
     </div>

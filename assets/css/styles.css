@@ -1860,14 +1860,14 @@ body {
   margin-top: var(--space-3);
 }
 
-.detail-grid {
+.spec-card__cols {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-6);
+  gap: 0 var(--space-8);
 }
 
 @media (min-width: 640px) {
-  .detail-grid { grid-template-columns: repeat(2, 1fr); }
+  .spec-card__cols { grid-template-columns: repeat(2, 1fr); }
 }
 
 .spec-card {
