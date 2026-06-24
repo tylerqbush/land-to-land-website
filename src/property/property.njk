@@ -313,10 +313,21 @@ layout: base.njk
   </div>
 </section>
 
-{# ── FULL-BLEED PHOTO BREAK (auto-cycles through all photos via assets/js/photo-slider.js; no-JS fallback is just the first photo, static) ── #}
+{# ── FULL-BLEED PHOTO BREAK (auto-slides through all photos via assets/js/photo-slider.js; no-JS fallback is just the first photo, static) ── #}
 {% if prop.photos[0] %}
 <div class="listing-photo-break photo-slider" data-photos="{{ prop.photos | json }}">
-  <img src="{{ prop.photos[0] }}" alt="{{ prop.name }}" loading="lazy">
+  <div class="photo-slider__track">
+    {% for photo in prop.photos %}
+    <img src="{{ photo }}" alt="{{ prop.name }}" loading="lazy" class="photo-slider__img">
+    {% endfor %}
+  </div>
+  {% if prop.photos.length > 1 %}
+  <div class="photo-slider__dots">
+    {% for photo in prop.photos %}
+    <span class="photo-slider__dot{% if loop.index0 == 0 %} photo-slider__dot--active{% endif %}"></span>
+    {% endfor %}
+  </div>
+  {% endif %}
 </div>
 {% endif %}
 
