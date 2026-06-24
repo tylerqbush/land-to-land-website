@@ -313,9 +313,9 @@ layout: base.njk
   </div>
 </section>
 
-{# ── FULL-BLEED PHOTO BREAK ── #}
+{# ── FULL-BLEED PHOTO BREAK (auto-cycles through all photos via assets/js/photo-slider.js; no-JS fallback is just the first photo, static) ── #}
 {% if prop.photos[0] %}
-<div class="listing-photo-break">
+<div class="listing-photo-break photo-slider" data-photos="{{ prop.photos | json }}">
   <img src="{{ prop.photos[0] }}" alt="{{ prop.name }}" loading="lazy">
 </div>
 {% endif %}
@@ -354,3 +354,4 @@ layout: base.njk
 </section>
 
 <script src="/assets/js/lightbox.js" defer></script>
+<script src="/assets/js/photo-slider.js" defer></script>
