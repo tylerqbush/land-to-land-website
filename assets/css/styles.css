@@ -74,6 +74,7 @@ body {
   line-height: 1.65;
   color: var(--color-text-dark);
   background: var(--color-white);
+  padding-top: 96px;
 }
 
 /* ─── TYPOGRAPHY ──────────────────────────────────────── */
@@ -253,11 +254,14 @@ body {
 
 /* ─── NAV ─────────────────────────────────────────────── */
 .site-nav {
-  background: var(--color-forest);
-  position: sticky;
-  top: 0;
+  position: fixed;
+  top: var(--space-4);
+  left: 0;
+  right: 0;
   z-index: 100;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--space-4);
   transition: transform 0.3s ease;
 }
 
@@ -265,10 +269,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-6);
-  height: 68px;
-  max-width: 1120px;
-  margin: 0 auto;
+  gap: var(--space-6);
+  background: var(--color-white);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-5);
+  height: 60px;
+  max-width: 1100px;
+  width: 100%;
 }
 
 .site-nav__logo {
@@ -277,7 +285,7 @@ body {
   gap: var(--space-3);
   font-size: 17px;
   font-weight: 800;
-  color: var(--color-white);
+  color: var(--color-text-dark);
   letter-spacing: -0.3px;
   flex-shrink: 0;
 }
@@ -285,12 +293,11 @@ body {
 .site-nav__logo img {
   height: 30px;
   width: auto;
-  filter: brightness(0) invert(1);
 }
 
 .site-nav__links {
   display: none;
-  gap: var(--space-8);
+  gap: var(--space-6);
   align-items: center;
 }
 
@@ -300,13 +307,13 @@ body {
 
 .site-nav__links a {
   font-size: 14px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
+  font-weight: 600;
+  color: var(--color-text-dark);
   transition: color 0.15s;
   letter-spacing: 0.1px;
 }
 
-.site-nav__links a:hover { color: var(--color-white); }
+.site-nav__links a:hover { color: var(--color-terra-dark); }
 
 .site-nav__cta {
   display: none;
@@ -314,8 +321,8 @@ body {
   color: var(--color-white);
   font-size: 13px;
   font-weight: 700;
-  padding: 10px 20px;
-  border-radius: var(--radius-btn);
+  padding: 10px 22px;
+  border-radius: var(--radius-pill);
   letter-spacing: 0.1px;
   transition: background 0.15s;
   white-space: nowrap;
@@ -345,7 +352,7 @@ body {
   display: block;
   width: 22px;
   height: 2px;
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--color-text-dark);
   border-radius: 2px;
   transition: opacity 0.15s;
 }
@@ -353,10 +360,16 @@ body {
 .site-nav__drawer {
   display: none;
   flex-direction: column;
-  background: var(--color-forest-dark);
+  position: fixed;
+  top: 84px;
+  left: var(--space-4);
+  right: var(--space-4);
+  z-index: 99;
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
   padding: var(--space-4) var(--space-6);
   gap: var(--space-4);
-  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .site-nav__drawer.open { display: flex; }
@@ -364,9 +377,9 @@ body {
 .site-nav__drawer a {
   font-size: 16px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--color-text-dark);
   padding: var(--space-2) 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .site-nav__drawer a:last-child { border-bottom: none; }
@@ -380,6 +393,7 @@ body {
   justify-content: flex-end;
   overflow: hidden;
   background: var(--color-forest-dark);
+  margin-top: -96px;
 }
 
 .hero__bg {
@@ -1258,6 +1272,7 @@ body {
   position: relative;
   height: clamp(340px, 55vw, 540px);
   overflow: hidden;
+  margin-top: -96px;
 }
 
 .listing-hero__img {
@@ -2301,18 +2316,6 @@ body::before {
 
 /* Mobile: normal vertical grid */
 
-/* ── NAV PHONE NUMBER ─────────────────────────────────── */
-.site-nav__phone {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
-  transition: color 0.2s;
-  display: none;
-}
-.site-nav__phone:hover { color: var(--color-white); }
-@media (min-width: 900px) { .site-nav__phone { display: block; } }
 
 /* ── WHO IS THIS FOR ──────────────────────────────────── */
 .for-section {
