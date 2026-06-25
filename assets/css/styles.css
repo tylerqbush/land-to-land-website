@@ -262,7 +262,15 @@ body {
   display: flex;
   justify-content: center;
   padding: 0 var(--space-4);
-  transition: transform 0.3s ease;
+  transition: top 0.3s ease;
+}
+
+/* Hide-on-scroll-down: moves the whole floating pill above the
+   viewport. Uses a fixed top offset rather than translateY(-100%)
+   because the pill no longer sits flush at top:0 — translating by
+   its own height left a visible sliver equal to the top offset. */
+.site-nav--hidden {
+  top: -120px;
 }
 
 .site-nav__inner {

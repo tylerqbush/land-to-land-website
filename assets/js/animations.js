@@ -7,14 +7,10 @@
     var lastY = 0;
     window.addEventListener('scroll', function () {
       var y = window.scrollY;
-      if (y > 120) {
-        if (y > lastY) {
-          nav.style.transform = 'translateY(-100%)';
-        } else {
-          nav.style.transform = '';
-        }
+      if (y > 120 && y > lastY) {
+        nav.classList.add('site-nav--hidden');
       } else {
-        nav.style.transform = '';
+        nav.classList.remove('site-nav--hidden');
       }
       lastY = y;
     }, { passive: true });
