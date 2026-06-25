@@ -1,21 +1,6 @@
 (function () {
   'use strict';
 
-  // ── NAV: hide on scroll down, reveal on scroll up ──────
-  var nav = document.querySelector('.site-nav');
-  if (nav) {
-    var lastY = 0;
-    window.addEventListener('scroll', function () {
-      var y = window.scrollY;
-      if (y > 120 && y > lastY) {
-        nav.classList.add('site-nav--hidden');
-      } else {
-        nav.classList.remove('site-nav--hidden');
-      }
-      lastY = y;
-    }, { passive: true });
-  }
-
   // ── FADE-UP: IntersectionObserver ───────────────────────
   var fadeEls = document.querySelectorAll('.fade-up');
   if (fadeEls.length && 'IntersectionObserver' in window) {
