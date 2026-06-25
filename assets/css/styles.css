@@ -470,6 +470,11 @@ body {
   flex-wrap: wrap;
 }
 
+.hero__actions .btn {
+  font-size: 17px;
+  padding: 18px 36px;
+}
+
 .hero__scroll {
   display: none;
   position: absolute;
