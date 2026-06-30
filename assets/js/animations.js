@@ -1,6 +1,15 @@
 (function () {
   'use strict';
 
+  // ── NAV: hamburger drawer toggle ────────────────────────
+  var navToggle = document.querySelector('[data-nav-toggle]');
+  if (navToggle) {
+    navToggle.addEventListener('click', function () {
+      var drawer = document.getElementById(navToggle.getAttribute('data-nav-toggle'));
+      if (drawer) drawer.classList.toggle('open');
+    });
+  }
+
   // ── FADE-UP: IntersectionObserver ───────────────────────
   var fadeEls = document.querySelectorAll('.fade-up');
   if (fadeEls.length && 'IntersectionObserver' in window) {

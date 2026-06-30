@@ -4,6 +4,7 @@ import { showBuyButton } from "./scripts/lib/utils.mjs";
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
+  eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
 
   eleventyConfig.addPlugin(pluginSitemap, {
     sitemap: { hostname: "https://landtolandholdings.com" },
