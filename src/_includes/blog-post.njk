@@ -1,6 +1,7 @@
 ---
 layout: base.njk
 ---
+{%- set postTitle = title -%}
 {%- set title = title + " | Land to Land Holdings" -%}
 {%- set description = excerpt -%}
 
@@ -11,7 +12,7 @@ layout: base.njk
   <div class="blog-post__hero">
     <img
       src="{{ image }}"
-      alt="{{ title }}"
+      alt="{{ postTitle }}"
       class="blog-post__hero-img"
       fetchpriority="high"
       width="1200"
@@ -29,11 +30,11 @@ layout: base.njk
         <span aria-hidden="true">&rsaquo;</span>
         <a href="/blog/">Blog</a>
         <span aria-hidden="true">&rsaquo;</span>
-        <span>{{ title }}</span>
+        <span>{{ postTitle }}</span>
       </nav>
 
       {# Title #}
-      <h1 class="blog-post__title">{{ title }}</h1>
+      <h1 class="blog-post__title">{{ postTitle }}</h1>
 
       {# Meta #}
       <p class="blog-post__meta">
@@ -50,7 +51,7 @@ layout: base.njk
       {# CTA #}
       <div class="blog-post__cta">
         <p class="blog-post__cta-heading">Looking for land with owner financing?</p>
-        <p class="blog-post__cta-sub">We carry properties in Florida, New Mexico, and Oregon with simple terms and no credit check.</p>
+        <p class="blog-post__cta-sub">We carry properties in Florida, New Mexico, Oregon, and Arizona with simple terms and no credit check.</p>
         <a href="/properties/" class="btn btn-primary">Browse available land &rarr;</a>
       </div>
 
