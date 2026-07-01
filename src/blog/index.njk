@@ -1,0 +1,25 @@
+---
+layout: base.njk
+title: "Land Buying Questions, Answered | Land to Land Holdings"
+description: "Real questions from land buyers, answered plainly. Owner financing, zoning, off-grid living, and more."
+permalink: /blog/index.html
+---
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:var(--color-terra);">Blog</p>
+    <h1 class="heading-lg mb-3">Land buying questions, answered plainly.</h1>
+    <p class="body-lg mb-10" style="max-width:600px;">We pull the most common questions people are asking about buying vacant land and answer them straight.</p>
+
+    {% if collections.blogPosts.length == 0 %}
+      <p style="color:var(--color-text-muted);">Posts coming soon.</p>
+    {% else %}
+      <div class="card-grid blog-grid">
+        {% for post in collections.blogPosts %}
+          {% set post = post %}
+          {% include "partials/blog-card.njk" %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</section>

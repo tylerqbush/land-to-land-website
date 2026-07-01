@@ -1,0 +1,15 @@
+<a href="/blog/{{ post.data.slug }}/" class="blog-card">
+  <div class="blog-card__photo">
+    {% if post.data.image %}
+      <img src="{{ post.data.image }}" alt="{{ post.data.title }}" loading="lazy" width="600" height="315">
+    {% else %}
+      <div class="blog-card__photo-placeholder"></div>
+    {% endif %}
+  </div>
+  <div class="blog-card__body">
+    <p class="blog-card__date">{{ post.date | date("MMMM d, yyyy") }}</p>
+    <h2 class="blog-card__title">{{ post.data.title }}</h2>
+    <p class="blog-card__excerpt">{{ post.data.excerpt }}</p>
+    <span class="blog-card__link">Read more &rarr;</span>
+  </div>
+</a>
