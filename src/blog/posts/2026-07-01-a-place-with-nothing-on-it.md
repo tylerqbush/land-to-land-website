@@ -3,9 +3,9 @@ title: "A place with nothing on it"
 date: 2026-07-01
 slug: a-place-with-nothing-on-it
 excerpt: "My uncle owned a vacant plot of land. Nothing on it but trees, dirt, and sky. I didn't understand the point until I did."
-image: "/assets/images/stock/hero-landscape.jpg"
-image_credit_name: ""
-image_credit_url: ""
+image: "/assets/images/blog/wooded-creek-calhoun-ga.jpg"
+image_credit_name: "Gennady Zakharin"
+image_credit_url: "https://unsplash.com/@gennady107"
 ---
 
 My uncle owned a vacant plot of land. Nothing on it but trees, dirt, and sky.
