@@ -332,6 +332,10 @@ body.has-sale-banner .site-nav {
   display: flex;
   justify-content: center;
   padding: 0 var(--space-4);
+  /* Softens whatever scrolls through the transparent gutter around the
+     pill (top edge, rounded corners) instead of a hard content cutoff. */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .site-nav__inner {
@@ -407,9 +411,13 @@ body.has-sale-banner .site-nav {
 .site-nav__hamburger {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 5px;
   cursor: pointer;
-  padding: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
   background: none;
   border: none;
 }
@@ -424,7 +432,38 @@ body.has-sale-banner .site-nav {
   height: 2px;
   background: var(--color-text-dark);
   border-radius: 2px;
-  transition: opacity 0.15s;
+  transition: transform 0.2s ease, opacity 0.15s ease;
+}
+
+.site-nav__hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.site-nav__hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.site-nav__hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.site-nav__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(10, 10, 10, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.site-nav__backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.nav-open {
+  overflow: hidden;
 }
 
 .site-nav__drawer {
@@ -504,6 +543,11 @@ body.has-sale-banner .site-nav {
   margin-bottom: var(--space-6);
   max-width: 760px;
   letter-spacing: 0.02em;
+  /* .display's line-height:0.95 is tuned for 1-2 line headlines at its
+     largest clamp size. At the mobile floor (40px) these longer,
+     multi-line headlines wrap to 5-6 lines and the tight ratio makes
+     lines crowd into each other, so loosen it here specifically. */
+  line-height: 1.08;
 }
 
 .hero__sub {
@@ -605,6 +649,17 @@ body.has-sale-banner .site-nav {
 .philosophy {
   padding: var(--space-24) 0;
   background: var(--color-white);
+}
+
+@media (max-width: 640px) {
+  /* .philosophy's bottom padding plus .for-section's top padding
+     (96px + 80px = 176px) reads as a broken/empty section on a single
+     narrow mobile column, so tighten .philosophy's half here. The
+     matching .for-section override lives next to its own base rule
+     further down (source order matters for this specificity tie). */
+  .philosophy {
+    padding: var(--space-12) 0;
+  }
 }
 
 .philosophy__inner {
@@ -2391,6 +2446,12 @@ body::before {
 .for-section {
   padding: var(--space-20) 0;
   background: var(--color-white);
+}
+
+@media (max-width: 640px) {
+  .for-section {
+    padding: var(--space-12) 0;
+  }
 }
 .for-section__eyebrow { color: var(--color-terra); display: block; margin-bottom: var(--space-3); }
 .for-section__title {

@@ -11,17 +11,22 @@
       <a href="/make-a-payment/">Make a Payment</a>
     </div>
     <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener" class="site-nav__cta">Book a Call</a>
-    <button class="site-nav__hamburger" aria-label="Open menu" data-nav-toggle="nav-drawer">
+    <button class="site-nav__hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="nav-drawer" data-nav-toggle="nav-drawer">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="site-nav__drawer" id="nav-drawer">
-    <a href="/">Home</a>
-    <a href="/properties/">Properties</a>
-    <a href="/how-it-works/">How It Works</a>
-    <a href="/about/">About</a>
-    <a href="/make-a-payment/">Make a Payment</a>
-    <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener">Book a Call</a>
-    <a href="tel:7069630017">706-963-0017</a>
-  </div>
 </nav>
+{# These live outside <nav> because .site-nav has backdrop-filter, which
+   creates a new containing block for position:fixed descendants — a
+   nested inset:0 backdrop would resolve against the ~60px nav bar
+   instead of the viewport. #}
+<div class="site-nav__backdrop" data-nav-backdrop></div>
+<div class="site-nav__drawer" id="nav-drawer">
+  <a href="/">Home</a>
+  <a href="/properties/">Properties</a>
+  <a href="/how-it-works/">How It Works</a>
+  <a href="/about/">About</a>
+  <a href="/make-a-payment/">Make a Payment</a>
+  <a href="https://link.acrematic.com/widget/booking/NZxhdH02tv2KlHXB3vTs" target="_blank" rel="noopener">Book a Call</a>
+  <a href="tel:7069630017">706-963-0017</a>
+</div>

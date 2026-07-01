@@ -3,11 +3,35 @@
 
   // ── NAV: hamburger drawer toggle ────────────────────────
   var navToggle = document.querySelector('[data-nav-toggle]');
+  var navBackdrop = document.querySelector('[data-nav-backdrop]');
   if (navToggle) {
+    var drawer = document.getElementById(navToggle.getAttribute('data-nav-toggle'));
+
+    function closeDrawer() {
+      if (drawer) drawer.classList.remove('open');
+      if (navBackdrop) navBackdrop.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-open');
+    }
+
+    function openDrawer() {
+      if (drawer) drawer.classList.add('open');
+      if (navBackdrop) navBackdrop.classList.add('open');
+      navToggle.classList.add('open');
+      navToggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('nav-open');
+    }
+
     navToggle.addEventListener('click', function () {
-      var drawer = document.getElementById(navToggle.getAttribute('data-nav-toggle'));
-      if (drawer) drawer.classList.toggle('open');
+      if (navToggle.classList.contains('open')) {
+        closeDrawer();
+      } else {
+        openDrawer();
+      }
     });
+
+    if (navBackdrop) navBackdrop.addEventListener('click', closeDrawer);
   }
 
   // ── FADE-UP: IntersectionObserver ───────────────────────
