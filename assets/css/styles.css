@@ -550,6 +550,11 @@ body.nav-open {
   line-height: 1.08;
 }
 
+/* Mobile shows a one-line headline ("Land you can own.") with the rest
+   of the desktop line folded into the mobile subhead instead, so the
+   hero doesn't open with a six-line wall of large type. */
+.hero__headline__desktop-extra { display: none; }
+
 .hero__sub {
   color: rgba(255, 255, 255, 0.68);
   font-size: 18px;
@@ -557,6 +562,8 @@ body.nav-open {
   margin-bottom: var(--space-8);
   max-width: 500px;
 }
+
+.hero__sub--desktop { display: none; }
 
 .hero__pills {
   display: flex;
@@ -575,6 +582,15 @@ body.nav-open {
   border: 1px solid rgba(139, 200, 63, 0.35);
   padding: 6px 14px;
   border-radius: var(--radius-pill);
+}
+
+.hero__pill--desktop-only { display: none; }
+
+@media (min-width: 641px) {
+  .hero__headline__desktop-extra { display: contents; }
+  .hero__sub--mobile { display: none; }
+  .hero__sub--desktop { display: block; }
+  .hero__pill--desktop-only { display: inline-block; }
 }
 
 .hero__actions {
