@@ -1,0 +1,66 @@
+---
+layout: base.njk
+---
+{%- set title = title + " | Land to Land Holdings" -%}
+{%- set description = excerpt -%}
+
+<article class="blog-post">
+
+  {# Hero image #}
+  {% if image %}
+  <div class="blog-post__hero">
+    <img
+      src="{{ image }}"
+      alt="{{ title }}"
+      class="blog-post__hero-img"
+      fetchpriority="high"
+      width="1200"
+      height="630"
+    >
+  </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="blog-post__inner">
+
+      {# Breadcrumb #}
+      <nav class="blog-post__breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <a href="/blog/">Blog</a>
+        <span aria-hidden="true">&rsaquo;</span>
+        <span>{{ title }}</span>
+      </nav>
+
+      {# Title #}
+      <h1 class="blog-post__title">{{ title }}</h1>
+
+      {# Meta #}
+      <p class="blog-post__meta">
+        {{ date | date("MMMM d, yyyy") }}
+        &middot;
+        {{ content | readingTime }} min read
+      </p>
+
+      {# Body #}
+      <div class="blog-post__body">
+        {{ content | safe }}
+      </div>
+
+      {# CTA #}
+      <div class="blog-post__cta">
+        <p class="blog-post__cta-heading">Looking for land with owner financing?</p>
+        <p class="blog-post__cta-sub">We carry properties in Florida, New Mexico, and Oregon with simple terms and no credit check.</p>
+        <a href="/properties/" class="btn btn-primary">Browse available land &rarr;</a>
+      </div>
+
+      {# Unsplash attribution (required by license) #}
+      {% if image_credit_name %}
+      <p class="blog-post__photo-credit">
+        Photo by <a href="{{ image_credit_url }}" target="_blank" rel="noopener noreferrer">{{ image_credit_name }}</a> on <a href="https://unsplash.com" target="_blank" rel="noopener noreferrer">Unsplash</a>
+      </p>
+      {% endif %}
+
+    </div>
+  </div>
+</article>

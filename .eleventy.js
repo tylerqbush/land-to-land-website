@@ -18,6 +18,27 @@ export default function (eleventyConfig) {
   // independent of build output (see tests/sync.test.mjs).
   eleventyConfig.addFilter("showBuyButton", showBuyButton);
 
+  // Date formatting filter for blog posts — format string uses Intl tokens
+  // Supports "MMMM d, yyyy" pattern used in blog templates
+  eleventyConfig.addFilter("date", (value, format) => {
+    const d = value instanceof Date ? value : new Date(value);
+    if (isNaN(d)) return "";
+    if (!format) return d.toISOString();
+    // Map simple tokens to Intl DateTimeFormat parts
+    const parts = {};
+    const full = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    }).formatToParts(d);
+    for (const p of full) parts[p.type] = p.value;
+    return format
+      .replace("MMMM", parts.month || "")
+      .replace("d", parts.day || "")
+      .replace("yyyy", parts.year || "");
+  });
+
   // Reading time filter for blog posts
   eleventyConfig.addFilter("readingTime", (content) => {
     const words = content ? content.trim().split(/\s+/).length : 0;
