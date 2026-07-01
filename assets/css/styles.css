@@ -2826,7 +2826,7 @@ body::before {
 .blog-post__cta {
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-card);
-  padding: var(--space-6) var(--space-7);
+  padding: var(--space-10) var(--space-10);
   background: var(--color-sand-light);
   margin-top: var(--space-10);
 }
