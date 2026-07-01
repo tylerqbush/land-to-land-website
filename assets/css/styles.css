@@ -366,7 +366,6 @@ body.has-sale-banner .site-nav {
 .site-nav__logo img {
   height: 30px;
   width: auto;
-  filter: brightness(0);
 }
 
 .site-nav__links {
