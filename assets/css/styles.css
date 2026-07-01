@@ -252,6 +252,76 @@ body {
   color: var(--color-white);
 }
 
+/* ─── SALE BANNER ─────────────────────────────────────── */
+.sale-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  background: var(--color-forest);
+  color: var(--color-white);
+  padding: 10px 56px;
+  text-align: center;
+}
+
+.sale-banner__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 900px;
+}
+
+.sale-banner__cta {
+  color: var(--color-terra);
+  font-weight: 700;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+
+.sale-banner__close {
+  position: absolute;
+  right: var(--space-3);
+  top: 50%;
+  transform: translateY(-50%);
+  min-width: 36px;
+  min-height: 36px;
+  border: none;
+  background: none;
+  color: var(--color-white);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+body.has-sale-banner {
+  padding-top: calc(96px + var(--sale-banner-height, 56px));
+}
+
+body.has-sale-banner .site-nav {
+  top: calc(var(--space-4) + var(--sale-banner-height, 56px));
+}
+
+@media (max-width: 640px) {
+  .sale-banner {
+    min-height: 72px;
+    padding: 10px 44px;
+  }
+
+  body.has-sale-banner {
+    padding-top: calc(96px + var(--sale-banner-height, 72px));
+  }
+
+  body.has-sale-banner .site-nav {
+    top: calc(var(--space-4) + var(--sale-banner-height, 72px));
+  }
+}
+
 /* ─── NAV ─────────────────────────────────────────────── */
 .site-nav {
   position: fixed;

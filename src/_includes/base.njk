@@ -9,11 +9,13 @@
   <link rel="stylesheet" href="/assets/css/styles.css">
   <!-- GHL TRACKING SCRIPT -->
 </head>
-<body>
+<body{% if sale.active %} class="has-sale-banner"{% endif %}>
+  {% if sale.active %}{% include "partials/sale-banner.njk" %}{% endif %}
   {% include "partials/nav.njk" %}
   {{ content | safe }}
   {% include "partials/footer.njk" %}
   <!-- GHL CHAT WIDGET -->
   <script src="/assets/js/animations.js" defer></script>
+  {% if sale.active %}<script src="/assets/js/sale-banner.js" defer></script>{% endif %}
 </body>
 </html>
