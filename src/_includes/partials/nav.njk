@@ -17,10 +17,10 @@
     </button>
   </div>
 </nav>
-{# These live outside <nav> because .site-nav has backdrop-filter, which
-   creates a new containing block for position:fixed descendants — a
-   nested inset:0 backdrop would resolve against the ~60px nav bar
-   instead of the viewport. #}
+{# These live outside <nav> so no property on .site-nav (filters,
+   transforms) can ever become a containing block for their
+   position:fixed inset:0 sizing — they must resolve against the
+   viewport, not the ~60px nav bar. #}
 <div class="site-nav__backdrop" data-nav-backdrop></div>
 <div class="site-nav__drawer" id="nav-drawer">
   <a href="/">Home</a>

@@ -332,10 +332,6 @@ body.has-sale-banner .site-nav {
   display: flex;
   justify-content: center;
   padding: 0 var(--space-4);
-  /* Softens whatever scrolls through the transparent gutter around the
-     pill (top edge, rounded corners) instead of a hard content cutoff. */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .site-nav__inner {
