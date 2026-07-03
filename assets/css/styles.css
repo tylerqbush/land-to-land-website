@@ -537,7 +537,13 @@ body.nav-open {
 .hero__headline {
   color: var(--color-sand);
   margin-bottom: var(--space-6);
-  max-width: 760px;
+  /* Wide enough that each of the three markup-forced lines renders as
+     one visual line at the font ceiling below; 760px made them all
+     re-wrap mid-phrase into six lines on desktop. The font override
+     only changes large screens: the 40px floor matches .display's, so
+     mobile renders exactly as before. */
+  max-width: 1000px;
+  font-size: clamp(40px, 6.5vw, 72px);
   letter-spacing: 0.02em;
   /* .display's line-height:0.95 is tuned for 1-2 line headlines at its
      largest clamp size. At the mobile floor (40px) these longer,
