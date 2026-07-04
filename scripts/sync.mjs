@@ -30,7 +30,11 @@ async function fetchAllRecords(pat) {
 
   do {
     const params = new URLSearchParams({
-      filterByFormula: '{Ready for Website}=1',
+      // The "Website View" view in Airtable is the source of truth for
+      // what gets published. Tyler curates it there; its own filters
+      // decide inclusion. Status still gates publishing via
+      // isPublishable() as a safety net regardless of view contents.
+      view: 'Website View',
       pageSize: '100',
     });
     if (offset) params.set('offset', offset);
