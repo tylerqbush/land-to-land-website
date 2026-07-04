@@ -38,7 +38,9 @@ test("each property has positive numeric pricing", () => {
 
 test("slug format matches {acreage}-acre-{city}-{county}-{state}-{id} pattern", () => {
   for (const p of properties) {
-    assert.match(p.slug, /^[a-z0-9-]+$/, `${p.id}: slug must be lowercase kebab: ${p.slug}`);
+    // Dots are part of the slug convention: fractional acreage like
+    // "0.5-acre-..." is written as-is per the PRD slug format.
+    assert.match(p.slug, /^[a-z0-9.-]+$/, `${p.id}: slug must be lowercase kebab: ${p.slug}`);
     assert.ok(p.slug.startsWith(`${p.acreage}-acre-`), `${p.id}: slug must start with "${p.acreage}-acre-"`);
     assert.ok(p.slug.endsWith(`-${p.id.toLowerCase()}`), `${p.id}: slug must end with "-${p.id.toLowerCase()}"`);
   }

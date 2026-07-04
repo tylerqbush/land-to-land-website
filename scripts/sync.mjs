@@ -199,6 +199,14 @@ async function main() {
   const publishable = raw.filter(r => isPublishable(r.fields['Status'] ?? ''));
   console.log(`  Fetched ${raw.length} records, ${publishable.length} publishable`);
 
+  // Zero publishable records means a broken view/filter/schema in
+  // Airtable, not an empty inventory. Proceeding would publish an empty
+  // site (it did once, during the July 2026 pricing-field restructure),
+  // so abort and leave the live site untouched.
+  if (publishable.length === 0) {
+    throw new Error('Airtable returned 0 publishable records; aborting to avoid wiping the live site.');
+  }
+
   // Phase 2: Diff
   console.log('Phase 2: Diffing against stored hashes...');
   const hashesPath = join(ROOT, 'data', 'hashes.json');
