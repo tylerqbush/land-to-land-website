@@ -201,7 +201,7 @@ layout: base.njk
         </div>
         {% if prop.cash_price %}
           <p class="financing-cash-card__price">${{ prop.cash_price | numberFormat }}</p>
-          <p class="financing-cash-card__note">One-time payment, no interest.</p>
+          <p class="financing-cash-card__note">One-time payment. Own it outright.</p>
         {% else %}
           <p class="financing-cash-card__price" style="font-size:20px;line-height:1.4;">We accept all reasonable cash offers.</p>
           <p class="financing-cash-card__note">Contact us to discuss pricing.</p>
@@ -218,7 +218,7 @@ layout: base.njk
           {% if prop.term_months %}<tr><td>Term</td><td>{{ prop.term_months }} months</td></tr>{% endif %}
           <tr><td>Doc Fee</td><td>{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</td></tr>
         </table>
-        <p class="financing-terms-card__note">0% interest. No credit check required.</p>
+        <p class="financing-terms-card__note">No credit check required.</p>
       </div>
     </div>
     <div class="text-center mt-8">
