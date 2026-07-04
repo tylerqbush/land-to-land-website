@@ -30,12 +30,13 @@ async function fetchAllRecords(pat) {
 
   do {
     const params = new URLSearchParams({
-      // Tyler curates what publishes in this Airtable view, but the
+      // Tyler curates what publishes in the "5.1 - Website View" view
+      // (referenced by ID so renames can't break the sync), but the
       // actual rule is the checkbox: Ready for Website checked = on the
       // site. Enforcing both means a view misconfiguration can't
       // publish something unchecked. Status still gates publishing via
       // isPublishable() on top of this.
-      view: '5.1 - Website View',
+      view: 'viwOnyQNtjXjOFpV4',
       filterByFormula: '{Ready for Website}=1',
       pageSize: '100',
     });
