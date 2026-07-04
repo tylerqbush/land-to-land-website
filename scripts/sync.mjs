@@ -54,7 +54,7 @@ async function fetchAllRecords(pat) {
 }
 
 function validateRecord(id, f) {
-  const required = { city: f['City'], county: f['County'], state: f['State Abbreviation'], monthly: f['Easy Financing - per month'] };
+  const required = { city: f['City'], county: f['County'], state: f['State Abbreviation'], monthly: f['Monthly Payment'] };
   for (const [key, val] of Object.entries(required)) {
     if (val === undefined || val === null || val === '') {
       throw new Error(`Record ${id} is missing required field: ${key}`);
@@ -129,11 +129,11 @@ function mapRecord(record, existingSlug) {
     lat,
     lng,
     gps: f['GPS Coordinates'] ?? '',
-    monthly: f['Easy Financing - per month'] ?? null,
-    term_months: f['Easy Financing - total no. of months'] ?? null,
+    monthly: f['Monthly Payment'] ?? null,
+    term_months: f['Financing Term (no. of Months)'] ?? null,
     down: f['Down Payment'] ?? null,
-    doc_fee: f['Processing Fee'] ?? null,
-    cash_price: f['Cash Purchase Price'] ?? null,
+    doc_fee: f['Document Fee'] ?? null,
+    cash_price: f['Cash Price'] ?? null,
     geekpay_url: normalizeGeekpay(f['GeekPay Checkout URL']),
     description: (() => { const d = f['Web Description']; const text = !d ? '' : typeof d === 'string' ? d.trim() : (d.text ?? '').trim(); return text || generateDescription(f, acreage, city, county, state); })(),
     apn: f['Parcel Number (APN)'] ?? '',
