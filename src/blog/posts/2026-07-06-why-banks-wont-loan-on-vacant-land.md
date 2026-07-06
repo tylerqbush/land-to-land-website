@@ -36,9 +36,13 @@ This is how we sell land at Land to Land Holdings. You pick the property. We agr
 
 This is the question most buyers forget to ask.
 
-When you buy on a land contract, you have equitable title. That means you have the right to use the property, camp on it, make improvements to it, and treat it as yours. The legal deed transfers to you when the balance is paid in full.
+When you buy on a land contract, you have equitable title. You can use the property, camp on it, and make improvements that don't require permits. The legal deed stays with us until the balance is paid in full, which means anything that requires a permit — building a structure, running utilities, that kind of work — isn't available to you yet.
 
-It works like a car loan. You drive the car. You park it in your driveway. The bank holds the title until it's paid off, and then it's yours. Land contracts work the same way.
+That's worth being straight about. You're not in a position to break ground on a cabin during the payment period under a standard contract.
+
+That said, we're not rigid about it. Buyers who have built a solid payment history have come to us wanting to do more with their land. In those cases we've worked out arrangements where we place a lien on the property, which protects us if something goes wrong and they default, and allows them to move forward with permitted work. It's handled case by case, based on the relationship.
+
+For most buyers, the payment period is for camping, recreation, and light improvements. Full ownership and everything that comes with it arrives when the land is paid off.
 
 ## What happens if you miss a payment
 
