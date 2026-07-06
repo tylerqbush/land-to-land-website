@@ -189,6 +189,11 @@ layout: base.njk
 </section>
 
 {# ── FINANCING OPTIONS ── #}
+{# Sold listings are kept as social proof and often predate the current
+   pricing fields (see scripts/sync.mjs validateRecord), so this whole
+   section is skipped rather than rendering blank/TBD financing numbers
+   for a property that's no longer for sale. #}
+{% if prop.monthly %}
 <section class="financing-section">
   <div class="container">
     <p class="eyebrow mb-2 text-center" style="color:rgba(255,255,255,0.5);">No Banks. No Credit Check.</p>
@@ -230,6 +235,7 @@ layout: base.njk
     </div>
   </div>
 </section>
+{% endif %}
 
 {% if prop.video_url %}
 {# ── VIDEO (facade: loads thumbnail, swaps to iframe on click) ── #}

@@ -23,10 +23,12 @@
           {{ prop.county }} County, {{ prop.state }}
         </p>
       </div>
-      <div class="property-card__price-block">
-        <span class="property-card__price">${{ prop.monthly }}</span>
-        <span class="property-card__price-unit">/mo</span>
-      </div>
+      {% if prop.monthly %}
+        <div class="property-card__price-block">
+          <span class="property-card__price">${{ prop.monthly }}</span>
+          <span class="property-card__price-unit">/mo</span>
+        </div>
+      {% endif %}
     </div>
     <div class="property-card__chips">
       {% if prop.terrain %}<span class="prop-chip">{{ prop.terrain }}</span>{% endif %}

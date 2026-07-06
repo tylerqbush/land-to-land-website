@@ -61,7 +61,13 @@ async function fetchAllRecords(pat) {
 }
 
 function validateRecord(id, f) {
-  const required = { city: f['City'], county: f['County'], state: f['State Abbreviation'], monthly: f['Monthly Payment'] };
+  const required = { city: f['City'], county: f['County'], state: f['State Abbreviation'] };
+  // Sold listings are kept as social proof and often predate the current
+  // pricing fields, so Monthly Payment is only required for listings
+  // still being marketed (Active, Under Contract).
+  if (normalizeStatus(f['Status']) !== 'Sold') {
+    required.monthly = f['Monthly Payment'];
+  }
   for (const [key, val] of Object.entries(required)) {
     if (val === undefined || val === null || val === '') {
       throw new Error(`Record ${id} is missing required field: ${key}`);

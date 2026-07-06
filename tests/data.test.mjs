@@ -28,8 +28,12 @@ test("each property has a valid status", () => {
   }
 });
 
-test("each property has positive numeric pricing", () => {
+test("Active/Under Contract properties have positive numeric pricing", () => {
+  // Sold listings are kept as social proof and often predate the
+  // current pricing fields (see scripts/sync.mjs validateRecord), so
+  // pricing is only required while a property is still for sale.
   for (const p of properties) {
+    if (p.status === "Sold") continue;
     assert.ok(typeof p.monthly === "number" && p.monthly > 0, `${p.id}: monthly must be positive number`);
     assert.ok(typeof p.down === "number" && p.down >= 0, `${p.id}: down must be non-negative number`);
     assert.ok(typeof p.doc_fee === "number" && p.doc_fee >= 0, `${p.id}: doc_fee must be non-negative number`);
