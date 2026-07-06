@@ -3,9 +3,9 @@ title: "Why banks won't loan on vacant land (and what to do instead)"
 date: 2026-07-06
 slug: why-banks-wont-loan-on-vacant-land
 excerpt: "Most people find out the hard way. They find a piece of land they want, call their bank, and hear some version of: we don't do that. Here's why, and what actually works."
-image: "/assets/images/blog/person-open-field-land.jpg"
-image_credit_name: "Clarence E. Hsu"
-image_credit_url: "https://unsplash.com/@clarenceehsu"
+image: "/assets/images/blog/open-field-dramatic-sky.jpg"
+image_credit_name: "Bulat Akhtiamov"
+image_credit_url: "https://unsplash.com/@richard_29"
 ---
 
 Most people find out the hard way.
