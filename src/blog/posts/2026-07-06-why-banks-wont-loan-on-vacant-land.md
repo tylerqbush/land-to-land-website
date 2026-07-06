@@ -40,7 +40,13 @@ When you buy on a land contract, you have equitable title. You can use the prope
 
 That's worth being straight about. You're not in a position to break ground on a cabin during the payment period under a standard contract.
 
-That said, we're not rigid about it. Buyers who have built a solid payment history have come to us wanting to do more with their land. In those cases we've worked out arrangements where we place a lien on the property, which protects us if something goes wrong and they default, and allows them to move forward with permitted work. It's handled case by case, based on the relationship.
+That said, we're not rigid about it. Buyers who have built a solid payment history have come to us wanting to do more with their land. When that happens, there are two ways we've handled it.
+
+The first is an early deed transfer. We transfer the deed to the buyer ahead of schedule, and they grant us a security instrument on the property in return. That gives us a secured position — if they default or walk away from unfinished work, we have a legal claim on the property to recover costs.
+
+The second is a performance bond or cash escrow. Before permitted work starts, the buyer puts up funds that cover the cost of cleanup or removal if things go sideways. The work proceeds, and if everything goes as planned, it's a non-issue.
+
+Either way, it's handled case by case based on payment history and the scope of what they want to do. This is not a standard part of the initial contract — it's a conversation that happens after trust is established.
 
 For most buyers, the payment period is for camping, recreation, and light improvements. Full ownership and everything that comes with it arrives when the land is paid off.
 
