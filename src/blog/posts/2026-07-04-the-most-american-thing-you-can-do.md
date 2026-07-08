@@ -10,42 +10,38 @@ image_credit_url: "https://unsplash.com/@jacob17pad"
 
 Two hundred and fifty years ago today, a group of men signed a piece of paper that said ordinary people had the right to life, liberty, and the pursuit of happiness.
 
-They didn't write that in a vacuum. They wrote it standing on land. Land they worked, land they owned, land they were fighting to keep.
+They didn't write that in a vacuum. They were standing on land. Land they worked, land they owned, land they were fighting to keep. The dream was never abstract. It was a specific piece of ground.
 
-The original American dream wasn't a house in a suburb with a two-car garage. It was a piece of ground that belonged to you. That you could build on, pass down, or just stand on and know that nobody could tell you to leave.
+That dream is still available. The access is easier than most people think.
 
-That dream is still available. Most people just don't know how close it is.
+**What land actually gives you**
 
-## What land actually gives you
+Land is different from every other asset.
 
-Land ownership is different from any other investment. Stocks go up and down with people you'll never meet making decisions you can't control. A house ties you to a mortgage, a bank, and a market that moves on its own schedule.
+Stocks move on decisions made by people you'll never meet. A house ties you to a mortgage, a market on its own schedule, and a rotating cast of plumbers. Land just sits there.
 
-Land is simpler. It sits there. It doesn't depreciate. It doesn't need maintenance. It doesn't call you at midnight with a broken water heater. And it has never, in the history of this country, gone to zero.
+It doesn't depreciate. It doesn't need maintenance. It has never, in the entire 250-year history of this country, gone to zero. (A few categories of financial instrument can't say the same.)
 
-More than that: land gives you options. Build a cabin someday. Park a camper on weekends. Farm it. Pass it to your kids. Hold it and watch it appreciate while you do something else with your time.
+You can build a cabin someday. Park a camper on weekends. Farm it. Pass it to your kids. Hold it and watch it appreciate while you do something else entirely. Land gives you options. You don't have to use them right now.
 
-The people who figured this out decades ago are sitting on something. The people figuring it out now still have time.
+**Why most people think it's out of reach**
 
-## Why most people think it's out of reach
+The standard story goes: you need a down payment, a credit score, a bank approval, a title company, and six weeks of paperwork.
 
-The usual story goes like this. You need a down payment. A good credit score. A bank that approves you. A title company, a closing timeline, and six weeks of paperwork.
+That's houses. Land doesn't have to work that way.
 
-That's how it works for houses. It's not how it has to work for land.
+With owner financing, you work directly with us. No bank in the middle, no loan committee deciding whether you qualify. You agree on a down payment and monthly payment that fits your actual budget, sign a land contract, and make payments until it's paid off. Then it's yours.
 
-**Owner financing flips the whole model.** Instead of borrowing from a bank, you work directly with us. We carry the note. You make monthly payments to us. No credit check. No bank. No loan committee deciding whether you qualify.
+If you can afford a car payment, you can probably afford a piece of land.
 
-Payments are built around what works for your budget, not what an algorithm spits out. If you can afford a car payment, you can probably afford a piece of land.
+**What it actually costs**
 
-## What it actually costs to get started
+Down payments on our properties start in the hundreds. Monthly payments are sized to be manageable. Most people who've bought from us spent less getting started than they spent on a long weekend.
 
-Down payments on our properties start in the hundreds, not the thousands. Monthly payments are sized to be manageable. Most people who have bought land from us spent less to get started than they spent on a long weekend.
+That's a piece of ground, in a country built on the idea that ordinary people deserve to own some of it.
 
-That's a piece of ground in your name, in a country that was built on the idea that ordinary people deserve to own the land they stand on.
-
-Right now we have properties available in Florida, New Mexico, Oregon, and Arizona. Open desert in Deming, New Mexico. Pine country outside Chiloquin, Oregon. Pre-market acreage in Apache County, Arizona that hasn't gone live yet.
-
-Different states, different landscapes, same idea. Ground that belongs to you, with no bank in the middle and no committee deciding whether you're worthy of it.
+We have properties right now in Florida, New Mexico, Oregon, and Arizona. Open desert in Deming, New Mexico. Pine country outside Chiloquin, Oregon. Pre-market acreage in Apache County, Arizona that hasn't gone live yet.
 
 Two hundred and fifty years is a long time to celebrate a dream without living it.
 
-Today's a good day to change that.
+Today seems like a reasonable day to change that.

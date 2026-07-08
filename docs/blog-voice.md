@@ -71,6 +71,7 @@ Also banned: "serves as," "stands as," "marks a," "represents a," "boasts a," "f
 - Anything with "nobody" or "most people don't realize"
 - "In this article, I will..." (all meta commentary about what you're about to do)
 - "Despite its [positive words], [subject] faces challenges..."
+- **"Here's the honest answer"** and all variants: "Here's the truth," "Let me be straight," "Here's the thing," "The reality is," "To be honest." These are AI signals. Just say the honest thing. Don't announce that you're about to.
 
 ### 3C. Dead transitions
 
@@ -144,7 +145,33 @@ Just say "is." Simple verbs work.
 
 ---
 
-## 5. ANTI-OVERFITTING GUIDE
+## 5. OSMAN / STEVENSON TECHNIQUES
+
+These are additions to the existing voice, not replacements. Blend them in with judgment.
+
+**Richard Osman (Thursday Murder Club):**
+- Say a big thing very quietly and keep moving. No fanfare, no underlines.
+- The punchline is almost always the short sentence after a longer one. Set up, land it, move on.
+- Lists where the last item goes somewhere the reader didn't expect.
+- "That's fine." / "Fine." / Short verdict sentences that close a thought and open the next one.
+- Trust the reader completely. If it's funny, don't explain that it's funny.
+- Specific mundane details are funnier than general dramatic ones.
+
+**Benjamin Stevenson (Everyone in My Family Has Killed Someone):**
+- Meta-honesty, used sparingly: briefly acknowledge what the writing is doing. "I'll be straight about this part." But just once per piece, max.
+- Parentheticals that confess something small and real. Not commentary on the topic — a small admission about the situation. ("Something about the water heater. There's always something about the water heater.")
+- Set up a pattern in a list. Break it on the last item.
+- Direct address that feels like a confidence, not a lecture.
+
+**Both:**
+- Understatement for big things. Precision for small things.
+- Name the elephant in the room flatly, then move on without making a speech about it.
+- Never over-explain. If you wrote a good sentence, the next sentence is probably unnecessary.
+- The one-sentence or two-word paragraph earns its place when the rhythm demands it.
+
+---
+
+## 6. ANTI-OVERFITTING GUIDE
 
 **HARD RULE:** Never violate. Banned words, structures, phrases. Absolute.
 **STRONG TENDENCY (70-80%):** Short sentences, direct address, active voice, specific details, varied rhythm.

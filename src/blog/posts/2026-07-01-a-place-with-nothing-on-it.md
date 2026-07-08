@@ -8,30 +8,36 @@ image_credit_name: "Gennady Zakharin"
 image_credit_url: "https://unsplash.com/@gennady107"
 ---
 
-My uncle owned a vacant plot of land. Nothing on it but trees, dirt, and sky.
+My uncle owned a piece of vacant land in Georgia.
 
-Every summer our whole family piled out there. We rode 4-wheelers through the trails. Fished in the afternoon heat. Cooked out over open flame while the sun went down and the stars came up one by one. No schedules. No screens. Just family, outside, nowhere else to be.
+Nothing on it. A few trails through the pines, a creek running through the back, and about thirty acres of ground that had been in the family longer than I'd been alive.
 
-I remember being a kid and genuinely not understanding it. Why would anyone own land with nothing on it?
+Every summer we piled out there. Rode 4-wheelers through the trails. Fished in the afternoon heat. Cooked out while the sun went down and the stars came up. No agenda, no schedule. Just family and fire and nowhere else we were supposed to be.
 
-But I never did anything out there except enjoy our time together. That turned out to be the entire point.
+I was a kid and I genuinely didn't understand it. Why would you own land with nothing on it?
 
-Those summer days shaped something in me. The smell of pine smoke. The quiet. The way time slowed down when you were standing on a piece of ground that belonged to your family.
+I never questioned what we did when we got there, though.
+
+Those summers built something. The smell of pine smoke. The way time moved differently when you were standing on ground that belonged to your family. You didn't need a reason to be there. You already had one.
+
+---
 
 **This week, America turns 250.**
 
-I keep thinking about what independence actually looks like in everyday life. A place that belongs to you. Where you can bring the people you love, build a fire, and just be still for a while, away from everything fighting for your attention.
+What keeps coming back to me is what independence actually looks like in everyday life. Not the abstract version. A place that belongs to you. Where you can bring the people you love, light a fire, and be still for a while without asking anyone's permission.
 
-Technology fights for that attention every single day. A piece of land to go quiet on has started to matter in a way it never used to.
+That's gotten harder to find. Attention is the most contested resource going. A piece of ground to go quiet on is worth more than it used to be.
 
-People buy vacant land for all kinds of reasons. Investment. Building someday. Hunting, camping, farming. My uncle's reason was quieter than any of those. A place for family to pile into trucks, drive out together, and leave everything else behind. Simple as that.
+People buy vacant land for all kinds of reasons. Investment. Building someday. My uncle's reason was simpler than any of those. A place for family to pile into trucks and leave everything else behind.
 
-Standing on ground that's yours, in a country that just turned a quarter millennium old, there's something to that feeling.
+Standing on land that belongs to your family, in a country that just turned a quarter millennium old, there's something to that.
 
-**From July 1 through July 6, a $17.76 reservation deposit holds any available property while you finalize owner financing terms with us.** No bank. No credit check. You pick the land, we hold it, and we work out the payment details together.
+---
 
-Right now we have properties in Florida, New Mexico, Oregon, and Arizona. Half an acre in Deming under big desert sky. A few acres in Chiloquin, Oregon, tucked into the Klamath County pines where the sky gets dark enough to see every star. We also have properties in Apache County, Arizona that haven't hit the market yet. First dibs to anyone who reaches out before they go live.
+**From July 1 through July 6, a $17.76 reservation deposit holds any available property** while you work out owner financing terms with us. No bank. No credit check. You pick the land, we hold it, we work out payments together.
 
-Two hundred and fifty years ago, ordinary people dreamed of owning a piece of this country without asking permission. That dream still matters. And getting started is smaller than most people think.
+Right now we have properties in Florida, New Mexico, Oregon, and Arizona. Half an acre in Deming, New Mexico under big desert sky. A few acres outside Chiloquin, Oregon, where the sky gets dark enough that you can actually see every star. Pre-market acreage in Apache County, Arizona that hasn't gone live yet.
+
+Two hundred and fifty years ago, ordinary people fought for the right to own a piece of this country. Getting started is smaller than most people think.
 
 What would you do with a quiet piece of land that was finally, truly yours?
