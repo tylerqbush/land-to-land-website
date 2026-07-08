@@ -1918,6 +1918,12 @@ body.nav-open {
   margin: 0 auto;
 }
 
+.financing-cta {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (min-width: 700px) {
   .financing-grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); align-items: start; }
 }
