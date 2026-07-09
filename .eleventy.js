@@ -18,6 +18,27 @@ export default function (eleventyConfig) {
   // independent of build output (see tests/sync.test.mjs).
   eleventyConfig.addFilter("showBuyButton", showBuyButton);
 
+  // Full state name for a 2-letter abbreviation, e.g. "AZ" -> "Arizona".
+  // Used to label the browse-properties filter dropdown, which is built
+  // from whatever states/counties actually exist in properties.json
+  // rather than a hardcoded list (see src/properties.njk) — a hardcoded
+  // list silently dropped new markets like Arizona in the past.
+  const STATE_NAMES = {
+    AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California",
+    CO: "Colorado", CT: "Connecticut", DE: "Delaware", DC: "District of Columbia",
+    FL: "Florida", GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois",
+    IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana",
+    ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan",
+    MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana",
+    NE: "Nebraska", NV: "Nevada", NH: "New Hampshire", NJ: "New Jersey",
+    NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota",
+    OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania",
+    RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota",
+    TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia",
+    WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming",
+  };
+  eleventyConfig.addFilter("stateName", (abbr) => STATE_NAMES[abbr] ?? abbr);
+
   // Date formatting filter for blog posts — format string uses Intl tokens
   // Supports "MMMM d, yyyy" pattern used in blog templates
   eleventyConfig.addFilter("date", (value, format) => {

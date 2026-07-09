@@ -13,15 +13,15 @@ description: "Browse available owner-financed land across Florida, New Mexico, a
     <div class="filter-bar" role="search" aria-label="Filter properties">
       <select id="filter-state" aria-label="Filter by state">
         <option value="">All States</option>
-        <option value="FL">Florida</option>
-        <option value="NM">New Mexico</option>
-        <option value="OR">Oregon</option>
+        {% for state in filterOptions.states %}
+          <option value="{{ state }}">{{ state | stateName }}</option>
+        {% endfor %}
       </select>
       <select id="filter-county" aria-label="Filter by county">
         <option value="">All Counties</option>
-        <option value="Putnam">Putnam (FL)</option>
-        <option value="Luna">Luna (NM)</option>
-        <option value="Klamath">Klamath (OR)</option>
+        {% for c in filterOptions.counties %}
+          <option value="{{ c.county }}">{{ c.county }} ({{ c.state }})</option>
+        {% endfor %}
       </select>
       <select id="filter-status" aria-label="Filter by availability">
         <option value="">All Listings</option>
