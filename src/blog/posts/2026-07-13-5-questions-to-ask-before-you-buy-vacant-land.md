@@ -16,13 +16,17 @@ Before price, before monthly payment, before you start imagining what you'd do w
 
 ## 1. Can I actually get to it?
 
-Road access is the question that surprises people most.
+Road access is the question that surprises people most, and it's more nuanced than most listings let on.
 
-Some parcels have direct road frontage — clean and simple. Some have a deeded easement, which is a legal right of way across other property to reach yours. And some are landlocked, meaning there's no legal access at all. Landlocked parcels are much harder to use and nearly impossible to resell.
+Some parcels have direct road frontage — clean and simple. Some have a deeded easement, a documented legal right of way across another property to reach yours. And some are what people call landlocked, meaning there's no recorded easement yet.
 
-Pull up the county GIS map with the parcel number. It shows road frontage, nearby roads, and usually the easement situation. Takes about five minutes.
+That last one sounds worse than it is.
 
-Everything we sell has legal access. But not every seller works the same way, so it's always worth verifying yourself.
+Nobody can legally prevent you from accessing property that belongs to you. Courts recognize what's called an easement by necessity — if your land has no other way in, you have a legal right to establish access across adjacent property to reach it. It takes some work to formalize, but it's not a dead end.
+
+For some buyers, a landlocked parcel is actually the point. Harder to reach means more private, fewer uninvited visitors, and usually a lower price. If seclusion is what you're after, the extra step to establish access is a reasonable trade.
+
+What you want to know going in is which situation you're dealing with. Pull up the county GIS map with the parcel number — it shows road frontage, nearby roads, and recorded easements. Takes about five minutes and answers this completely.
 
 ## 2. What are the property taxes?
 
