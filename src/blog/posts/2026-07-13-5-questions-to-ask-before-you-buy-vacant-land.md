@@ -8,59 +8,63 @@ image_credit_name: "Bernd Dittrich"
 image_credit_url: "https://unsplash.com/@hdbernd"
 ---
 
-Your first instinct when you find a piece of land you like is to wonder if it's a good deal.
+Nobody warns you about the questions.
 
-That instinct is fine. But "good deal" is doing a lot of work in that sentence.
+You find a piece of land you like. The price makes sense. The photos look right. You start imagining what you'd do with the place, and somewhere in that daydream, you forward the listing to your spouse or your brother or the group chat.
 
-Before price, before monthly payment, before you start imagining what you'd do with the place — ask these five things. Not because anything is wrong with the listing. Just because knowing the answers puts you in a completely different position than not knowing them.
+Then someone asks you something you don't know the answer to.
 
-## 1. Can I actually get to it?
+These are the five things worth knowing before you get to that part.
 
-Road access is the question that surprises people most, and it's more nuanced than most listings let on.
+## 1. Can you actually get to it?
 
-Some parcels have direct road frontage — clean and simple. Some have a deeded easement, a documented legal right of way across another property to reach yours. And some are what people call landlocked, meaning there's no recorded easement yet.
+Road access sounds like a given. It isn't always.
+
+Some parcels have direct road frontage — simple, documented, nothing to think about. Some have a deeded easement, a legal right of way across another property to reach yours. And some are what people call landlocked, meaning there's no recorded easement yet.
 
 That last one sounds worse than it is.
 
-Nobody can legally prevent you from accessing property that belongs to you. Courts recognize what's called an easement by necessity — if your land has no other way in, you have a legal right to establish access across adjacent property to reach it. It takes some work to formalize, but it's not a dead end.
+Nobody can legally prevent you from accessing property that belongs to you. Courts recognize something called an easement by necessity — if your land has no other way in, you have a legal right to establish access across adjacent property. It takes some work to formalize, but it's not a dead end.
 
-For some buyers, a landlocked parcel is actually the point. Harder to reach means more private, fewer uninvited visitors, and usually a lower price. If seclusion is what you're after, the extra step to establish access is a reasonable trade.
+For some buyers, landlocked is the whole appeal. Harder to reach, more private, lower price. If seclusion is what you're after, the extra step is a reasonable trade.
 
-What you want to know going in is which situation you're dealing with. Pull up the county GIS map with the parcel number — it shows road frontage, nearby roads, and recorded easements. Takes about five minutes and answers this completely.
+What you want going in is to know which situation you're dealing with. Pull up the county GIS map with the parcel number. Takes five minutes.
 
 ## 2. What are the property taxes?
 
-Rural vacant land is taxed at a fraction of what improved property costs. Most of what we sell runs somewhere between $50 and $300 a year.
+Probably less than you think.
 
-Still, know the number before you commit. County tax records are public and searchable by parcel number. Five minutes, exact figure.
+Rural vacant land is taxed at a fraction of what improved property costs. Most of what we sell runs somewhere between $50 and $300 a year. Some people spend more than that on a month of streaming subscriptions.
+
+Still, know the number before you commit. County tax records are public and searchable by parcel number. Five minutes, one less unknown.
 
 ## 3. What does the zoning actually allow?
 
-Zoning tells you what you can and can't do on the property. Rural residential and agricultural designations are the most flexible — they typically allow camping, RV parking, gardening, and in many counties, livestock.
+The listing says "rural residential" or "agricultural" and most people move on from there.
 
-Some zones have restrictions that don't show up in the listing. Minimum build sizes, limits on temporary structures, agricultural-only designations that affect other uses.
+Worth not moving on from there.
 
-County planning departments are public resources. A call or online lookup by parcel number gives you the designation and what it means. Ten minutes, no surprises later.
+Zoning tells you what you can and can't do on the property. Rural and agricultural designations are the most flexible — camping, RV parking, gardening, livestock in many counties. But some zones have restrictions that don't make it into the listing. Minimum build sizes. Limits on temporary structures. Agricultural-only designations that affect other uses.
+
+County planning departments are public resources. A call or a quick search by parcel number gets you the designation and what it actually means. Ten minutes, no surprises later.
 
 ## 4. Is there water?
 
 Depends entirely on what you're planning to do.
 
-If you're camping on it, you bring water. Same as any camping trip. Not a factor.
+If you're camping on the property, you bring water. Same as any camping trip. Not a factor.
 
-If you're thinking about building someday or living on it off-grid, the question matters more. Options are: municipal hookup (rare for rural land), a drilled well (typically $5,000 to $15,000 or more, requires permits), rainwater catchment (legal in some states, not others), or haul-in.
+If you're thinking about building someday or living off-grid, the question matters more. Options are: municipal hookup (rare for rural land), a drilled well (typically $5,000 to $15,000 or more, which is a number worth knowing before you're committed to finding out), rainwater catchment (legal in some states, not others), or haul-in.
 
-Check whether nearby parcels have wells and what depth they're drilled to. That's public record in most counties, and it tells you whether groundwater is accessible and what it's likely to cost.
+Look up nearby parcels and whether they have wells, and how deep. Public record in most counties. Tells you what groundwater looks like in the area before it becomes your problem to figure out.
 
 ## 5. What are the full financing terms?
 
-If you're buying with owner financing, get the complete picture before you sign anything.
+If you're buying with owner financing, all of this matters: down payment, monthly payment, interest rate, total payback amount, length of the contract, and what happens if you miss a payment — how many days before default, and what the cure period looks like.
 
-Down payment. Monthly payment. Interest rate, or whether it's interest-free. Total payback amount. Length of the contract. What happens if you miss a payment — specifically, how many days before default and what the cure period looks like.
+A seller who gets vague when you ask about any of those things is a seller worth being cautious about. The terms should be explainable in plain English in about two minutes.
 
-A seller who doesn't want to walk through all of that clearly is a seller to be cautious of.
-
-We're happy to go through every line of our contracts before anyone signs anything. The goal isn't to lock someone in. It's to make sure they know exactly what they're agreeing to.
+We'll walk through every line of our contracts before anyone signs anything. Not because we're required to. Because a buyer who knows exactly what they're agreeing to doesn't have regrets six months in.
 
 ---
 
@@ -68,6 +72,6 @@ We're happy to go through every line of our contracts before anyone signs anythi
 
 If a deal feels rushed, ask why.
 
-Good land doesn't expire. A seller pushing urgency without a clear reason is worth slowing down with. Run through the list above — it takes about an hour — and if everything checks out, including the terms, then you've got a good deal.
+Good land doesn't expire. A seller creating urgency without a clear reason is worth slowing down with. Run through these five things first — it takes about an hour — and if everything checks out, you've got your answer.
 
 We have properties in Florida, New Mexico, Oregon, and Arizona right now. Down payments start in the hundreds. We'll answer every question on this list before you commit to anything, and probably a few you haven't thought of yet.
