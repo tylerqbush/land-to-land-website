@@ -42,7 +42,7 @@ What's different is what happens next. We'd rather work it out than take the lan
 
 Some buyers want to start permitted work before the contract runs out. It's happened enough times that we have a path for it, though it's not the standard one.
 
-For buyers with a solid payment history, we've done early deed transfers: we move the deed to you ahead of schedule, and you grant us a security instrument on the property in return. You get to move forward with permitted work. We stay in a secured position until the balance clears. It's a conversation, not a guarantee, and it's the kind of conversation that happens once trust is built over a few months of on-time payments.
+For buyers with a solid payment history, we've done early deed transfers: we move the deed to you ahead of schedule, and you grant us a security instrument on the property in return. You get to move forward with permitted work. We stay in a secured position until the balance clears. It's a conversation, not a guarantee, and it's the kind of conversation that happens once trust is built over a few years of on-time payments.
 
 ---
 
