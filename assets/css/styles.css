@@ -2029,6 +2029,23 @@ body.nav-open {
   margin-top: var(--space-3);
 }
 
+/* Active listing with no checkout link yet: a text-us line, not a button. */
+.payment-text-cta {
+  font-size: 17px;
+  color: var(--color-text-muted);
+}
+
+.payment-text-cta a {
+  color: var(--color-forest);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Same line on the dark financing section. */
+.financing-cta .payment-text-cta { color: rgba(255, 255, 255, 0.75); }
+.financing-cta .payment-text-cta a { color: var(--color-white); }
+
 .spec-card__cols {
   display: grid;
   grid-template-columns: 1fr;

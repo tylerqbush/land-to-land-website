@@ -188,6 +188,11 @@ layout: base.njk
   </div>
 </section>
 
+{# Active listings with no GeekPay link get no buy button (see
+   showBuyButton). They show a "text us for the payment link" line
+   instead, with the property pre-filled in the message. #}
+{% set paymentLinkTextHref = "sms:7069630017?&body=" + (("Hi, can I get the payment link for the " + prop.acreage + " acre property in " + prop.city + ", " + prop.state + " (ID " + prop.id + ")?") | urlencode) %}
+
 {# ── FINANCING OPTIONS ── #}
 {# Sold listings are kept as social proof and often predate the current
    pricing fields (see scripts/sync.mjs validateRecord), so this whole
@@ -229,6 +234,8 @@ layout: base.njk
     <div class="financing-cta text-center mt-8">
       {% if prop | showBuyButton %}
         <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Secure This Property &rarr;</a>
+      {% elif prop.status == "Active" %}
+        <p class="payment-text-cta">To get your payment link, text <a href="{{ paymentLinkTextHref }}">706-963-0017</a>.</p>
       {% else %}
         <a href="#ask-question" class="btn btn-primary">Ask a Question</a>
       {% endif %}
@@ -288,6 +295,8 @@ layout: base.njk
       {% if prop | showBuyButton %}
         <a href="{{ prop.geekpay_url }}" target="_blank" rel="noopener" class="btn-buy">Reserve This Property &rarr;</a>
         <p class="specs-section__cta-note">Secure, encrypted checkout via GeekPay.io</p>
+      {% elif prop.status == "Active" %}
+        <p class="payment-text-cta">To get your payment link, text <a href="{{ paymentLinkTextHref }}">706-963-0017</a>.</p>
       {% else %}
         <a href="mailto:info@landtolandholdings.com?subject={{ ('Payment link request: ' + prop.name) | urlencode }}" class="btn-buy">Request Payment Link &rarr;</a>
         <p class="specs-section__cta-note">We'll email you a secure payment link.</p>

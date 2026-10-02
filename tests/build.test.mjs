@@ -54,6 +54,24 @@ test("no property page renders a real buy button without an active geekpay_url",
   }
 });
 
+// Active listings with no checkout link get a "text us for the payment
+// link" line instead of a button. Listings with a link must not show it.
+const TEXT_CTA = "To get your payment link, text";
+
+test("Active listings without a geekpay_url show the text-for-link CTA, and others do not", () => {
+  for (const prop of properties) {
+    const status = (prop.status || "").trim();
+    const html = readFileSync(`_site/property/${prop.slug}/index.html`, "utf8");
+    const needsTextCta = status === "Active" && !prop.geekpay_url;
+    if (needsTextCta) {
+      assert.ok(html.includes(TEXT_CTA), `${prop.slug} is Active with no payment link and must show the text CTA`);
+      assert.ok(html.includes('href="sms:7069630017'), `${prop.slug} text CTA must link to sms:7069630017`);
+    } else {
+      assert.ok(!html.includes(TEXT_CTA), `${prop.slug} (status="${status}") must not show the text CTA`);
+    }
+  }
+});
+
 test("_site/sitemap.xml exists", () => {
   assert.ok(existsSync("_site/sitemap.xml"), "_site/sitemap.xml missing");
 });
