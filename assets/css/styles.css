@@ -359,10 +359,13 @@ body.has-sale-banner .site-nav {
   flex-shrink: 0;
 }
 
+/* logo-black.png is a true black (#0A0A0A) transparent PNG. Do not
+   recolor it with CSS filters: brightness(0) rendered the old
+   SVG-wrapped logo as a black box, and the grayscale/contrast
+   workaround left it a washed-out gray. */
 .site-nav__logo img {
-  height: 30px;
+  height: 28px;
   width: auto;
-  filter: grayscale(1) contrast(1.5);
 }
 
 .site-nav__links {
@@ -1324,7 +1327,6 @@ body.nav-open {
 .site-footer__logo img {
   height: 28px;
   width: auto;
-  filter: brightness(0) invert(1);
   opacity: 0.85;
 }
 
