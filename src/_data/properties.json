@@ -300,6 +300,7 @@
     "road_access": "Dirt",
     "video_url": null,
     "photos": [
+      "/assets/properties/115/12.jpg",
       "/assets/properties/115/1.jpg",
       "/assets/properties/115/2.jpg",
       "/assets/properties/115/3.jpg",
@@ -311,7 +312,6 @@
       "/assets/properties/115/9.jpg",
       "/assets/properties/115/10.jpg",
       "/assets/properties/115/11.jpg",
-      "/assets/properties/115/12.jpg",
       "/assets/properties/115/13.jpg",
       "/assets/properties/115/14.jpg",
       "/assets/properties/115/15.jpg",
@@ -369,6 +369,7 @@
     "road_access": "Dirt",
     "video_url": null,
     "photos": [
+      "/assets/properties/116/11.jpg",
       "/assets/properties/116/1.jpg",
       "/assets/properties/116/2.jpg",
       "/assets/properties/116/3.jpg",
@@ -379,7 +380,6 @@
       "/assets/properties/116/8.jpg",
       "/assets/properties/116/9.jpg",
       "/assets/properties/116/10.jpg",
-      "/assets/properties/116/11.jpg",
       "/assets/properties/116/12.jpg",
       "/assets/properties/116/13.jpg",
       "/assets/properties/116/14.jpg"
@@ -436,6 +436,7 @@
     "road_access": "Dirt",
     "video_url": null,
     "photos": [
+      "/assets/properties/118/9.jpg",
       "/assets/properties/118/1.jpg",
       "/assets/properties/118/2.jpg",
       "/assets/properties/118/3.jpg",
@@ -444,7 +445,6 @@
       "/assets/properties/118/6.jpg",
       "/assets/properties/118/7.jpg",
       "/assets/properties/118/8.jpg",
-      "/assets/properties/118/9.jpg",
       "/assets/properties/118/10.jpg",
       "/assets/properties/118/11.jpg",
       "/assets/properties/118/12.jpg",
@@ -502,6 +502,7 @@
     "road_access": "Dirt",
     "video_url": null,
     "photos": [
+      "/assets/properties/119/15.jpg",
       "/assets/properties/119/1.jpg",
       "/assets/properties/119/2.jpg",
       "/assets/properties/119/3.jpg",
@@ -516,7 +517,6 @@
       "/assets/properties/119/12.jpg",
       "/assets/properties/119/13.jpg",
       "/assets/properties/119/14.jpg",
-      "/assets/properties/119/15.jpg",
       "/assets/properties/119/16.jpg",
       "/assets/properties/119/17.jpg",
       "/assets/properties/119/18.jpg",
@@ -1973,8 +1973,8 @@
     "road_access": "Dirt",
     "video_url": null,
     "photos": [
-      "/assets/properties/31/1.jpg",
       "/assets/properties/31/2.jpg",
+      "/assets/properties/31/1.jpg",
       "/assets/properties/31/3.jpg"
     ],
     "seo_title": "0.2 Acres in Highlands County, Florida – Owner Financing Available",
