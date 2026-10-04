@@ -106,3 +106,17 @@ export function sanitizeFields(fields) {
   for (const [k, v] of Object.entries(fields)) out[k] = stripInternalNotes(v);
   return out;
 }
+
+// Some Airtable photo sets lead with GIS/aerial/map screenshots and bury the
+// real ground photos further down, but photos[0] drives the listing card, the
+// page hero, and the gallery. data/primary-photos.json names the photo to lead
+// with per property, by Airtable attachment filename (stable if photos are
+// reordered, unlike a position). Returns photoPaths with that photo moved to
+// the front and everything else kept in its original order. If the filename
+// isn't found, or is already first, the original order is returned unchanged.
+export function applyPrimaryPhoto(photoPaths, attachments, primaryFilename) {
+  if (!primaryFilename || !Array.isArray(attachments)) return photoPaths;
+  const idx = attachments.findIndex(a => a && a.filename === primaryFilename);
+  if (idx <= 0 || idx >= photoPaths.length) return photoPaths;
+  return [photoPaths[idx], ...photoPaths.slice(0, idx), ...photoPaths.slice(idx + 1)];
+}

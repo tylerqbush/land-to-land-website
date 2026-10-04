@@ -14,6 +14,7 @@ import {
   diffRecords,
   stripInternalNotes,
   sanitizeFields,
+  applyPrimaryPhoto,
 } from '../scripts/lib/utils.mjs';
 
 // ── slugify ──────────────────────────────────────────────
@@ -227,4 +228,23 @@ test('stripInternalNotes: leaves clean text and non-strings alone', () => {
 test('sanitizeFields: cleans every string field, passes the rest through', () => {
   const fields = { 'Zoning Designation': "R-2 (per Jeff's site)", 'Monthly Payment': 199, Photos: [{ url: 'x' }] };
   assert.deepEqual(sanitizeFields(fields), { 'Zoning Designation': 'R-2', 'Monthly Payment': 199, Photos: [{ url: 'x' }] });
+});
+
+// ── applyPrimaryPhoto ────────────────────────────────────
+const PATHS = ['/p/1.jpg', '/p/2.jpg', '/p/3.jpg', '/p/4.jpg'];
+const ATTS = [{ filename: 'map.png' }, { filename: 'aerial.png' }, { filename: 'ground.jpg' }, { filename: 'other.jpg' }];
+test('applyPrimaryPhoto: moves the named photo to the front, keeps the rest in order', () => {
+  assert.deepEqual(applyPrimaryPhoto(PATHS, ATTS, 'ground.jpg'), ['/p/3.jpg', '/p/1.jpg', '/p/2.jpg', '/p/4.jpg']);
+});
+test('applyPrimaryPhoto: no override or unknown filename leaves order unchanged', () => {
+  assert.deepEqual(applyPrimaryPhoto(PATHS, ATTS, undefined), PATHS);
+  assert.deepEqual(applyPrimaryPhoto(PATHS, ATTS, 'missing.jpg'), PATHS);
+});
+test('applyPrimaryPhoto: already-first photo leaves order unchanged', () => {
+  assert.deepEqual(applyPrimaryPhoto(PATHS, ATTS, 'map.png'), PATHS);
+});
+test('applyPrimaryPhoto: follows the filename if Airtable reorders photos', () => {
+  const reordered = [ATTS[2], ATTS[0], ATTS[1], ATTS[3]];
+  assert.deepEqual(applyPrimaryPhoto(PATHS, reordered, 'ground.jpg'), PATHS);
+  assert.deepEqual(applyPrimaryPhoto(PATHS, reordered, 'other.jpg'), ['/p/4.jpg', '/p/1.jpg', '/p/2.jpg', '/p/3.jpg']);
 });

@@ -16,6 +16,7 @@ import {
   normalizeGeekpay,
   diffRecords,
   sanitizeFields,
+  applyPrimaryPhoto,
 } from './lib/utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -299,6 +300,12 @@ async function main() {
   const properties = [];
   const newHashes = { ...storedHashes };
 
+  // Per-property override for which photo leads (see applyPrimaryPhoto).
+  const primaryPhotosPath = join(ROOT, 'data', 'primary-photos.json');
+  const primaryPhotos = existsSync(primaryPhotosPath)
+    ? JSON.parse(await readFile(primaryPhotosPath, 'utf8'))
+    : {};
+
   const skipped = [];
   for (const [id, { content, photos, record }] of fetchedMap) {
     let prop;
@@ -311,6 +318,13 @@ async function main() {
     }
     const attachments = record.fields['Photos'] ?? [];
     prop.photos = attachments.map((_, i) => `/assets/properties/${id}/${i + 1}.jpg`);
+    const primaryFilename = primaryPhotos[id];
+    if (primaryFilename) {
+      if (!attachments.some(a => a.filename === primaryFilename)) {
+        console.warn(`  ${id}: primary photo "${primaryFilename}" not found in Airtable photos; using Airtable order`);
+      }
+      prop.photos = applyPrimaryPhoto(prop.photos, attachments, primaryFilename);
+    }
     if (existingNarratives[id]) {
       Object.assign(prop, existingNarratives[id]);
     }
