@@ -12,6 +12,8 @@ import {
   photoHash,
   normalizeGeekpay,
   diffRecords,
+  stripInternalNotes,
+  sanitizeFields,
 } from '../scripts/lib/utils.mjs';
 
 // ── slugify ──────────────────────────────────────────────
@@ -194,4 +196,35 @@ test('diffRecords: id in stored but not in fetch → removed', () => {
   const stored = { 'LTL-001': { content: 'abc', photos: '' } };
   const { removed } = diffRecords(fetched, stored);
   assert.deepEqual(removed, ['LTL-001']);
+});
+
+// ── stripInternalNotes / sanitizeFields ──────────────────
+test("stripInternalNotes: removes \"(per Jeff's site, confirm)\"", () => {
+  assert.equal(stripInternalNotes("R-2 Residential (per Jeff's site, confirm)"), 'R-2 Residential');
+});
+test('stripInternalNotes: fixes spacing before trailing punctuation', () => {
+  assert.equal(
+    stripInternalNotes("Zoned R-2 Residential (per Jeff's site, confirm)."),
+    'Zoned R-2 Residential.'
+  );
+});
+test('stripInternalNotes: is case-insensitive', () => {
+  assert.equal(stripInternalNotes('AR-1A (Per Raindance Site)'), 'AR-1A');
+});
+test('stripInternalNotes: leaves legitimate buyer caveats alone', () => {
+  const s = 'R-2 Residential (single family or mobile home, confirm with the county)';
+  assert.equal(stripInternalNotes(s), s);
+});
+test('stripInternalNotes: never alters text that has no note (decimals, spacing)', () => {
+  assert.equal(stripInternalNotes('vacant land luna nm, .5013 acres luna nm'), 'vacant land luna nm, .5013 acres luna nm');
+  assert.equal(stripInternalNotes("32°16'24.8, -107°32'54.6  "), "32°16'24.8, -107°32'54.6  ");
+});
+test('stripInternalNotes: leaves clean text and non-strings alone', () => {
+  assert.equal(stripInternalNotes('Rural Residential (R-2)'), 'Rural Residential (R-2)');
+  assert.equal(stripInternalNotes(null), null);
+  assert.equal(stripInternalNotes(247), 247);
+});
+test('sanitizeFields: cleans every string field, passes the rest through', () => {
+  const fields = { 'Zoning Designation': "R-2 (per Jeff's site)", 'Monthly Payment': 199, Photos: [{ url: 'x' }] };
+  assert.deepEqual(sanitizeFields(fields), { 'Zoning Designation': 'R-2', 'Monthly Payment': 199, Photos: [{ url: 'x' }] });
 });

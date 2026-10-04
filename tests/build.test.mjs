@@ -72,6 +72,36 @@ test("Active listings without a geekpay_url show the text-for-link CTA, and othe
   }
 });
 
+// Internal data-entry notes (e.g. "(per Jeff's site, confirm)") must never
+// reach a built page. stripInternalNotes handles it at sync time; this
+// guards the output.
+test("no listing page contains an internal \"per ...'s site\" note", () => {
+  for (const prop of properties) {
+    const html = readFileSync(`_site/property/${prop.slug}/index.html`, "utf8");
+    assert.ok(!/per [^<)]{0,30}site/i.test(html), `${prop.slug} contains an internal "per ... site" note`);
+  }
+});
+
+// A source-written description (src/_data/listingBlurbs.json) must render
+// on its listing page, but only when its apn matches the record's apn.
+const blurbs = JSON.parse(readFileSync("src/_data/listingBlurbs.json", "utf8"));
+const escapeHtml = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+
+test("listing blurbs render on matching listings and not on mismatched ones", () => {
+  for (const [id, blurb] of Object.entries(blurbs)) {
+    if (id.startsWith("_")) continue;
+    const prop = properties.find((p) => p.id === id);
+    if (!prop) continue; // listing no longer published
+    const html = readFileSync(`_site/property/${prop.slug}/index.html`, "utf8");
+    const snippet = escapeHtml(blurb.paragraphs[0].slice(0, 60));
+    if (blurb.apn === prop.apn) {
+      assert.ok(html.includes(snippet), `${prop.slug} must render its source description`);
+    } else {
+      assert.ok(!html.includes(snippet), `${prop.slug} apn changed (${prop.apn} vs ${blurb.apn}); its source description must not render`);
+    }
+  }
+});
+
 test("_site/sitemap.xml exists", () => {
   assert.ok(existsSync("_site/sitemap.xml"), "_site/sitemap.xml missing");
 });

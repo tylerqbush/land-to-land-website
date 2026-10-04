@@ -15,6 +15,7 @@ import {
   photoHash,
   normalizeGeekpay,
   diffRecords,
+  sanitizeFields,
 } from './lib/utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -117,7 +118,9 @@ function generateDescription(f, acreage, city, county, state) {
 }
 
 function mapRecord(record, existingSlug) {
-  const f = record.fields;
+  // Strip internal data-entry notes like "(per Jeff's site, confirm)" so
+  // they never reach buyer-facing copy. See stripInternalNotes in utils.
+  const f = sanitizeFields(record.fields);
   const id = f['Product ID'] != null ? String(f['Product ID']) : null;
   if (!id) throw new Error(`Record has no Property ID: ${JSON.stringify(record.id)}`);
 

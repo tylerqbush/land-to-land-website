@@ -78,3 +78,31 @@ export function diffRecords(fetchedMap, storedHashes) {
   }
   return { added, updated, unchanged, removed };
 }
+
+// Internal data-entry notes sometimes end up in Airtable text fields, e.g.
+// Zoning Designation = "R-2 Residential (per Jeff's site, confirm)". They
+// are reminders for Tyler, not buyer-facing copy, so strip any
+// parenthetical that attributes a value to someone's site ("(per X's
+// site...)"). Deliberately narrow: legitimate buyer caveats such as
+// "(confirm with the county)" are left alone.
+export function stripInternalNotes(text) {
+  if (typeof text !== 'string') return text;
+  // Also swallow whitespace before a following . , ; : so removing the note
+  // never leaves "Residential ." behind. Text with no note is returned
+  // untouched (not even trimmed), so unrelated strings like ", .5 acres"
+  // are never altered.
+  const out = text.replace(
+    /\s*\(\s*per\s+[^)]*\bsite\b[^)]*\)(\s*[.,;:])?/gi,
+    (_match, punct) => (punct ? punct.trim() : '')
+  );
+  return out === text ? text : out.trim();
+}
+
+// Shallow copy of an Airtable fields object with stripInternalNotes
+// applied to every string value. Non-strings (numbers, arrays,
+// attachment objects) pass through untouched.
+export function sanitizeFields(fields) {
+  const out = {};
+  for (const [k, v] of Object.entries(fields)) out[k] = stripInternalNotes(v);
+  return out;
+}

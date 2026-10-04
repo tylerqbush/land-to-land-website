@@ -71,8 +71,14 @@ layout: base.njk
         <p class="listing-eyebrow">Property at a Glance</p>
         <h2 class="listing-narrative-heading">What You're Actually Getting</h2>
 
+        {# A source-written description (src/_data/listingBlurbs.json) wins
+           over the generated narrative/description, but only while its apn
+           matches this record's apn, so it can never attach to the wrong parcel. #}
+        {% set blurb = listingBlurbs[prop.id] %}
         <div class="listing-narrative-body">
-          {% if prop.narrative %}
+          {% if blurb and blurb.apn == prop.apn %}
+            {% for para in blurb.paragraphs %}<p>{{ para }}</p>{% endfor %}
+          {% elif prop.narrative %}
             {{ prop.narrative | safe }}
           {% else %}
             <p>{{ prop.description }}</p>
