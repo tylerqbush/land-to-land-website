@@ -892,6 +892,12 @@ body.nav-open {
   background: transparent;
 }
 
+.prop-chip--sale {
+  color: var(--color-white);
+  background: var(--color-forest);
+  font-weight: 700;
+}
+
 /* ── CTA button */
 .property-card__cta {
   display: block;

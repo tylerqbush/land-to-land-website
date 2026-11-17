@@ -31,6 +31,8 @@
       {% endif %}
     </div>
     <div class="property-card__chips">
+      {% set bfc = prop | saleTerms(sale.termCut) if (sale.live and prop.status == "Active") else null %}
+      {% if bfc %}<span class="prop-chip prop-chip--sale">Black Friday: {{ bfc.removed }} fewer payments</span>{% endif %}
       {% if prop.terrain %}<span class="prop-chip">{{ prop.terrain }}</span>{% endif %}
       {% if prop.road_access and prop.road_access != "None" %}
         <span class="prop-chip">Road access</span>

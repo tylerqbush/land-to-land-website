@@ -1,18 +1,18 @@
 name: Sale Banner Toggle
 
-# One-off triggers for the America's 250th sale (July 1-6, 2026, ET).
+# One-off triggers for the Black Friday 2026 sale (live Nov 27-30, 2026, ET).
 # src/_data/sale.js gates the banner by real-world date at build time, but
 # a rebuild only happens on push. These two runs force an empty commit at
 # the exact activation/deactivation boundaries so Cloudflare Pages rebuilds
 # right on time instead of waiting for the next Airtable data change.
 #
-# Delete this file after July 7, 2026 — the cron dates below will otherwise
+# Delete this file after Dec 1, 2026 — the cron dates below will otherwise
 # recur every year and trigger a harmless but pointless rebuild.
 
 on:
   schedule:
-    - cron: '5 4 1 7 *' # July 1, 12:05am ET (sale activates)
-    - cron: '5 4 7 7 *' # July 7, 12:05am ET (sale deactivates)
+    - cron: '5 5 27 11 *' # Nov 27, 12:05am ET (teaser -> live sale)
+    - cron: '5 5 1 12 *' # Dec 1, 12:05am ET (sale ends, banner removed)
   workflow_dispatch:
 
 jobs:

@@ -231,10 +231,14 @@ layout: base.njk
         <table class="financing-table">
           <tr><td>Down Payment</td><td>{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</td></tr>
           <tr><td>Monthly Payment</td><td class="financing-table__highlight">${{ prop.monthly }}/mo</td></tr>
-          {% if prop.term_months %}<tr><td>Term</td><td>{{ prop.term_months }} months</td></tr>{% endif %}
+          {% set bf = prop | saleTerms(sale.termCut) if (sale.live and prop.status == "Active") else null %}
+          {% if bf %}
+          <tr><td>Term</td><td><s>{{ prop.term_months }} months</s> <strong>{{ bf.saleTerm }} months</strong></td></tr>
+          <tr><td>Black Friday Savings</td><td class="financing-table__highlight">${{ bf.savings | numberFormat }} ({{ bf.pct }}% off total payments)</td></tr>
+          {% elif prop.term_months %}<tr><td>Term</td><td>{{ prop.term_months }} months</td></tr>{% endif %}
           <tr><td>Doc Fee</td><td>{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</td></tr>
         </table>
-        <p class="financing-terms-card__note">No credit check required.</p>
+        <p class="financing-terms-card__note">No credit check required.{% if bf %} Black Friday terms: same monthly payment, {{ bf.removed }} fewer payments. Pay the down payment and doc fee by Monday, Nov 30 at 11:59pm ET.{% endif %}</p>
       </div>
     </div>
     <div class="financing-cta text-center mt-8">

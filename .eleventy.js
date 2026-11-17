@@ -66,6 +66,19 @@ export default function (eleventyConfig) {
     return Math.max(1, Math.round(words / 200));
   });
 
+  // Black Friday 2026 sale terms for a property: same monthly payment,
+  // term cut by `cut` (rounded DOWN to whole months so the real discount is
+  // never below the advertised percent). Returns null when the property
+  // has no term pricing.
+  eleventyConfig.addFilter("saleTerms", (prop, cut) => {
+    if (!prop || !prop.monthly || !prop.term_months) return null;
+    const saleTerm = Math.floor(prop.term_months * (1 - cut));
+    const removed = prop.term_months - saleTerm;
+    const savings = Math.round(prop.monthly * removed * 100) / 100;
+    const pct = Math.floor((removed / prop.term_months) * 100);
+    return { saleTerm, removed, savings, pct };
+  });
+
   // Comma-formatted number, e.g. 15998 -> "15,998"
   eleventyConfig.addFilter("numberFormat", (value) => {
     if (value == null) return "";
