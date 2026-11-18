@@ -5,9 +5,13 @@ pagination:
   alias: prop
 permalink: "property/{{ prop.slug }}/index.html"
 layout: base.njk
+# The layout reads `title` and `description` from page data. A {% set %} in
+# the template body never reaches it, which left every property page with the
+# same generic browser-tab title and meta description.
+eleventyComputed:
+  title: "{{ prop.name }} | Land to Land Holdings"
+  description: "{{ prop.description | truncate(155) }}"
 ---
-{%- set title = prop.name + " | Land to Land Holdings" -%}
-{%- set description = prop.description -%}
 
 {# ── HERO ── #}
 <div class="listing-hero">
@@ -157,8 +161,41 @@ layout: base.njk
   </div>
 </section>
 
+{# ── FIT: WHO THIS PARCEL IS (AND ISN'T) FOR ──
+   Hand-written per listing in src/_data/listingFit.json. Renders only for
+   Active listings and only while the entry's apn matches this record's apn,
+   so text can never attach to the wrong parcel. #}
+{% set fit = listingFit[prop.id] %}
+{% if fit and fit.apn == prop.apn and prop.status == "Active" %}
+<section class="section fit-section">
+  <div class="container">
+    <p class="listing-eyebrow text-center">Straight Talk</p>
+    <h2 class="heading-md mb-8 text-center">Is this the right parcel for you?</h2>
+    <div class="fit-grid">
+      <div class="fit-card fit-card--good">
+        <p class="fit-card__label">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          What it's good for
+        </p>
+        <p class="fit-card__text">{{ fit.good }}</p>
+      </div>
+      <div class="fit-card fit-card--not">
+        <p class="fit-card__label">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          What it's not good for
+        </p>
+        <p class="fit-card__text">{{ fit.not }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 {# ── LIFESTYLE: WHY BUYERS CHOOSE THIS MARKET ── #}
-{% set market = marketLifestyle.markets[prop.state] or marketLifestyle.fallback %}
+{# Market copy is written per county. Use it only when the county matches;
+   otherwise show the generic block instead of another county's copy. #}
+{% set market = marketLifestyle.markets[prop.state] %}
+{% if not market or market.county != prop.county %}{% set market = marketLifestyle.fallback %}{% endif %}
 <section class="lifestyle-section">
   <div class="container">
     <p class="listing-eyebrow text-center">Quick Look</p>
@@ -191,6 +228,47 @@ layout: base.njk
         </div>
       {% endfor %}
     </div>
+
+    {# What the county allows. Statuses come from the Airtable Yes/No use
+       fields (see allowedUses in scripts/lib/utils.mjs); text that can't be
+       read with confidence is shown as written. For listings still for sale. #}
+    {% if prop.status == "Active" or prop.status == "Under Contract" %}
+    {% set uses = prop | allowedUses %}
+    {% set county = countyPlanning[prop.county ~ "|" ~ prop.state] %}
+    <div class="uses-card">
+      <h3 class="uses-card__heading">What the county allows here</h3>
+      <p class="uses-card__intro">From our due diligence on this parcel. County rules change, so confirm with the county before you buy.</p>
+      {% if uses.hasAnswers %}
+        {% for group in uses.groups %}
+        <div class="uses-group">
+          <p class="uses-group__title">{{ group.title }}</p>
+          <ul class="uses-list">
+            {% for row in group.rows %}
+            <li class="uses-row">
+              <span class="uses-row__label">{{ row.label }}</span>
+              <span class="uses-row__body">
+                {% if row.chip %}<span class="uses-chip uses-chip--{{ row.status }}">{{ row.chip }}</span>{% endif %}
+                {% if row.note %}<span class="uses-row__note">{{ row.note }}</span>{% endif %}
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p class="uses-card__empty">We don't have use details on file for this parcel yet. Text us and we'll tell you what we know, and check with the county before you decide.</p>
+      {% endif %}
+      <p class="uses-card__county">
+        {% if county %}
+          {{ county.name }} decides what is allowed, not us.
+          Call <a href="tel:{{ county.tel }}">{{ county.phone }}</a>{% if county.phoneNote %} ({{ county.phoneNote }}){% endif %}
+          or <a href="{{ county.url }}" target="_blank" rel="noopener">visit their page</a>.
+        {% else %}
+          The county planning department decides what is allowed, not us. Check with them before you buy.
+        {% endif %}
+      </p>
+    </div>
+    {% endif %}
   </div>
 </section>
 
@@ -229,6 +307,10 @@ layout: base.njk
           <span>Owner Financing</span>
         </div>
         <table class="financing-table">
+          {% set start = prop | costToStart %}
+          {% if start and prop.status != "Sold" %}
+          <tr class="financing-table__start"><td>To start today<span class="financing-table__sub">down payment + doc fee</span></td><td class="financing-table__highlight">${{ start.total | numberFormat }}</td></tr>
+          {% endif %}
           <tr><td>Down Payment</td><td>{% if prop.down %}${{ prop.down }}{% else %}TBD{% endif %}</td></tr>
           <tr><td>Monthly Payment</td><td class="financing-table__highlight">${{ prop.monthly }}/mo</td></tr>
           {% set bf = prop | saleTerms(sale.termCut) if (sale.live and prop.status == "Active") else null %}
@@ -285,6 +367,7 @@ layout: base.njk
         <table class="listing-table">
           <tr><td>County</td><td>{{ prop.county }}, {{ prop.state }}</td></tr>
           <tr><td>APN</td><td>{% if prop.apn %}{{ prop.apn }}{% else %}Not specified{% endif %}</td></tr>
+          {% if prop.address %}<tr><td>Address</td><td>{{ prop.address }}</td></tr>{% endif %}
           <tr><td>Terrain</td><td>{% if prop.terrain %}{{ prop.terrain }}{% else %}Not specified{% endif %}</td></tr>
           <tr><td>Access Road</td><td>{% if prop.road_access %}{{ prop.road_access }}{% else %}Not specified{% endif %}</td></tr>
           <tr><td>Sewer/Septic</td><td>{% if prop.septic_required %}{{ prop.septic_required }}{% elif prop.septic %}{{ prop.septic }}{% else %}Not specified{% endif %}</td></tr>
@@ -294,6 +377,8 @@ layout: base.njk
         <table class="listing-table">
           <tr><td>Zoning</td><td>{{ prop.zoning | zoningDisplay }}</td></tr>
           <tr><td>Acreage</td><td>{{ prop.acreage }} Acres</td></tr>
+          {% if prop.lot_dimensions %}<tr><td>Lot Dimensions</td><td>{% for line in prop.lot_dimensions | splitLines %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}</td></tr>{% endif %}
+          {% if prop.annual_taxes %}<tr><td>Annual Taxes</td><td>${{ prop.annual_taxes }} per year</td></tr>{% endif %}
           <tr><td>Elevation</td><td>{% if prop.elevation %}{{ prop.elevation }}{% else %}Not specified{% endif %}</td></tr>
           <tr><td>Water</td><td>{% if prop.well %}{{ prop.well }}{% else %}Not specified{% endif %}</td></tr>
           <tr><td>Electric</td><td>{% if prop.electricity %}{{ prop.electricity }}{% else %}Not specified{% endif %}</td></tr>
@@ -376,6 +461,16 @@ layout: base.njk
     </div>
   </div>
 </section>
+
+{# Sticky "text us" bar, phones only (CSS hides it on wider screens). Active
+   listings only. Opens a text to Tyler with the property already filled in.
+   No JavaScript involved. #}
+{% if prop.status == "Active" %}
+{% set stickyTextHref = "sms:7069630017?&body=" + (("Hi, I'm interested in the " + prop.acreage + " acre property in " + prop.city + ", " + prop.state + " (ID " + prop.id + "). Can you tell me more?") | urlencode) %}
+<div class="sticky-cta">
+  <a href="{{ stickyTextHref }}" class="btn btn-primary btn-full">Text us about this property</a>
+</div>
+{% endif %}
 
 <script src="/assets/js/lightbox.js" defer></script>
 <script src="/assets/js/photo-slider.js" defer></script>

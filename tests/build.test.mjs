@@ -102,6 +102,77 @@ test("listing blurbs render on matching listings and not on mismatched ones", ()
   }
 });
 
+// ── Phase 1 property page ────────────────────────────────────────────────
+const page = (prop) => readFileSync(`_site/property/${prop.slug}/index.html`, "utf8");
+const fitData = JSON.parse(readFileSync("src/_data/listingFit.json", "utf8"));
+const countyPlanning = JSON.parse(readFileSync("src/_data/countyPlanning.json", "utf8"));
+
+test("every listing page has a heading, its own browser-tab title, and a meta description", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const h1 = (html.match(/<h1 class="listing-hero__title">([^<]*)<\/h1>/) || [])[1];
+    assert.ok(h1 && h1.trim(), `${prop.slug}: heading is empty`);
+    const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1] || "";
+    assert.ok(title.includes("Land to Land Holdings") && title.startsWith(prop.name.slice(0, 10)), `${prop.slug}: <title> is generic or missing the listing name ("${title}")`);
+    const meta = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || "";
+    assert.ok(meta.length > 40 && !meta.startsWith("Buy vacant land with no bank"), `${prop.slug}: meta description is generic or empty`);
+  }
+});
+
+test("sticky text bar: Active listings only, with an sms link to Tyler", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    if ((prop.status || "").trim() === "Active") {
+      assert.ok(html.includes('class="sticky-cta"'), `${prop.slug}: Active listing needs the sticky bar`);
+      assert.ok(/class="sticky-cta">\s*<a href="sms:7069630017/.test(html), `${prop.slug}: sticky bar must link to sms:7069630017`);
+    } else {
+      assert.ok(!html.includes('class="sticky-cta"'), `${prop.slug} (${prop.status}) must not show the sticky bar`);
+    }
+  }
+});
+
+test('"To start today" shows down payment plus doc fee on listings still for sale, never on Sold', () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const sold = (prop.status || "").trim() === "Sold";
+    const expect = !sold && prop.down != null && prop.doc_fee != null;
+    assert.equal(html.includes("To start today"), expect, `${prop.slug}: "To start today" expected=${expect}`);
+    if (expect) {
+      const total = (Math.round((prop.down + prop.doc_fee) * 100) / 100).toLocaleString("en-US");
+      assert.ok(html.includes(`$${total}</td>`), `${prop.slug}: should show $${total} to start`);
+    }
+  }
+});
+
+test("fit boxes render only for Active listings whose apn matches the entry", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const entry = fitData[prop.id];
+    const active = (prop.status || "").trim() === "Active";
+    const expected = Boolean(entry && entry.apn === prop.apn && active);
+    assert.equal(html.includes("fit-card--good"), expected, `${prop.slug}: fit boxes expected=${expected}`);
+  }
+});
+
+test("county rules table shows on listings still for sale, with a verified county contact when we have one", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const forSale = ["Active", "Under Contract"].includes((prop.status || "").trim());
+    assert.equal(html.includes("What the county allows here"), forSale, `${prop.slug}: county table expected=${forSale}`);
+    const county = countyPlanning[`${prop.county}|${prop.state}`];
+    if (forSale && county) {
+      assert.ok(html.includes(`href="tel:${county.tel}"`), `${prop.slug}: should link the ${county.name} number`);
+    }
+  }
+});
+
+test("county market copy only shows on listings in that county", () => {
+  for (const prop of properties) {
+    const named = (page(prop).match(/Why Buyers Choose ([A-Za-z ]+?) County/) || [])[1];
+    if (named) assert.equal(named, prop.county, `${prop.slug} shows ${named} County copy but is in ${prop.county} County`);
+  }
+});
+
 test("_site/sitemap.xml exists", () => {
   assert.ok(existsSync("_site/sitemap.xml"), "_site/sitemap.xml missing");
 });

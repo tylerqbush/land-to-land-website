@@ -1,5 +1,5 @@
 import pluginSitemap from "@quasibit/eleventy-plugin-sitemap";
-import { showBuyButton } from "./scripts/lib/utils.mjs";
+import { showBuyButton, costToStart, allowedUses } from "./scripts/lib/utils.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
@@ -17,6 +17,18 @@ export default function (eleventyConfig) {
   // Logic lives in scripts/lib/utils.mjs so it has direct unit tests
   // independent of build output (see tests/sync.test.mjs).
   eleventyConfig.addFilter("showBuyButton", showBuyButton);
+
+  // Property page: amount due to start (down payment + doc fee) and the
+  // "what the county allows" rows. Both are pure functions in
+  // scripts/lib/utils.mjs with unit tests (tests/listing.test.mjs).
+  eleventyConfig.addFilter("costToStart", costToStart);
+  eleventyConfig.addFilter("allowedUses", allowedUses);
+
+  // Split a multi-line Airtable text value (e.g. lot dimensions, one side
+  // per line) into an array so a template can join it with <br> safely.
+  eleventyConfig.addFilter("splitLines", (value) =>
+    String(value || "").split(/\r?\n/).map((s) => s.trim()).filter(Boolean)
+  );
 
   // Full state name for a 2-letter abbreviation, e.g. "AZ" -> "Arizona".
   // Used to label the browse-properties filter dropdown, which is built

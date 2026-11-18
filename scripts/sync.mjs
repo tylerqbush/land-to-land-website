@@ -17,6 +17,7 @@ import {
   diffRecords,
   sanitizeFields,
   applyPrimaryPhoto,
+  listingName,
 } from './lib/utils.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -136,7 +137,7 @@ function mapRecord(record, existingSlug) {
 
   return {
     id,
-    name: f['Property Name'] ?? '',
+    name: listingName(f['Property Name'], acreage, city, state),
     slug,
     status: normalizeStatus(f['Status']),
     acreage,

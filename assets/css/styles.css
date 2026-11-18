@@ -2890,3 +2890,182 @@ body::before {
 @media (min-width: 1024px) {
   .blog-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ─── PROPERTY PAGE: FIT BOXES, COUNTY RULES, STICKY TEXT BAR ───────────
+   Added with the Phase 1 property page work. Uses only existing tokens. */
+
+/* "Is this the right parcel for you?" (src/_data/listingFit.json) */
+.fit-section { background: var(--color-sand-light); }
+
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 700px) {
+  .fit-grid { grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+}
+
+.fit-card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: var(--space-6);
+  border-left: 3px solid var(--color-terra);
+}
+
+.fit-card--not { border-left-color: var(--color-forest); }
+
+.fit-card__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-text-dark);
+}
+
+.fit-card--good .fit-card__label svg { color: var(--color-terra-dark); }
+
+.fit-card__text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text-dark);
+}
+
+/* "What the county allows here" (inside the Rules & Zoning section) */
+.uses-card {
+  max-width: 760px;
+  margin: var(--space-8) auto 0;
+  padding: var(--space-6);
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+}
+
+.uses-card__heading {
+  margin-bottom: var(--space-2);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.uses-card__intro {
+  margin-bottom: var(--space-5);
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.uses-card__empty { font-size: 15px; line-height: 1.7; }
+
+.uses-group + .uses-group { margin-top: var(--space-5); }
+
+.uses-group__title {
+  margin-bottom: var(--space-1);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border-light);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.uses-list { list-style: none; margin: 0; padding: 0; }
+
+.uses-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-1);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.uses-row:last-child { border-bottom: none; }
+
+@media (min-width: 640px) {
+  .uses-row { grid-template-columns: 190px 1fr; gap: var(--space-4); align-items: baseline; }
+}
+
+.uses-row__label { font-size: 15px; font-weight: 700; }
+
+.uses-row__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+}
+
+.uses-row__note {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-dark);
+}
+
+.uses-chip {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.uses-chip--yes    { background: rgba(139, 200, 63, 0.2); color: var(--color-forest); }
+.uses-chip--limits { background: var(--color-sand); color: var(--color-forest); }
+.uses-chip--no     { background: var(--color-forest); color: var(--color-white); }
+.uses-chip--ask    { border: 1px dashed var(--color-sand-dark); color: var(--color-text-muted); }
+
+.uses-card__county {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-light);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.uses-card__county a {
+  color: var(--color-text-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* "To start today" row in the Owner Financing card */
+.financing-table__sub {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.65;
+}
+
+/* Sticky "text us" bar: phones only. */
+.sticky-cta { display: none; }
+
+@media (max-width: 767px) {
+  .sticky-cta {
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 80; /* under the menu backdrop (90) and nav (100) */
+    padding: var(--space-3) var(--space-4);
+    padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+    background: var(--color-white);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.14);
+  }
+
+  .sticky-cta .btn { min-height: 52px; font-size: 16px; }
+
+  /* Keep the footer's last lines clear of the bar. */
+  body:has(.sticky-cta) .site-footer {
+    padding-bottom: calc(var(--space-8) + 76px + env(safe-area-inset-bottom, 0px));
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "_readme": "Per-listing 'good for / not good for' boxes on the property page, written by hand from the Airtable fields and county data already on each listing, never from outside information. An entry only renders while its apn matches the property's apn and the listing is Active. These are static text: if a listing's Airtable fields change (access, utilities, camping rules), re-read its entry. Listings with too little on file (122) intentionally have none. Wording says what the county allows, never what the buyer is entitled to do before the deed transfers.",
+  "113": {
+    "apn": "3032144103215; 3032144144215; 3032144125215; 3032144103196; 3032144092195; 3032144091214",
+    "good": "Holding land, or building in stages if you're willing to arrange your own utilities. It's 3 desert acres on a dirt road, with property taxes of about $56 a year.",
+    "not": "Anyone who needs power or water at the lot on day one. You'd contact PNM about power, dig a well, and install a septic system. The listing covers six separate parcel numbers, so ask us how they sit together before you buy. We don't have zoning or home rules on file, so ask Luna County before you plan a build."
+  },
+  "114": {
+    "apn": "209-04-050",
+    "good": "An off-grid build on flat desert ground. Agriculture Residential zoning allows a single-family home, or a manufactured home built after June 15, 1976, with no time limit to build and inspections every six months once a permit is pulled. Property taxes are about $42 a year.",
+    "not": "Tent camping or full-time RV living. Tent camping isn't allowed, RV stays are limited to two weeks at a time and 30 days a year, and full-time RV living needs a Temporary Residence Permit. There's no grid power, so plan on solar, wind, or a generator, and on drilling a well or hauling water."
+  },
+  "115": {
+    "apn": "207-03-025",
+    "good": "An off-grid build on flat desert ground. Agriculture Residential zoning allows a single-family home, or a manufactured home built after June 15, 1976, with no time limit to build and inspections every six months once a permit is pulled. Property taxes are about $33 a year.",
+    "not": "Tent camping or full-time RV living. Tent camping isn't allowed, RV stays are limited to two weeks at a time and 30 days a year, and full-time RV living needs a Temporary Residence Permit. There's no grid power, so plan on solar, wind, or a generator, and on drilling a well or hauling water."
+  },
+  "116": {
+    "apn": "207-03-064",
+    "good": "An off-grid build on flat desert ground. Agriculture Residential zoning allows a single-family home, or a manufactured home built after June 15, 1976, with no time limit to build and inspections every six months once a permit is pulled. Property taxes are about $33 a year.",
+    "not": "Tent camping or full-time RV living. Tent camping isn't allowed, RV stays are limited to two weeks at a time and 30 days a year, and full-time RV living needs a Temporary Residence Permit. There's no grid power, so plan on solar, wind, or a generator, and on drilling a well or hauling water."
+  },
+  "118": {
+    "apn": "08-13-27-7063-1320-0220",
+    "good": "A small, low-tax Florida homesite. R-2 zoning allows a single-family home or a mobile home, power is available through FPL, septic is permitted, and property taxes are about $28 a year.",
+    "not": "A big lot or a paved road. This is 0.23 acres on a dirt road, and water means a well or a cistern. We don't have camping or RV rules on file, so ask Putnam County before you plan to camp or park an RV there."
+  },
+  "119": {
+    "apn": "11-11-26-8243-0210-0080",
+    "good": "A flat, tree-covered lot for someone who understands flood-zone living. R-2 zoning allows a single-family home or a mobile home (400 square feet minimum), and a raised home is recommended.",
+    "not": "Dry, easy-to-build ground. The lot is in a flood zone with wetlands, and Lake Myra runs through it. We don't have power, water, or septic details on file, so ask Putnam County before you plan a build."
+  },
+  "120": {
+    "apn": "09-10-24-4066-0050-0830",
+    "good": "A level, wooded homesite on a paved road. R-2 zoning allows a single-family home.",
+    "not": "A cleared, ready-to-build lot. It's wooded and would need clearing and utility connection before you build. We don't have septic, camping, or RV rules on file, so ask Putnam County before you plan."
+  },
+  "121": {
+    "apn": "26-09-24-4076-1160-0280",
+    "good": "A wooded homesite with level ground and a gentle slope. R-2 zoning allows a single-family home, and an established homesite sits next door to the north.",
+    "not": "A cleared, ready-to-build lot. It's wooded and would need clearing before you build. We don't have road, septic, camping, or RV details on file, so ask Putnam County before you plan."
+  },
+  "2": {
+    "apn": "R266045",
+    "good": "A single home built over time on a small Klamath County acreage. Rural Residential zoning allows one home, tent camping is allowed under county rules, and the parcel isn't in a flood zone.",
+    "not": "Full-time RV living, or anyone who needs power, water, and sewer at the lot. Full-time RV living is limited to 21 days in a six-month period. You'd contact Pacific Power about electricity, drill a well, and install a septic system."
+  },
+  "3": {
+    "apn": "257135",
+    "good": "A single home built over time on a small Klamath County acreage. Rural Residential zoning allows one home, and solar is allowed for power.",
+    "not": "Full-time RV living, or anyone who needs power at the lot now. There's no electricity there today, a septic system is required, and tent and RV stays are limited to 21 days in each six-month period. The FEMA flood zone for this parcel is unknown, with no wetlands."
+  },
+  "49": {
+    "apn": "R266410",
+    "good": "A single home built over time on a small Klamath County acreage. Rural Residential zoning allows a single-family home, the parcel isn't in a flood zone, and power poles are visible nearby to the east.",
+    "not": "Anyone who needs power at the lot today. You'd run lines or use solar, and a septic system is required per the county planner. Tent and RV stays, including full-time RV living, are limited to 21 days in each six-month period."
+  }
+}

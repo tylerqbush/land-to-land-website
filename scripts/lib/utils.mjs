@@ -120,3 +120,120 @@ export function applyPrimaryPhoto(photoPaths, attachments, primaryFilename) {
   if (idx <= 0 || idx >= photoPaths.length) return photoPaths;
   return [photoPaths[idx], ...photoPaths.slice(0, idx), ...photoPaths.slice(idx + 1)];
 }
+
+// What a buyer pays to start: the down payment plus the one-time doc fee.
+// Returns null unless both are real numbers, so a listing with a missing fee
+// never shows a total that quietly leaves it out. The note fee and monthly
+// property tax are not part of this; they are inside the monthly payment.
+export function costToStart(prop) {
+  if (!prop || prop.down == null || prop.doc_fee == null) return null;
+  const down = Number(prop.down);
+  const docFee = Number(prop.doc_fee);
+  if (!Number.isFinite(down) || !Number.isFinite(docFee) || down < 0 || docFee < 0) return null;
+  return { down, docFee, total: Math.round((down + docFee) * 100) / 100 };
+}
+
+// ── "What the county allows" table ────────────────────────────────────────
+// The Airtable use fields are free text ("Yes, up to 21 days in each 6-month
+// period", "Only with Temporary Residence Permit (...)"). classifyUse reads
+// only the unambiguous cases into a status and always keeps the original
+// wording as the note. Anything it can't read confidently is shown as
+// written, with no status, rather than guessed at. Blank or "N/A" becomes
+// "Ask the county".
+const UNKNOWN_USE = /^(n\/a|na|unknown|not specified|tbd|\?)\.?$/i;
+const LIMIT_WORDS = /\b(only|if|up to|limited|limit|max|must|unless|after|approved|approval|permit|newer|older|days?|weeks?|months?)\b/i;
+
+function tidyNote(s) {
+  let t = String(s).trim();
+  if (t.startsWith('(') && t.endsWith(')')) t = t.slice(1, -1).trim();
+  if (!t) return '';
+  t = t.charAt(0).toUpperCase() + t.slice(1);
+  return /[.!?]$/.test(t) ? t : `${t}.`;
+}
+
+export function classifyUse(raw) {
+  const text = typeof raw === 'string' ? raw.trim() : '';
+  if (!text || UNKNOWN_USE.test(text)) return { status: 'ask', note: '' };
+
+  const yes = text.match(/^(?:yes|y)\b[\s,.:;!-]*([\s\S]*)$/i);
+  if (yes) {
+    const rest = tidyNote(yes[1]);
+    if (!rest) return { status: 'yes', note: '' };
+    return { status: LIMIT_WORDS.test(rest) ? 'limits' : 'yes', note: rest };
+  }
+  const no = text.match(/^(?:no|not)\b[\s,.:;!-]*([\s\S]*)$/i);
+  if (no) return { status: 'no', note: tidyNote(no[1]) };
+  if (/^(only|limited|up to|allowed|must|has to|have to|needs? to)\b/i.test(text)) {
+    return { status: 'limits', note: tidyNote(text) };
+  }
+  return { status: 'info', note: tidyNote(text) };
+}
+
+// Rows for the table, grouped. "core" rows always appear (blank shows "Ask the
+// county"); others appear only when Airtable has a value. kind "use" rows get
+// a status; kind "info" rows (utilities, build timeline) just show the text.
+const USE_ROWS = [
+  { group: 'Homes and building', rows: [
+    { key: 'single_family_allowed', label: 'Single-family home', kind: 'use', core: true },
+    { key: 'manufactured_allowed', label: 'Manufactured home', kind: 'use', core: true },
+    { key: 'modular_allowed', label: 'Modular home', kind: 'use' },
+    { key: 'tiny_home_friendly', label: 'Tiny home', kind: 'use', core: true },
+    { key: 'time_limit_to_build', label: 'Time to build', kind: 'info' },
+  ] },
+  { group: 'Camping and RVs', rows: [
+    { key: 'tent_camping', label: 'Tent camping', kind: 'use', core: true },
+    { key: 'camping_rv', label: 'RV camping', kind: 'use', core: true },
+    { key: 'rv_while_build', label: 'RV while building', kind: 'use' },
+    { key: 'full_time_rv', label: 'Full-time RV living', kind: 'use' },
+    { key: 'hunting', label: 'Hunting', kind: 'use' },
+  ] },
+  { group: 'Utilities and land', rows: [
+    { key: 'septic', label: 'Septic system', kind: 'use', core: true },
+    { key: 'well', label: 'Drilling a well', kind: 'use' },
+    { key: 'electricity', label: 'Power at the lot', kind: 'info' },
+    { key: 'solar', label: 'Solar', kind: 'use' },
+    { key: 'propane', label: 'Propane', kind: 'use' },
+    { key: 'flood_plain', label: 'Flood zone', kind: 'info' },
+  ] },
+];
+
+const CHIP_TEXT = { yes: 'Allowed', limits: 'Allowed, with limits', no: 'Not allowed', ask: 'Ask the county' };
+
+export function allowedUses(prop) {
+  const groups = [];
+  let hasAnswers = false;
+  for (const g of USE_ROWS) {
+    const rows = [];
+    for (const r of g.rows) {
+      const raw = prop ? prop[r.key] : '';
+      const filled = typeof raw === 'string' && raw.trim() !== '';
+      if (!filled && !r.core) continue;
+      let status, note;
+      if (r.kind === 'use') {
+        ({ status, note } = classifyUse(raw));
+      } else if (!filled || UNKNOWN_USE.test(raw.trim())) {
+        status = 'ask'; note = '';
+      } else {
+        status = 'info';
+        note = r.key === 'flood_plain' && /^no\.?$/i.test(raw.trim()) ? 'Not in a flood zone.' : tidyNote(raw);
+      }
+      if (status !== 'ask') hasAnswers = true;
+      rows.push({ label: r.label, status, chip: CHIP_TEXT[status] || '', note });
+    }
+    if (rows.length) groups.push({ title: g.group, rows });
+  }
+  return { groups, hasAnswers };
+}
+
+// The Airtable "Property Name" formula can come back blank (it did for every
+// record after the pricing fields were restructured), which left every listing
+// page with an empty heading. Use Airtable's name when it has one, otherwise
+// build a plain one from fields that are always on the record. Never includes
+// price, so it can't go stale.
+export function listingName(name, acreage, city, state) {
+  const given = typeof name === 'string' ? name.trim() : '';
+  if (given) return given;
+  const where = [city, state].filter(Boolean).join(', ');
+  const size = acreage ? `${acreage} acre property` : 'Property';
+  return where ? `${size} in ${where}` : size;
+}

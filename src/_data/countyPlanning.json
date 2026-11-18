@@ -1,0 +1,39 @@
+{
+  "_readme": "County planning contacts shown under the 'What the county allows here' table, keyed by 'County|ST' matching a property's county and state. Every number was confirmed on the county's own official page on 2026-11-18, not from search snippets. Luna County lists no planning-specific number on its public pages, so it uses the county main line. A number that looked like Luna Planning in search results (575-543-6621) turned out to be a code enforcement district contact, so it is deliberately not used. Re-verify before adding a county, and update here if a number changes.",
+  "Klamath|OR": {
+    "name": "Klamath County Planning Division",
+    "phone": "541-883-5121",
+    "tel": "5418835121",
+    "phoneNote": "option 4",
+    "url": "https://www.klamathcounty.org/Directory.aspx",
+    "source": "klamathcounty.org staff directory, Planning Division: 541-883-5121 Option 4",
+    "verified": "2026-11-18"
+  },
+  "Luna|NM": {
+    "name": "Luna County Planning & Community Development",
+    "phone": "575-546-0494",
+    "tel": "5755460494",
+    "phoneNote": "county main line, ask for Planning",
+    "url": "https://lunacountynm.us/departments/planning_and_community_development/",
+    "source": "lunacountynm.us page header: 700 S. Silver Ave, Deming, (575) 546-0494 (main line)",
+    "verified": "2026-11-18"
+  },
+  "Mohave|AZ": {
+    "name": "Mohave County Planning & Zoning",
+    "phone": "928-757-0903",
+    "tel": "9287570903",
+    "phoneNote": "",
+    "url": "https://www.mohave.gov/departments/development-services/planning-zoning-division/",
+    "source": "mohave.gov Planning & Zoning Division page: call (928) 757-0903",
+    "verified": "2026-11-18"
+  },
+  "Putnam|FL": {
+    "name": "Putnam County Planning & Zoning",
+    "phone": "386-329-0491",
+    "tel": "3863290491",
+    "phoneNote": "",
+    "url": "https://www.putnam-fl.gov/departments/development-services/planning-and-zoning/",
+    "source": "putnam-fl.gov Planning & Zoning page: Contact the Putnam County Planning & Zoning Division (386) 329-0491",
+    "verified": "2026-11-18"
+  }
+}

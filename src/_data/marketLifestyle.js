@@ -13,8 +13,13 @@ const icons = {
   calendar: '<svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="26" height="22" rx="2"/><path d="M3 12h26M10 3v6M22 3v6"/></svg>',
 };
 
+// Each block is written about one specific county, so it only shows on
+// listings in that county (see property.njk). Any other county, even in the
+// same state, gets the generic fallback below rather than another county's
+// copy. To add a county, add its own block here with `county` set.
 const markets = {
   FL: {
+    county: 'Putnam',
     heading: 'Why Buyers Choose Putnam County',
     subtext: "Florida land, owner financed, in one of the state's quieter inland counties.",
     items: [
@@ -25,6 +30,7 @@ const markets = {
     ],
   },
   NM: {
+    county: 'Luna',
     heading: 'Why Buyers Choose Luna County',
     subtext: 'Wide-open New Mexico high desert, with one of the lowest costs of entry in the Southwest.',
     items: [
@@ -35,6 +41,7 @@ const markets = {
     ],
   },
   OR: {
+    county: 'Klamath',
     heading: 'Why Buyers Choose Klamath County',
     subtext: "Southern Oregon's high desert and forest country, within reach of Crater Lake.",
     items: [
@@ -45,6 +52,7 @@ const markets = {
     ],
   },
   AZ: {
+    county: 'Apache',
     heading: 'Why Buyers Choose Apache County',
     subtext: "Northeastern Arizona's high desert, near the White Mountains and Petrified Forest.",
     items: [
