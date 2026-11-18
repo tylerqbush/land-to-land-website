@@ -22,7 +22,7 @@ Read docs/PRD.md before doing anything. It is the source of truth for scope.
 - Plain direct copy voice. No corporate filler. Lead with the answer.
 - Site must work without JavaScript except the map and filters. Listing content is server-rendered static HTML.
 - Mobile-first. Most traffic is Meta ads opened on phones.
-- Never mention animals, wildlife, fishing, or hunting in ad-facing marketing copy EXCEPT factual allowable-use data from Airtable fields (e.g. the Hunting allowed row in property details is fine; "great fishing nearby" prose is not).
+- Never mention animals, wildlife, fishing, or hunting in Facebook/Meta ad copy or other paid social, EXCEPT factual allowable-use data from Airtable fields. The website itself may include hunting, fishing, and wildlife copy (Tyler, 2026-11-18). Place names that contain animal words (subdivisions, streets) are always fine.
 
 ## Conventions
 
