@@ -285,3 +285,14 @@ test("early access page embeds the form and is linked from the footer and state 
     assert.ok(readFileSync(`_site/land/${slug}/index.html`, "utf8").includes('href="/early-access/"'), `${slug} must link early access`);
   }
 });
+
+test("sitemap lists every listing page, the main pages, and not the 404", () => {
+  const xml = readFileSync("_site/sitemap.xml", "utf8");
+  for (const prop of properties) {
+    assert.ok(xml.includes(`/property/${prop.slug}/</loc>`), `sitemap missing ${prop.slug}`);
+  }
+  for (const path of ["/", "/properties/", "/about/", "/how-it-works/", "/faq/", "/30-day-promise/", "/using-your-land/"]) {
+    assert.ok(xml.includes(`https://landtolandholdings.com${path}</loc>`), `sitemap missing ${path}`);
+  }
+  assert.ok(!xml.includes("404"), "sitemap must not list the 404 page");
+});
