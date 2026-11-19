@@ -1,14 +1,9 @@
-import pluginSitemap from "@quasibit/eleventy-plugin-sitemap";
 import { showBuyButton, costToStart, allowedUses, monthlyBill } from "./scripts/lib/utils.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addPassthroughCopy({ "src/robots.txt": "robots.txt" });
   eleventyConfig.addPassthroughCopy({ "src/_headers": "_headers" });
-
-  eleventyConfig.addPlugin(pluginSitemap, {
-    sitemap: { hostname: "https://landtolandholdings.com" },
-  });
 
   // Make properties available on window for the map page
   eleventyConfig.addFilter("json", (value) => JSON.stringify(value));
@@ -193,12 +188,6 @@ export default function (eleventyConfig) {
     }
 
     return callouts.slice(0, 6);
-  });
-
-  // Collection of non-paginated pages only (workaround for plugin/Eleventy v3 incompatibility
-  // where pagination templateContent is accessed too early by @quasibit/eleventy-plugin-sitemap)
-  eleventyConfig.addCollection("sitemapPages", (collectionApi) => {
-    return collectionApi.getAll().filter((item) => !item.data.pagination);
   });
 
   // Blog posts collection, sorted by date descending

@@ -3,4 +3,27 @@ permalink: /sitemap.xml
 layout: null
 eleventyExcludeFromCollections: true
 ---
-{% sitemap collections.sitemapPages %}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{%- for item in collections.all %}
+{%- if item.url and item.url.endsWith("/") and not item.data.pagination %}
+  <url>
+    <loc>https://landtolandholdings.com{{ item.url }}</loc>
+    {%- if item.data.tags and "blogPost" in item.data.tags %}
+    <lastmod>{{ item.date.toISOString().slice(0, 10) }}</lastmod>
+    {%- endif %}
+  </url>
+{%- endif %}
+{%- endfor %}
+{#- Paginated pages (listings, state pages) are listed from their data, since collections.all does not carry every page of a pagination. #}
+{%- for prop in properties %}
+  <url>
+    <loc>https://landtolandholdings.com/property/{{ prop.slug }}/</loc>
+  </url>
+{%- endfor %}
+{%- for st in statePages %}
+  <url>
+    <loc>https://landtolandholdings.com/land/{{ st.slug }}/</loc>
+  </url>
+{%- endfor %}
+</urlset>
