@@ -1,5 +1,5 @@
 import pluginSitemap from "@quasibit/eleventy-plugin-sitemap";
-import { showBuyButton, costToStart, allowedUses } from "./scripts/lib/utils.mjs";
+import { showBuyButton, costToStart, allowedUses, monthlyBill } from "./scripts/lib/utils.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
@@ -23,6 +23,17 @@ export default function (eleventyConfig) {
   // scripts/lib/utils.mjs with unit tests (tests/listing.test.mjs).
   eleventyConfig.addFilter("costToStart", costToStart);
   eleventyConfig.addFilter("allowedUses", allowedUses);
+  eleventyConfig.addFilter("monthlyBill", monthlyBill);
+
+  // Money amount without a leading $: whole dollars as "150", otherwise two
+  // decimals as "162.77", so a bill never shows "$162.8".
+  eleventyConfig.addFilter("money", (value) => {
+    const n = Number(value);
+    if (!Number.isFinite(n)) return "";
+    return Number.isInteger(n)
+      ? n.toLocaleString("en-US")
+      : n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  });
 
   // Split a multi-line Airtable text value (e.g. lot dimensions, one side
   // per line) into an array so a template can join it with <br> safely.

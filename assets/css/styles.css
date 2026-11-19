@@ -3069,3 +3069,28 @@ body::before {
     padding-bottom: calc(var(--space-8) + 76px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+/* "Your monthly bill" breakdown in the Owner Financing card */
+.bill-breakdown {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.bill-breakdown__title {
+  margin-bottom: var(--space-2);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.bill-breakdown__total td { padding-top: var(--space-3); font-weight: 800; }
+
+.bill-breakdown__note {
+  margin-top: var(--space-2);
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.5);
+}

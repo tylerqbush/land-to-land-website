@@ -151,6 +151,7 @@ function mapRecord(record, existingSlug) {
     term_months: f['Financing Term (no. of Months)'] ?? null,
     down: f['Down Payment'] ?? null,
     doc_fee: f['Document Fee'] ?? null,
+    note_fee: f['Note Service Fee'] ?? null,
     cash_price: f['Cash Price'] ?? null,
     geekpay_url: normalizeGeekpay(f['GeekPay Checkout URL']),
     description: (() => { const d = f['Web Description']; const text = !d ? '' : typeof d === 'string' ? d.trim() : (d.text ?? '').trim(); return text || generateDescription(f, acreage, city, county, state); })(),

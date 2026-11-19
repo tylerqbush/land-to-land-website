@@ -320,6 +320,28 @@ eleventyComputed:
           {% elif prop.term_months %}<tr><td>Term</td><td>{{ prop.term_months }} months</td></tr>{% endif %}
           <tr><td>Doc Fee</td><td>{% if prop.doc_fee %}${{ prop.doc_fee }}{% else %}TBD{% endif %}</td></tr>
         </table>
+        {# What a buyer is actually billed each month (monthlyBill in
+           scripts/lib/utils.mjs). The total only appears when the service
+           fee and the property tax are both on file. #}
+        {% set bill = prop | monthlyBill %}
+        {% if bill and prop.status != "Sold" %}
+        <div class="bill-breakdown">
+          <p class="bill-breakdown__title">Your monthly bill</p>
+          <table class="financing-table">
+            <tr><td>Monthly payment</td><td>${{ bill.payment | money }}</td></tr>
+            {% if bill.serviceFee !== null %}<tr><td>Service fee</td><td>+ ${{ bill.serviceFee | money }}</td></tr>{% endif %}
+            {% if bill.taxShare !== null %}<tr><td>Property tax (est.)</td><td>+ ${{ bill.taxShare | money }}</td></tr>{% endif %}
+            {% if bill.total !== null %}<tr class="bill-breakdown__total"><td>Billed monthly</td><td class="financing-table__highlight">${{ bill.total | money }}</td></tr>{% endif %}
+          </table>
+          <p class="bill-breakdown__note">
+            {% if bill.total !== null %}
+              Property tax is the county's annual bill divided by 12, so it can change each year.
+            {% else %}
+              {% if bill.serviceFee === null %}A monthly service fee also applies. {% endif %}{% if bill.taxShare === null %}Your share of the county property tax is added to each payment. {% endif %}Text us for the exact monthly amount.
+            {% endif %}
+          </p>
+        </div>
+        {% endif %}
         <p class="financing-terms-card__note">No credit check required.{% if bf %} Black Friday terms: same monthly payment, {{ bf.removed }} fewer payments. Pay the down payment and doc fee by Monday, Nov 30 at 11:59pm ET.{% endif %}</p>
       </div>
     </div>

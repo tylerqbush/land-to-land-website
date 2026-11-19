@@ -116,3 +116,27 @@ test('listingName: copes with missing acreage or location', () => {
   assert.equal(listingName('', null, 'Deming', 'NM'), 'Property in Deming, NM');
   assert.equal(listingName('', 3, '', ''), '3 acre property');
 });
+
+// ── monthlyBill ──────────────────────────────────────────
+import { monthlyBill } from '../scripts/lib/utils.mjs';
+test('monthlyBill: payment + service fee + property tax share', () => {
+  assert.deepEqual(monthlyBill({ monthly: 150, note_fee: 10, annual_taxes: 33.18 }),
+    { payment: 150, serviceFee: 10, taxShare: 2.77, total: 162.77 });
+});
+test('monthlyBill: whole-dollar taxes divide cleanly', () => {
+  assert.equal(monthlyBill({ monthly: 199, note_fee: 10, annual_taxes: 28 }).taxShare, 2.33);
+  assert.equal(monthlyBill({ monthly: 247, note_fee: 5, annual_taxes: 72 }).total, 258);
+});
+test('monthlyBill: no total unless every piece is known', () => {
+  assert.equal(monthlyBill({ monthly: 158.75, note_fee: null, annual_taxes: 41.96 }).total, null);
+  assert.equal(monthlyBill({ monthly: 165, note_fee: 10, annual_taxes: null }).total, null);
+  assert.equal(monthlyBill({ monthly: 165, note_fee: 10, annual_taxes: null }).serviceFee, 10);
+});
+test('monthlyBill: null when there is no monthly payment', () => {
+  assert.equal(monthlyBill({}), null);
+  assert.equal(monthlyBill(null), null);
+  assert.equal(monthlyBill({ monthly: 'abc' }), null);
+});
+test('monthlyBill: a $0 service fee or tax is a real value, not missing', () => {
+  assert.equal(monthlyBill({ monthly: 100, note_fee: 0, annual_taxes: 0 }).total, 100);
+});

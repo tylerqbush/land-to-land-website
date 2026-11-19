@@ -237,3 +237,22 @@ export function listingName(name, acreage, city, state) {
   const size = acreage ? `${acreage} acre property` : 'Property';
   return where ? `${size} in ${where}` : size;
 }
+
+// What the buyer is actually billed each month: the installment, the monthly
+// service fee (Airtable "Note Service Fee", $5 or $10 depending on the
+// listing), and a share of the county property tax (annual taxes / 12; the
+// sample contract prorates them into the monthly payment). A total is only
+// returned when every piece is known, so a missing fee or tax never makes the
+// bill look smaller than it is.
+export function monthlyBill(prop) {
+  if (!prop || prop.monthly == null || !Number.isFinite(Number(prop.monthly))) return null;
+  const known = (v) => (v == null || !Number.isFinite(Number(v)) ? null : Number(v));
+  const payment = Number(prop.monthly);
+  const serviceFee = known(prop.note_fee);
+  const annualTaxes = known(prop.annual_taxes);
+  const taxShare = annualTaxes == null ? null : Math.round((annualTaxes / 12) * 100) / 100;
+  const total = serviceFee != null && taxShare != null
+    ? Math.round((payment + serviceFee + taxShare) * 100) / 100
+    : null;
+  return { payment, serviceFee, taxShare, total };
+}

@@ -154,6 +154,31 @@ test("fit boxes render only for Active listings whose apn matches the entry", ()
   }
 });
 
+// Whole dollars as "150", otherwise two decimals as "162.77" (matches the
+// money filter in .eleventy.js).
+const money = (n) => Number.isInteger(n)
+  ? n.toLocaleString("en-US")
+  : n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+test("monthly bill: breakdown on listings for sale, a total only when fee and tax are both on file, never on Sold", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const sold = (prop.status || "").trim() === "Sold";
+    if (sold || prop.monthly == null) {
+      assert.ok(!html.includes("Your monthly bill"), `${prop.slug}: must not show a monthly bill`);
+      continue;
+    }
+    assert.ok(html.includes("Your monthly bill"), `${prop.slug}: should show a monthly bill`);
+    const complete = prop.note_fee != null && prop.annual_taxes != null;
+    assert.equal(html.includes("Billed monthly"), complete, `${prop.slug}: total only when fee and tax are known`);
+    if (complete) {
+      const tax = Math.round((prop.annual_taxes / 12) * 100) / 100;
+      const total = Math.round((prop.monthly + prop.note_fee + tax) * 100) / 100;
+      assert.ok(html.includes(`$${money(total)}</td>`), `${prop.slug}: should bill $${money(total)} monthly`);
+    }
+  }
+});
+
 test("county rules table shows on listings still for sale, with a verified county contact when we have one", () => {
   for (const prop of properties) {
     const html = page(prop);
