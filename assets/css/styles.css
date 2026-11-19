@@ -307,6 +307,10 @@ body.has-sale-banner .site-nav {
   top: calc(var(--space-4) + var(--sale-banner-height, 56px));
 }
 
+body.has-sale-banner .site-nav__drawer {
+  top: calc(84px + var(--sale-banner-height, 56px));
+}
+
 @media (max-width: 640px) {
   .sale-banner {
     min-height: 72px;
@@ -319,6 +323,10 @@ body.has-sale-banner .site-nav {
 
   body.has-sale-banner .site-nav {
     top: calc(var(--space-4) + var(--sale-banner-height, 72px));
+  }
+
+  body.has-sale-banner .site-nav__drawer {
+    top: calc(84px + var(--sale-banner-height, 72px));
   }
 }
 
