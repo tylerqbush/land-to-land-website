@@ -7,7 +7,8 @@ description: "Browse available owner-financed land across Florida, New Mexico, a
 <section class="section">
   <div class="container">
     <p class="eyebrow mb-2" style="color:var(--color-terra);">Browse Listings</p>
-    <h1 class="heading-lg mb-6">Browse Properties</h1>
+    <h1 class="heading-lg mb-4">Browse Properties</h1>
+    <p class="mb-6" style="font-size:14px;">By state: {% for st in statePages %}<a href="/land/{{ st.slug }}/">{{ st.name }}</a>{% if not loop.last %} &middot; {% endif %}{% endfor %}</p>
 
     {# Filter bar #}
     <div class="filter-bar" role="search" aria-label="Filter properties">

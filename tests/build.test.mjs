@@ -248,3 +248,40 @@ test("FAQ internal links resolve to built pages", () => {
     assert.ok(existsSync(`_site${href}index.html`) || existsSync(`_site${href}`), `${href} does not resolve`);
   }
 });
+
+// ── Phase 3 state pages + early access ───────────────────────────────────
+const STATE_PAGES = { FL: "florida", AZ: "arizona", OR: "oregon", NM: "new-mexico" };
+
+test("each state page lists exactly that state's Active listings and no one else's", () => {
+  for (const [abbr, slug] of Object.entries(STATE_PAGES)) {
+    const path = `_site/land/${slug}/index.html`;
+    assert.ok(existsSync(path), `${path} missing`);
+    const html = readFileSync(path, "utf8");
+    assert.ok(!html.includes("—"), `${slug} has an em dash`);
+    for (const prop of properties) {
+      const shown = html.includes(`href="/property/${prop.slug}/"`);
+      const expected = prop.state === abbr && (prop.status || "").trim() === "Active";
+      assert.equal(shown, expected, `${slug}: ${prop.slug} shown=${shown} expected=${expected}`);
+    }
+  }
+});
+
+test("state page market copy only shows when a listing is in that copy's county", () => {
+  for (const slug of Object.values(STATE_PAGES)) {
+    const html = readFileSync(`_site/land/${slug}/index.html`, "utf8");
+    const named = (html.match(/Why Buyers Choose ([A-Za-z ]+?) County/) || [])[1];
+    if (!named) continue;
+    const stateProps = properties.filter((p) => STATE_PAGES[p.state] === slug && (p.status || "").trim() === "Active");
+    assert.ok(stateProps.some((p) => p.county === named), `${slug} shows ${named} County copy with no active listing there`);
+  }
+});
+
+test("early access page embeds the form and is linked from the footer and state pages", () => {
+  const html = readFileSync("_site/early-access/index.html", "utf8");
+  assert.ok(html.includes("link.acrematic.com/widget/form/"), "form embed missing");
+  assert.ok(!html.includes("—"), "early-access has an em dash");
+  assert.ok(readFileSync("_site/index.html", "utf8").includes('href="/early-access/"'), "footer link missing");
+  for (const slug of Object.values(STATE_PAGES)) {
+    assert.ok(readFileSync(`_site/land/${slug}/index.html`, "utf8").includes('href="/early-access/"'), `${slug} must link early access`);
+  }
+});

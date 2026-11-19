@@ -1,0 +1,76 @@
+---
+pagination:
+  data: statePages
+  size: 1
+  alias: st
+permalink: "land/{{ st.slug }}/index.html"
+layout: base.njk
+eleventyComputed:
+  title: "Owner-Financed Land in {{ st.name }} | Land to Land Holdings"
+  description: "{{ st.activeCount }} owner-financed land listing{{ '' if st.activeCount == 1 else 's' }} in {{ st.name }}. No bank, no credit check. See what you pay to start, your monthly bill, and what the county allows."
+---
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" style="color:var(--color-terra);">{{ st.name }}</p>
+    <h1 class="heading-lg mb-4">Owner-financed land in {{ st.name }}</h1>
+    <p style="font-size:16px;line-height:1.7;color:var(--color-text-muted);max-width:640px;margin-bottom:var(--space-8);">
+      {% if st.activeCount > 0 %}{{ st.activeCount }} propert{{ 'y' if st.activeCount == 1 else 'ies' }} available now. No bank and no credit check. Every listing shows what you pay to start, your full monthly bill, and what the county allows.{% else %}Nothing is available in {{ st.name }} right now. Join early access and you hear about new listings first.{% endif %}
+    </p>
+
+    {% if st.activeCount > 0 %}
+    <div class="card-grid">
+      {% for prop in properties %}
+        {% if prop.state == st.abbr and (prop.status | trim) == "Active" %}
+          {% include "partials/property-card.njk" %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% set market = marketLifestyle.markets[st.abbr] %}
+{% set showMarket = false %}
+{% if market %}{% for c in st.counties %}{% if c.county == market.county %}{% set showMarket = true %}{% endif %}{% endfor %}{% endif %}
+{% if showMarket %}
+<section class="lifestyle-section">
+  <div class="container">
+    <p class="listing-eyebrow text-center">Quick Look</p>
+    <h2 class="lifestyle-section__heading">{{ market.heading }}</h2>
+    <p class="lifestyle-section__subtext">{{ market.subtext }}</p>
+    <div class="lifestyle-row">
+      {% for item in market.items %}
+      <div class="lifestyle-item">
+        {{ marketLifestyle.icons[item.icon] | safe }}
+        <span>{{ item.title }}</span>
+        <p>{{ item.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if st.counties.length %}
+<section class="section">
+  <div class="container" style="max-width:720px;">
+    <h2 class="heading-md mb-3">Check the rules before you buy</h2>
+    <p style="font-size:15px;line-height:1.7;color:var(--color-text-muted);margin-bottom:var(--space-4);">Zoning, septic, wells, camping, and RV rules are set by the county. Call the planning office with your plan.</p>
+    <ul class="check-list">
+      {% for c in st.counties %}
+      <li>{{ c.county }} County, {{ st.abbr }}: {% if c.planning %}{{ c.planning.name }}, <a href="tel:{{ c.planning.tel }}">{{ c.planning.phone }}</a>{% if c.planning.phoneNote %} ({{ c.planning.phoneNote }}){% endif %}{% else %}ask us for the county planning contact{% endif %}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+{% endif %}
+
+<section class="section section-off">
+  <div class="container" style="max-width:600px;text-align:center;">
+    <h2 class="heading-md mb-3">Get new {{ st.name }} listings first</h2>
+    <p style="font-size:15px;line-height:1.7;color:var(--color-text-muted);margin-bottom:var(--space-6);">Join early access and hear about new listings before they go public. Or text us and ask what is coming.</p>
+    <a class="btn-primary" href="/early-access/">Join early access</a>
+    <p style="margin-top:var(--space-4);font-size:14px;"><a href="sms:7069630017?&body=Add%20me%20to%20early%20access%20for%20{{ st.name | urlencode }}">Text 706-963-0017</a></p>
+  </div>
+</section>
