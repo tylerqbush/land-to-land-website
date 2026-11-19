@@ -1,4 +1,4 @@
-import { showBuyButton, costToStart, allowedUses, monthlyBill } from "./scripts/lib/utils.mjs";
+import { showBuyButton, costToStart, allowedUses, monthlyBill, similarParcels } from "./scripts/lib/utils.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
@@ -19,6 +19,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("costToStart", costToStart);
   eleventyConfig.addFilter("allowedUses", allowedUses);
   eleventyConfig.addFilter("monthlyBill", monthlyBill);
+  eleventyConfig.addFilter("similarParcels", similarParcels);
 
   // Money amount without a leading $: whole dollars as "150", otherwise two
   // decimals as "162.77", so a bill never shows "$162.8".

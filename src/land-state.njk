@@ -59,7 +59,7 @@ eleventyComputed:
     <p style="font-size:15px;line-height:1.7;color:var(--color-text-muted);margin-bottom:var(--space-4);">Zoning, septic, wells, camping, and RV rules are set by the county. Call the planning office with your plan.</p>
     <ul class="check-list">
       {% for c in st.counties %}
-      <li>{{ c.county }} County, {{ st.abbr }}: {% if c.planning %}{{ c.planning.name }}, <a href="tel:{{ c.planning.tel }}">{{ c.planning.phone }}</a>{% if c.planning.phoneNote %} ({{ c.planning.phoneNote }}){% endif %}{% else %}ask us for the county planning contact{% endif %}</li>
+      <li><a href="/county/{{ c.county | lower | replace(' ', '-') }}-{{ st.abbr | lower }}/">{{ c.county }} County guide</a>, {{ st.abbr }}: {% if c.planning %}{{ c.planning.name }}, <a href="tel:{{ c.planning.tel }}">{{ c.planning.phone }}</a>{% if c.planning.phoneNote %} ({{ c.planning.phoneNote }}){% endif %}{% else %}ask us for the county planning contact{% endif %}</li>
       {% endfor %}
     </ul>
   </div>

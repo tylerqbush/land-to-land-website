@@ -307,3 +307,51 @@ test("Mohave County listings and the Arizona page show the Mohave market copy", 
     assert.ok(readFileSync("_site/land/arizona/index.html", "utf8").includes("Why Buyers Choose Mohave County"), "Arizona page should show Mohave copy");
   }
 });
+
+// ── Phase 4 gallery tabs, similar parcels, county guides ─────────────────
+test("gallery tabs: Map when lat/lng, Video when a video exists, and the video player appears only once", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const hasMap = Boolean(prop.lat && prop.lng);
+    const hasVideo = Boolean(prop.video_url);
+    assert.equal(html.includes('for="tab-map"'), hasMap, `${prop.slug}: Map tab expected=${hasMap}`);
+    assert.equal(html.includes('for="tab-video"'), hasVideo, `${prop.slug}: Video tab expected=${hasVideo}`);
+    assert.equal((html.match(/class="yt-facade"/g) || []).length, hasVideo ? 1 : 0, `${prop.slug}: video player count`);
+  }
+});
+
+test("similar parcels: only Active listings, never the page's own, up to 3", () => {
+  for (const prop of properties) {
+    const html = page(prop);
+    const start = html.indexOf("Similar parcels available now");
+    if (start === -1) continue;
+    const block = html.slice(start, html.indexOf("</section>", start));
+    const links = [...block.matchAll(/href="\/property\/([^"]+)\/"/g)].map((m) => m[1]);
+    const unique = [...new Set(links)];
+    assert.ok(unique.length >= 1 && unique.length <= 3, `${prop.slug}: ${unique.length} similar parcels`);
+    assert.ok(!unique.includes(prop.slug), `${prop.slug} suggests itself`);
+    for (const slug of unique) {
+      const other = properties.find((p) => p.slug === slug);
+      assert.equal((other.status || "").trim(), "Active", `${prop.slug} suggests non-Active ${slug}`);
+    }
+  }
+});
+
+test("county guides exist, list only that county's Active listings, and are in the sitemap", () => {
+  const xml = readFileSync("_site/sitemap.xml", "utf8");
+  for (const key of Object.keys(countyPlanning).filter((k) => !k.startsWith("_"))) {
+    const [county, abbr] = key.split("|");
+    const slug = `${county.toLowerCase().replace(/\s+/g, "-")}-${abbr.toLowerCase()}`;
+    const path = `_site/county/${slug}/index.html`;
+    assert.ok(existsSync(path), `${path} missing`);
+    const html = readFileSync(path, "utf8");
+    assert.ok(!html.includes("—"), `${slug} has an em dash`);
+    assert.ok(html.includes(`href="tel:${countyPlanning[key].tel}"`), `${slug} should link the planning phone`);
+    assert.ok(xml.includes(`/county/${slug}/</loc>`), `sitemap missing ${slug}`);
+    for (const prop of properties) {
+      const shown = html.includes(`href="/property/${prop.slug}/"`);
+      const expected = prop.county === county && prop.state === abbr && (prop.status || "").trim() === "Active";
+      assert.equal(shown, expected, `${slug}: ${prop.slug} shown=${shown} expected=${expected}`);
+    }
+  }
+});
