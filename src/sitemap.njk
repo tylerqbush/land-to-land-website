@@ -26,4 +26,9 @@ eleventyExcludeFromCollections: true
     <loc>https://landtolandholdings.com/land/{{ st.slug }}/</loc>
   </url>
 {%- endfor %}
+{%- for guide in countyGuides %}
+  <url>
+    <loc>https://landtolandholdings.com/county/{{ guide.slug }}/</loc>
+  </url>
+{%- endfor %}
 </urlset>

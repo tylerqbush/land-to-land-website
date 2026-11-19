@@ -3144,3 +3144,34 @@ body::before {
   line-height: 1.7;
   color: var(--color-text-muted);
 }
+
+/* ── Phase 4 gallery tabs (CSS-only, no JavaScript needed) ── */
+.gallery-tabs__input { position: absolute; opacity: 0; pointer-events: none; }
+.gallery-tabs__bar { display: flex; gap: var(--space-2); margin-bottom: var(--space-3); }
+.gallery-tabs__bar label {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  font-size: 14px;
+  font-weight: 700;
+}
+.gallery-tabs__panel--map,
+.gallery-tabs__panel--video { display: none; }
+.gallery-tabs__panel--map { aspect-ratio: 3 / 2; border-radius: var(--radius-card); overflow: hidden; }
+.gallery-tabs__panel--video { border-radius: var(--radius-card); overflow: hidden; }
+#tab-photos:checked ~ .gallery-tabs__bar label[for="tab-photos"],
+#tab-map:checked ~ .gallery-tabs__bar label[for="tab-map"],
+#tab-video:checked ~ .gallery-tabs__bar label[for="tab-video"] {
+  background: var(--color-forest);
+  color: var(--color-white);
+  border-color: var(--color-forest);
+}
+#tab-photos:focus-visible ~ .gallery-tabs__bar label[for="tab-photos"],
+#tab-map:focus-visible ~ .gallery-tabs__bar label[for="tab-map"],
+#tab-video:focus-visible ~ .gallery-tabs__bar label[for="tab-video"] { outline: 2px solid var(--color-terra); outline-offset: 2px; }
+#tab-map:checked ~ .gallery-tabs__panel--photos,
+#tab-video:checked ~ .gallery-tabs__panel--photos { display: none; }
+#tab-map:checked ~ .gallery-tabs__panel--map,
+#tab-video:checked ~ .gallery-tabs__panel--video { display: block; }
+.gallery-tabs__panel--video .yt-facade { width: 100%; }

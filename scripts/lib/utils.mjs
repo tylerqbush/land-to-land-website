@@ -256,3 +256,16 @@ export function monthlyBill(prop) {
     : null;
   return { payment, serviceFee, taxShare, total };
 }
+
+// Other listings to suggest on a property page: only Active ones, never the
+// page's own listing. Same county first, then same state, then anything; within
+// each tier the closest acreage wins, with the id as a stable tie-break.
+export function similarParcels(prop, all, limit = 3) {
+  if (!prop || !Array.isArray(all)) return [];
+  const tier = (p) => (p.county === prop.county && p.state === prop.state ? 0 : p.state === prop.state ? 1 : 2);
+  const gap = (p) => Math.abs(Number(p.acreage) - Number(prop.acreage)) || 0;
+  return all
+    .filter((p) => p.id !== prop.id && (p.status || '').trim() === 'Active')
+    .sort((a, b) => tier(a) - tier(b) || gap(a) - gap(b) || String(a.id).localeCompare(String(b.id), undefined, { numeric: true }))
+    .slice(0, limit);
+}

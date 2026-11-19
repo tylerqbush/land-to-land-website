@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { costToStart, classifyUse, allowedUses } from '../scripts/lib/utils.mjs';
+import { costToStart, classifyUse, allowedUses, similarParcels } from '../scripts/lib/utils.mjs';
 
 // ── costToStart ──────────────────────────────────────────
 test('costToStart: down payment plus doc fee', () => {
@@ -139,4 +139,27 @@ test('monthlyBill: null when there is no monthly payment', () => {
 });
 test('monthlyBill: a $0 service fee or tax is a real value, not missing', () => {
   assert.equal(monthlyBill({ monthly: 100, note_fee: 0, annual_taxes: 0 }).total, 100);
+});
+
+// ── similarParcels ───────────────────────────────────────
+const L = (id, county, state, acreage, status = 'Active') => ({ id, county, state, acreage, status });
+test('similarParcels: same county beats a closer-sized listing elsewhere', () => {
+  const me = L('1', 'Putnam', 'FL', 0.25);
+  const all = [me, L('2', 'Luna', 'NM', 0.25), L('3', 'Putnam', 'FL', 5)];
+  assert.deepEqual(similarParcels(me, all).map((p) => p.id), ['3', '2']);
+});
+test('similarParcels: same state comes before other states, then closest acreage', () => {
+  const me = L('1', 'Mohave', 'AZ', 2.2);
+  const all = [me, L('2', 'Apache', 'AZ', 9), L('3', 'Klamath', 'OR', 2.2), L('4', 'Apache', 'AZ', 3)];
+  assert.deepEqual(similarParcels(me, all).map((p) => p.id), ['4', '2', '3']);
+});
+test('similarParcels: never itself, never Sold or Under Contract, trailing-space status ok, limit respected', () => {
+  const me = L('1', 'A', 'FL', 1);
+  const all = [me, L('2', 'A', 'FL', 1, 'Sold'), L('3', 'A', 'FL', 1, 'Under Contract '), L('4', 'A', 'FL', 1, 'Active '), L('5', 'A', 'FL', 2), L('6', 'A', 'FL', 3), L('7', 'A', 'FL', 4)];
+  assert.deepEqual(similarParcels(me, all, 3).map((p) => p.id), ['4', '5', '6']);
+});
+test('similarParcels: empty when there is nothing else to suggest', () => {
+  const me = L('1', 'A', 'FL', 1);
+  assert.deepEqual(similarParcels(me, [me]), []);
+  assert.deepEqual(similarParcels(null, []), []);
 });

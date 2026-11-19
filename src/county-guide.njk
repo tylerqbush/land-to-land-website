@@ -1,0 +1,72 @@
+---
+pagination:
+  data: countyGuides
+  size: 1
+  alias: guide
+permalink: "county/{{ guide.slug }}/index.html"
+layout: base.njk
+eleventyComputed:
+  title: "{{ guide.county }} County, {{ guide.abbr }} Land Guide | Land to Land Holdings"
+  description: "Owner-financed land in {{ guide.county }} County, {{ guide.state }}: what is available, what it costs per month, and who to call about local rules."
+---
+
+<section class="section">
+  <div class="container">
+    <p class="eyebrow" style="color:var(--color-terra);">County Guide</p>
+    <h1 class="heading-lg mb-4">{{ guide.county }} County, {{ guide.state }}</h1>
+    <p style="font-size:16px;line-height:1.7;color:var(--color-text-muted);max-width:640px;margin-bottom:var(--space-6);">
+      {% if guide.activeCount > 0 %}{{ guide.activeCount }} propert{{ 'y' if guide.activeCount == 1 else 'ies' }} available now{% if guide.acreage %}, from {{ guide.acreage.min }} to {{ guide.acreage.max }} acres{% endif %}{% if guide.monthly %}, with monthly payments from ${{ guide.monthly.min | money }} to ${{ guide.monthly.max | money }}{% endif %}. No bank and no credit check.{% else %}Nothing is available in {{ guide.county }} County right now. Join early access to hear about new listings first.{% endif %}
+    </p>
+    {% if guide.stateSlug %}<p style="font-size:14px;margin-bottom:var(--space-8);">All of <a href="/land/{{ guide.stateSlug }}/">{{ guide.state }}</a></p>{% endif %}
+
+    {% if guide.activeCount > 0 %}
+    <div class="card-grid">
+      {% for prop in properties %}
+        {% if prop.county == guide.county and prop.state == guide.abbr and (prop.status | trim) == "Active" %}
+          {% include "partials/property-card.njk" %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% set market = marketLifestyle.markets[guide.key] %}
+{% if market %}
+<section class="lifestyle-section">
+  <div class="container">
+    <p class="listing-eyebrow text-center">Quick Look</p>
+    <h2 class="lifestyle-section__heading">{{ market.heading }}</h2>
+    <p class="lifestyle-section__subtext">{{ market.subtext }}</p>
+    <div class="lifestyle-row">
+      {% for item in market.items %}
+      <div class="lifestyle-item">
+        {{ marketLifestyle.icons[item.icon] | safe }}
+        <span>{{ item.title }}</span>
+        <p>{{ item.description }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section">
+  <div class="container" style="max-width:720px;">
+    <h2 class="heading-md mb-3">Check the rules before you buy</h2>
+    <p style="font-size:15px;line-height:1.7;color:var(--color-text-muted);margin-bottom:var(--space-4);">Zoning, septic, wells, camping, and RV rules are set by the county, not by us. Call the planning office with your plan, and look at the "What the county allows here" table on each listing.</p>
+    <ul class="check-list" style="margin-bottom:var(--space-6);">
+      <li>{{ guide.planning.name }}: <a href="tel:{{ guide.planning.tel }}">{{ guide.planning.phone }}</a>{% if guide.planning.phoneNote %} ({{ guide.planning.phoneNote }}){% endif %}</li>
+    </ul>
+    <p style="font-size:15px;line-height:1.7;">Read <a href="/using-your-land/">what you can do before the deed transfers</a> and the <a href="/faq/">FAQ</a>.</p>
+  </div>
+</section>
+
+<section class="section section-off">
+  <div class="container" style="max-width:600px;text-align:center;">
+    <h2 class="heading-md mb-3">Get new {{ guide.county }} County listings first</h2>
+    <p style="font-size:15px;line-height:1.7;color:var(--color-text-muted);margin-bottom:var(--space-6);">Join early access and hear about new listings before they go public.</p>
+    <a class="btn-primary" href="/early-access/">Join early access</a>
+    <p style="margin-top:var(--space-4);font-size:14px;"><a href="sms:7069630017?&body=Add%20me%20to%20early%20access%20for%20{{ guide.county | urlencode }}%20County">Text 706-963-0017</a></p>
+  </div>
+</section>

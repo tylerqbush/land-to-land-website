@@ -31,7 +31,21 @@ eleventyComputed:
   <div class="container">
     <div class="listing-narrative-grid">
 
-      {# LEFT: static photo grid #}
+      {# LEFT: gallery. Tabs are radio buttons styled with CSS, so they work without JavaScript. #}
+      {% set hasMap = prop.lat and prop.lng %}
+      {% set hasVideo = prop.video_url %}
+      <div class="gallery-tabs">
+        {% if hasMap or hasVideo %}
+        <input class="gallery-tabs__input" type="radio" name="gallery-tab" id="tab-photos" checked>
+        {% if hasMap %}<input class="gallery-tabs__input" type="radio" name="gallery-tab" id="tab-map">{% endif %}
+        {% if hasVideo %}<input class="gallery-tabs__input" type="radio" name="gallery-tab" id="tab-video">{% endif %}
+        <div class="gallery-tabs__bar" role="tablist">
+          <label for="tab-photos">Photos</label>
+          {% if hasMap %}<label for="tab-map">Map</label>{% endif %}
+          {% if hasVideo %}<label for="tab-video">Video</label>{% endif %}
+        </div>
+        {% endif %}
+        <div class="gallery-tabs__panel gallery-tabs__panel--photos">
       <div class="listing-photo-grid">
         <a href="{{ prop.photos[0] }}" target="_blank" rel="noopener" class="listing-photo-grid__main js-lightbox-trigger" data-photos="{{ prop.photos | json }}" data-index="0">
           <img src="{{ prop.photos[0] }}" alt="Main photo of {{ prop.name }}" fetchpriority="high" width="900" height="600">
@@ -49,6 +63,26 @@ eleventyComputed:
             {% endif %}
           </a>
           {% endif %}
+        </div>
+        {% endif %}
+      </div>
+        </div>
+        {% if hasMap %}
+        <div class="gallery-tabs__panel gallery-tabs__panel--map">
+          <iframe src="https://maps.google.com/maps?q={{ prop.lat }},{{ prop.lng }}&z=14&output=embed" width="100%" height="100%" style="border:0;display:block;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Property location map"></iframe>
+        </div>
+        {% endif %}
+        {% if hasVideo %}
+        {% set yt_id = prop.video_url | replace("https://www.youtube.com/embed/", "") | replace("https://youtu.be/", "") %}
+        <div class="gallery-tabs__panel gallery-tabs__panel--video">
+          <div class="yt-facade" data-src="{{ prop.video_url }}?autoplay=1" aria-label="Play property video" role="button" tabindex="0">
+            <img class="yt-facade__thumb" src="https://img.youtube.com/vi/{{ yt_id }}/hqdefault.jpg" loading="lazy" decoding="async" alt="Property video thumbnail" width="480" height="360">
+            <button class="yt-facade__btn" aria-label="Play video">
+              <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74C65.69 4.66 63.29 2.22 60.23 1.38 54.98 0 34 0 34 0S13.02 0 7.77 1.38C4.71 2.22 2.31 4.66 1.48 7.74 0 13.05 0 24 0 24s0 10.95 1.48 16.26c.83 3.08 3.23 5.52 6.29 6.36C13.02 48 34 48 34 48s20.98 0 26.23-1.38c3.06-.84 5.46-3.28 6.29-6.36C68 34.95 68 24 68 24s0-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+            </button>
+          </div>
+          <noscript><p><a href="{{ prop.video_url }}" target="_blank" rel="noopener">Watch the video</a></p></noscript>
+          <script src="/assets/js/yt-facade.js" defer></script>
         </div>
         {% endif %}
       </div>
@@ -358,21 +392,7 @@ eleventyComputed:
 </section>
 {% endif %}
 
-{% if prop.video_url %}
-{# ── VIDEO (facade: loads thumbnail, swaps to iframe on click) ── #}
-{% set yt_id = prop.video_url | replace("https://www.youtube.com/embed/", "") | replace("https://youtu.be/", "") %}
-<section class="section">
-  <div class="container" style="max-width:780px;">
-    <div class="yt-facade" data-src="{{ prop.video_url }}?autoplay=1" aria-label="Play property video" role="button" tabindex="0">
-      <img class="yt-facade__thumb" src="https://img.youtube.com/vi/{{ yt_id }}/hqdefault.jpg" loading="lazy" decoding="async" alt="Property video thumbnail" width="480" height="360">
-      <button class="yt-facade__btn" aria-label="Play video">
-        <svg viewBox="0 0 68 48" width="68" height="48"><path d="M66.52 7.74C65.69 4.66 63.29 2.22 60.23 1.38 54.98 0 34 0 34 0S13.02 0 7.77 1.38C4.71 2.22 2.31 4.66 1.48 7.74 0 13.05 0 24 0 24s0 10.95 1.48 16.26c.83 3.08 3.23 5.52 6.29 6.36C13.02 48 34 48 34 48s20.98 0 26.23-1.38c3.06-.84 5.46-3.28 6.29-6.36C68 34.95 68 24 68 24s0-10.95-1.48-16.26z" fill="#ff0000"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
-      </button>
-    </div>
-  </div>
-</section>
-<script src="/assets/js/yt-facade.js" defer></script>
-{% endif %}
+
 
 {# ── DETAIL TABLE ── #}
 <section class="section specs-section">
@@ -470,6 +490,26 @@ eleventyComputed:
     <p class="mt-4" style="font-size:13px;color:var(--color-text-muted);">GPS: {{ prop.gps }} | <a href="{{ prop.google_maps_url }}" target="_blank" rel="noopener" style="color:var(--color-forest);font-weight:700;">Open in Google Maps &rarr;</a></p>
   </div>
 </section>
+
+{# ── SIMILAR PARCELS ── #}
+{% set similar = prop | similarParcels(properties, 3) %}
+{% if similar.length %}
+<section class="section">
+  <div class="container">
+    <p class="eyebrow mb-2" style="color:var(--color-terra);">Keep Looking</p>
+    <h2 class="heading-md mb-4">Similar parcels available now</h2>
+    <div class="card-grid">
+      {% set current = prop %}
+      {% for prop in similar %}
+        {% include "partials/property-card.njk" %}
+      {% endfor %}
+    </div>
+    {% if countyGuides | selectattr("county", "equalto", current.county) | selectattr("abbr", "equalto", current.state) | list | length %}
+    <p class="mt-4" style="font-size:14px;"><a href="/county/{{ current.county | lower | replace(' ', '-') }}-{{ current.state | lower }}/">{{ current.county }} County guide</a> &middot; <a href="/properties/">All properties</a></p>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
 
 {# ── ASK A QUESTION ── #}
 <section class="section section-off" id="ask-question">
