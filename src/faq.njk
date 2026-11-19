@@ -1,0 +1,42 @@
+---
+layout: base.njk
+title: "Frequently Asked Questions | Land to Land Holdings"
+description: "Straight answers about buying land on terms: payments, fees, the deed, late payments, using the land, and the 30-day promise."
+permalink: /faq/
+---
+
+{% set faqs = [
+  { q: "Do I need a credit check or a bank?", a: "No. We sell directly with owner financing, so there is no bank and no credit check." },
+  { q: "What do I pay to start?", a: "Your down payment plus a one-time document fee. Every listing shows the total under \"To start today.\"" },
+  { q: "What will my monthly bill be?", a: "Your monthly payment, plus a small monthly service fee ($5 or $10 depending on the listing), plus your share of the property taxes (the annual tax divided by 12). Each listing shows the breakdown under \"Your monthly bill.\"" },
+  { q: "Is there an interest rate?", a: "No. Each property has two prices: a discounted cash price, and a terms price paid in monthly payments over the financing term shown on the listing." },
+  { q: "Can I pay it off early?", a: "Yes, at any time, with no prepayment penalty." },
+  { q: "What happens if I am late on a payment?", a: "A $10 late charge applies if a payment is more than 5 days late. A returned payment (NSF) is $25. If you fall behind, we send written notice and you have 30 days to catch up before the seller may end the contract." },
+  { q: "What if I stop paying?", a: "If a default continues 30 days after written notice, the seller may terminate the contract and keep the payments made. If trouble is coming, contact us early and we will talk about it." },
+  { q: "Can I change my mind after buying?", a: "Yes, within 30 days of your down payment if you bought on terms. Your down payment and monthly payments come back, but the document fee and service fees do not. Cash sales are final. Read the <a href=\"/30-day-promise/\">30-day promise</a> for the full rules." },
+  { q: "Can I use the land right away?", a: "Yes. You get possession and use from the day you sign, within the zoning and local use laws. Permanent changes and infrastructure wait until you pay it off and the deed transfers. See <a href=\"/using-your-land/\">using your land</a>." },
+  { q: "Who holds title while I am paying?", a: "We do. Legal title stays with us until your final payment." },
+  { q: "What kind of deed do I get?", a: "A Special Warranty Deed, recorded within 30 days of your final payment. You receive a copy of the recorded deed within 7 days of recording." },
+  { q: "Is title insurance included?", a: "Not automatically. Title insurance is provided at the seller's discretion. You are always free to arrange your own." },
+  { q: "Can I read the contract before I buy?", a: "Yes. A <a href=\"/assets/Sample_Terms_Contract.pdf\">sample terms contract</a> is posted on the How It Works page. Read it, and ask us anything you want explained." },
+  { q: "How do I make my monthly payments?", a: "Through GeekPay. Go to the <a href=\"/make-a-payment/\">make a payment</a> page for the link." },
+  { q: "How do I know what the county allows?", a: "Each listing has a \"What the county allows here\" table with the county planning office phone number. Call them with your plan before you buy." },
+  { q: "How do I get started?", a: "Pick a property and text us at <a href=\"sms:7069630017\">706-963-0017</a>, or call or email <a href=\"mailto:info@landtolandholdings.com\">info@landtolandholdings.com</a>. We will send your payment link." }
+] %}
+
+<section class="section">
+  <div class="container" style="max-width:720px;">
+    <p class="eyebrow" style="color:var(--color-terra);">FAQ</p>
+    <h1 class="heading-lg mb-4">Straight answers about buying land on terms.</h1>
+    <p style="font-size:16px;line-height:1.7;color:var(--color-text-muted);margin-bottom:var(--space-8);">Can't find your question? Text us at <a href="sms:7069630017">706-963-0017</a>.</p>
+
+    <div class="faq-list">
+      {% for item in faqs %}
+      <details class="faq-item">
+        <summary>{{ item.q }}</summary>
+        <p>{{ item.a | safe }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>

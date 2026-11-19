@@ -209,3 +209,42 @@ test("_site/robots.txt exists", () => {
 test("_site/404.html exists", () => {
   assert.ok(existsSync("_site/404.html"), "_site/404.html missing");
 });
+
+// ── Phase 2 trust pages ──────────────────────────────────────────────────
+const TRUST_PAGES = ["30-day-promise", "using-your-land", "faq"];
+
+test("trust pages exist, have no em dashes, and are linked from the footer", () => {
+  const home = readFileSync("_site/index.html", "utf8");
+  for (const slug of TRUST_PAGES) {
+    assert.ok(existsSync(`_site/${slug}/index.html`), `${slug} page missing`);
+    const html = readFileSync(`_site/${slug}/index.html`, "utf8");
+    assert.ok(!html.includes("—"), `${slug} contains an em dash`);
+    assert.ok(home.includes(`href="/${slug}/"`), `footer must link /${slug}/`);
+  }
+});
+
+test("30-day promise page states the decided terms", () => {
+  const html = readFileSync("_site/30-day-promise/index.html", "utf8");
+  for (const phrase of ["down payment", "monthly payment", "document fee", "service fees", "date of your down payment", "Cash sales are final", "current on your payments", "original payment method"]) {
+    assert.ok(html.toLowerCase().includes(phrase.toLowerCase()), `promise page missing: ${phrase}`);
+  }
+});
+
+test("homepage and About no longer overstate the promise", () => {
+  const home = readFileSync("_site/index.html", "utf8");
+  const about = readFileSync("_site/about/index.html", "utf8");
+  assert.ok(!home.includes("No fee, no argument"), "homepage still says no fee");
+  assert.ok(!about.includes("No hidden fees"), "About still says no hidden fees");
+  assert.ok(home.includes("/30-day-promise/") && about.includes("/30-day-promise/"), "both should link the promise page");
+});
+
+test("FAQ internal links resolve to built pages", () => {
+  const full = readFileSync("_site/faq/index.html", "utf8");
+  const start = full.indexOf('class="faq-list"');
+  const html = full.slice(start, full.indexOf("</section>", start));
+  assert.ok(html.length > 200, "could not isolate the FAQ content");
+  for (const [, href] of html.matchAll(/href="(\/[^"#?]*)"/g)) {
+    if (href.startsWith("/assets/")) { assert.ok(existsSync(`_site${href}`), `${href} missing`); continue; }
+    assert.ok(existsSync(`_site${href}index.html`) || existsSync(`_site${href}`), `${href} does not resolve`);
+  }
+});
