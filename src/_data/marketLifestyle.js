@@ -18,7 +18,7 @@ const icons = {
 // same state, gets the generic fallback below rather than another county's
 // copy. To add a county, add its own block here with `county` set.
 const markets = {
-  FL: {
+  'Putnam|FL': {
     county: 'Putnam',
     heading: 'Why Buyers Choose Putnam County',
     subtext: "Florida land, owner financed, in one of the state's quieter inland counties.",
@@ -29,7 +29,7 @@ const markets = {
       { icon: 'build', title: 'Room to Spread Out', description: 'Rural Putnam County offers low-density, quiet surroundings at a fraction of coastal prices.' },
     ],
   },
-  NM: {
+  'Luna|NM': {
     county: 'Luna',
     heading: 'Why Buyers Choose Luna County',
     subtext: 'Wide-open New Mexico high desert, with one of the lowest costs of entry in the Southwest.',
@@ -40,7 +40,7 @@ const markets = {
       { icon: 'calendar', title: 'Build at Your Pace', description: 'Many lots in this market carry no required timeline to start construction.' },
     ],
   },
-  OR: {
+  'Klamath|OR': {
     county: 'Klamath',
     heading: 'Why Buyers Choose Klamath County',
     subtext: "Southern Oregon's high desert and forest country, within reach of Crater Lake.",
@@ -51,7 +51,7 @@ const markets = {
       { icon: 'build', title: 'Room to Build', description: 'Open acreage in this market gives you room to build, park an RV, or simply hold the land.' },
     ],
   },
-  AZ: {
+  'Apache|AZ': {
     county: 'Apache',
     heading: 'Why Buyers Choose Apache County',
     subtext: "Northeastern Arizona's high desert, near the White Mountains and Petrified Forest.",
@@ -60,6 +60,17 @@ const markets = {
       { icon: 'mountain', title: 'Near the White Mountains', description: 'This region borders the White Mountains, one of the cooler, greener parts of Arizona.' },
       { icon: 'tag', title: 'Affordable High-Desert Living', description: 'Land in this market costs a fraction of comparable acreage near Phoenix or Tucson.' },
       { icon: 'build', title: 'Off-Grid Friendly', description: 'Many lots in this market support solar, septic, and propane for independent living.' },
+    ],
+  },
+  'Mohave|AZ': {
+    county: 'Mohave',
+    heading: 'Why Buyers Choose Mohave County',
+    subtext: 'Northwestern Arizona high desert, with Kingman, Route 66, and the Colorado River close by.',
+    items: [
+      { icon: 'sun', title: 'Desert Climate', description: "Sunny and dry most of the year, with hot summers and mild winters. Conditions shift with elevation, so check your parcel's." },
+      { icon: 'mountain', title: 'Route 66 Country', description: 'Kingman, the county seat, sits near the middle of the longest surviving stretch of historic Route 66.' },
+      { icon: 'water', title: 'Colorado River Access', description: 'The county runs to the Colorado River on its western edge, and Lake Havasu City, its largest city, sits on the river.' },
+      { icon: 'build', title: 'Room to Spread Out', description: 'About 213,000 people live across more than 13,000 square miles (2020 census), so there is plenty of open ground.' },
     ],
   },
 };

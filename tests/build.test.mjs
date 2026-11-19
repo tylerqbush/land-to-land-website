@@ -296,3 +296,14 @@ test("sitemap lists every listing page, the main pages, and not the 404", () => 
   }
   assert.ok(!xml.includes("404"), "sitemap must not list the 404 page");
 });
+
+test("Mohave County listings and the Arizona page show the Mohave market copy", () => {
+  const mohave = properties.filter((p) => p.county === "Mohave" && p.state === "AZ");
+  assert.ok(mohave.length > 0, "expected Mohave listings");
+  for (const prop of mohave) {
+    assert.ok(page(prop).includes("Why Buyers Choose Mohave County"), `${prop.slug} should show Mohave copy`);
+  }
+  if (mohave.some((p) => (p.status || "").trim() === "Active")) {
+    assert.ok(readFileSync("_site/land/arizona/index.html", "utf8").includes("Why Buyers Choose Mohave County"), "Arizona page should show Mohave copy");
+  }
+});

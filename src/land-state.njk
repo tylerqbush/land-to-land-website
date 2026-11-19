@@ -30,10 +30,9 @@ eleventyComputed:
   </div>
 </section>
 
-{% set market = marketLifestyle.markets[st.abbr] %}
-{% set showMarket = false %}
-{% if market %}{% for c in st.counties %}{% if c.county == market.county %}{% set showMarket = true %}{% endif %}{% endfor %}{% endif %}
-{% if showMarket %}
+{% for c in st.counties %}
+{% set market = marketLifestyle.markets[c.county ~ "|" ~ st.abbr] %}
+{% if market %}
 <section class="lifestyle-section">
   <div class="container">
     <p class="listing-eyebrow text-center">Quick Look</p>
@@ -51,6 +50,7 @@ eleventyComputed:
   </div>
 </section>
 {% endif %}
+{% endfor %}
 
 {% if st.counties.length %}
 <section class="section">

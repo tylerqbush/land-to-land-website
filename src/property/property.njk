@@ -194,8 +194,8 @@ eleventyComputed:
 {# ── LIFESTYLE: WHY BUYERS CHOOSE THIS MARKET ── #}
 {# Market copy is written per county. Use it only when the county matches;
    otherwise show the generic block instead of another county's copy. #}
-{% set market = marketLifestyle.markets[prop.state] %}
-{% if not market or market.county != prop.county %}{% set market = marketLifestyle.fallback %}{% endif %}
+{% set market = marketLifestyle.markets[prop.county ~ "|" ~ prop.state] %}
+{% if not market %}{% set market = marketLifestyle.fallback %}{% endif %}
 <section class="lifestyle-section">
   <div class="container">
     <p class="listing-eyebrow text-center">Quick Look</p>
